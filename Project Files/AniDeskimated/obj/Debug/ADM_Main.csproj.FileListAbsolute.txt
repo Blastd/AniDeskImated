@@ -1,0 +1,13 @@
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\Debug\AniDeskimated.exe.config
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\Debug\AniDeskimated.exe
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\Debug\AniDeskimated.pdb
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\ADM_Main.csprojResolveAssemblyReference.cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.Forms.BackScreen.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.Properties.Resources.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\ADM_Main.csproj.GenerateResource.Cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\ADM_Main.csproj.CoreCompileInputs.cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.exe
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.pdb
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.AppSettings.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.Forms.FirstStart.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\Debug\AniDeskimated.Forms.FS_UI.resources

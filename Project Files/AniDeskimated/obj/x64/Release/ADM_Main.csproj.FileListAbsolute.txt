@@ -1,0 +1,17 @@
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\x64\Release\AniDeskimated.exe.config
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\x64\Release\AniDeskimated.exe
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\bin\x64\Release\AniDeskimated.pdb
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\ADM_Main.csproj.ResolveComReference.cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.FS_UI.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.DeskSettings.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.FirstStart.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.Interfaces.Color_Picker_Frame.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.ShowView.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Properties.Resources.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\ADM_Main.csproj.GenerateResource.Cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\ADM_Main.csproj.CoreCompileInputs.cache
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.exe
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.pdb
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.Media_Settings.Zoom_Ui.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\AniDeskimated.Forms.Form_License.resources
+C:\Users\Andrw\Develope\Projects\Software\AniDeskimated\AniDeskimated\obj\x64\Release\ADM_Main.csprojResolveAssemblyReference.cache
