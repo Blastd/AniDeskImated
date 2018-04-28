@@ -362,13 +362,10 @@ namespace AniDeskimated.Forms
 {
     public partial class ShowView : Form
     {
-        public ShowView()
-        {
-            InitializeComponent();
-        }
+        public ShowView() { InitializeComponent(); }
         private void ShowView_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width+1, Screen.PrimaryScreen.Bounds.Height+1);
             this.Location = new Point(0,0);
             W32.SetParent(this.Handle, DeskSettings.workerw);
         }
@@ -381,7 +378,6 @@ namespace AniDeskimated.Forms
             ViewPart.Url = new System.Uri(new System.Uri(Properties.Settings.Default.HTML_Location).AbsolutePath);
             ViewPart.Refresh();
         }
-
         private void ViewPart_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             { if (ViewPart.DocumentText.Contains("error")) { MainFunctions.Update_View(); } }
