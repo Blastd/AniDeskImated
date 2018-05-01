@@ -364,6 +364,9 @@ namespace AniDeskimated.Forms
                 "(Either a video or a Picture), that can be located on the internet," + '\n' +
                 "providing the program an address to reach that file (not implemented)," + '\n' +
                 "or a file stored on your computer." + '\n' + "Yes, that's it.", "How does it work?", MessageBoxButtons.OK, MessageBoxIcon.Question);}
+        private void Button_license_Click(object sender, EventArgs e)
+        { Form_License Frm_License = new Form_License(); Frm_License.ShowDialog(); }
+        private void Button_Skip_Click(object sender, EventArgs e) { this.Close(); }
         #region ChangingImage
         private void Browse_Media_Click(object sender, EventArgs e)
         {BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height);}
@@ -385,7 +388,5 @@ namespace AniDeskimated.Forms
         }
         #endregion
         #endregion
-        private void Button_license_Click(object sender, EventArgs e)
-        {Form_License Frm_License = new Form_License();Frm_License.ShowDialog();}
     }
 }
