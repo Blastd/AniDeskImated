@@ -13,7 +13,7 @@ but how simple it is?
 _____________________
 Compatibility issues:
 ------------------------------------------------------------------    
-The Application DOES NOT WORK on WINDOWS versions below Windows 7
+The Application DOES NOT WORK on WINDOWS versions below Windows 8
 ------------------------------------------------------------------
 
 Update status:
