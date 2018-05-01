@@ -12,10 +12,9 @@ but how simple it is?
 
 _____________________
 Compatibility issues:
-----------------------------------------------------
-This does NOT WORK on WINDOWS 7.                   
-It ONLY works on WINDOWS versions higher than 8    
-----------------------------------------------------
+------------------------------------------------------------------    
+The Application DOES NOT WORK on WINDOWS versions below Windows 7
+------------------------------------------------------------------
 
 Update status:
 ----------------------------------------------------------------------------------------
