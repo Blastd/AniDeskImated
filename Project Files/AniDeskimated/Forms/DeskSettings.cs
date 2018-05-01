@@ -456,11 +456,10 @@ namespace AniDeskimated
         {ColorPickMenuChoose.Show(MousePosition.X - 50 % ColorPickMenuChoose.Width, MousePosition.Y - 50 % ColorPickMenuChoose.Height);}
         private void ColorPick_Screen_Click(object sender, EventArgs e)
         {
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
-            { Color_Picker_Frame X = new Color_Picker_Frame();
+            Color_Picker_Frame X = new Color_Picker_Frame();
                 X.Show();
                 this.Hide();
-                X.FormClosed += new System.Windows.Forms.FormClosedEventHandler(ColorPicker_Closed);}
+                X.FormClosed += new System.Windows.Forms.FormClosedEventHandler(ColorPicker_Closed);
         }
         void ColorPicker_Closed(object sender, FormClosedEventArgs e){this.Show();Viewpreview.BackColor = MainFunctions.Color_Check();}
         private void ColorPick_Menù_Click(object sender, EventArgs e)

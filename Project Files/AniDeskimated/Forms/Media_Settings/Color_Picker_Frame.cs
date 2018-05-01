@@ -362,52 +362,39 @@ namespace AniDeskimated.Forms.Interfaces
 {
     public partial class Color_Picker_Frame : Form
     {
-        public Color_Picker_Frame()
-        {InitializeComponent();}
+        public Color_Picker_Frame(){InitializeComponent();}
         #region Functions
         [DllImport("User32.dll", CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         private static extern IntPtr LoadCursorFromFile(String str);
         [DllImport("gdi32.dll")]
         static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
-        #endregion
-        #region Custom Cursor
-        private void Color_Picker_Frame_Load(object sender, EventArgs e)
+        [DllImport("user32.dll", EntryPoint = "GetDC")]
+        static extern IntPtr GetDC(IntPtr hWnd);
+        #endregion        
+        #region FormEvents
+        private void Color_Picker_Frame_MouseClick(object sender, MouseEventArgs e)
         {
-            if(MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath"))==0)
-            {
-                image_display.SizeMode = PictureBoxSizeMode.AutoSize;
-                image_display.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));
-                image_display.SizeMode = PictureBoxSizeMode.Zoom;
-                image_display.Size = new Size(this.Width, (image_display.Height * this.Width) / image_display.Width);
-                image_display.Cursor = new Cursor(LoadCursorFromFile(System.IO.Directory.GetDirectoryRoot(Environment.GetFolderPath(Environment.SpecialFolder.System)) + "\\Windows\\Cursors\\aero_pen.cur"));
-                Cursor.Clip = image_display.Bounds;
-            }else
-            {
-                image_display.Size = this.Size;
-            }
-        }
-        private void Color_Picker_Frame_FormClosing(object sender, FormClosingEventArgs e) { Cursor.Clip = Rectangle.Empty; }
-        #endregion
-        #region PictureView Events
-        private void Picture_Container_Scroll(object sender, MouseEventArgs e)
-        {
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0 && image_display.Width >0 && image_display.Height >0)
-                {if (e.Delta > 0) { image_display.Size = new Size
-                        (image_display.Width + 32, Convert.ToInt32((image_display.Height * (image_display.Width + 32)) / image_display.Width)); }
-                if((image_display.Width-32) > 0 && (image_display.Height - 32) > 0) { if (e.Delta < 0)
-                    { image_display.Size = new Size
-                            (image_display.Width - 32, Convert.ToInt32((image_display.Height * (image_display.Width - 32)) / image_display.Width)); } }
-                image_display.Location = Point.Round(new PointF(150f, 150f)); }
-        }
-        private void image_display_MouseClick(object sender, MouseEventArgs e)
-        {
-            Graphics Image_graphics = image_display.CreateGraphics();
+            this.Opacity = 0;
+            Graphics Image_graphics = Graphics.FromHdc(GetDC(IntPtr.Zero));
             IntPtr Image_handle = Image_graphics.GetHdc();
             int Sel_Px = (int)GetPixel(Image_handle, e.Location.X, e.Location.Y);
             Color Pixel_color = Color.FromArgb((Sel_Px & 0x000000FF), (Sel_Px & 0x0000FF00) >> 8, (Sel_Px & 0x00FF0000) >> 16);
             MainFunctions.ChangeColor(Pixel_color);
             this.Close();
         }
+        private void Color_Picker_Frame_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui", 12),
+                       new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
+                       MainFunctions.String_Centre("Try Another Image", e.Graphics, this.Size, new Font("Segoe Ui Light", 12)));
+        }
+        #region Custom Cursor
+        private void Color_Picker_Frame_Load(object sender, EventArgs e)
+        {
+            this.Cursor = new Cursor(LoadCursorFromFile(
+               System.IO.Directory.GetDirectoryRoot(Environment.GetFolderPath(Environment.SpecialFolder.System)) + "\\Windows\\Cursors\\aero_pen.cur"));
+        }
+        #endregion
         #endregion
     }
 }
