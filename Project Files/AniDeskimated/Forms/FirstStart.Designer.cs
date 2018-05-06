@@ -143,6 +143,7 @@ namespace AniDeskimated.Forms
             this.Button_Skip.TabIndex = 1;
             this.Button_Skip.Text = "Not Now";
             this.Button_Skip.UseVisualStyleBackColor = false;
+            this.Button_Skip.Click += new System.EventHandler(this.Button_Skip_Click);
             // 
             // Button_license
             // 

@@ -43,6 +43,7 @@ namespace AniDeskimated.Forms
             this.License_Body.ImeMode = System.Windows.Forms.ImeMode.On;
             this.License_Body.Location = new System.Drawing.Point(10, 0);
             this.License_Body.Name = "License_Body";
+            this.License_Body.ReadOnly = true;
             this.License_Body.Size = new System.Drawing.Size(693, 481);
             this.License_Body.TabIndex = 0;
             this.License_Body.Text = "";

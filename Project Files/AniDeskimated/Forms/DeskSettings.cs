@@ -360,6 +360,8 @@ namespace AniDeskimated
         #region Variables
         public static Form backform = new ShowView();
         public static IntPtr workerw = IntPtr.Zero;
+        public static bool isHooked = false;
+        public static Point beforeMove;
         #endregion
         #region Background Manager
         public static void StartShow()
@@ -380,25 +382,42 @@ namespace AniDeskimated
         #endregion
         #region Events
         #region Form
+        #region Form Move
+        private void DeskSettings_MouseDown(object sender, MouseEventArgs e) { isHooked = true; beforeMove = new Point(e.X,e.Y); }
+        private void DeskSettings_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isHooked)
+            { Point HookLocation = new Point(e.X,e.Y); this.Location = new Point(
+                (this.PointToScreen(HookLocation).X)-beforeMove.X, (this.PointToScreen(HookLocation).Y) - beforeMove.Y); }
+        }
+        private void DeskSettings_MouseUp(object sender, MouseEventArgs e) { isHooked = false; }
+        #endregion
         private void DeskSettings_Load(object sender, EventArgs e)
         {
             this.Hide();
             if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
+            {
                 Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));
+            }
             else
+            {
                 Viewpreview.Image = FS_UI.VideoFormat;
-            Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;
+                Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;
+            }
+            Replace_Text();
             CheckSetting();
             StartShow();
         }
+        private void DeskSettings_Paint(object sender, PaintEventArgs e)
+        { e.Graphics.DrawRectangle(new Pen(MainFunctions.VariableColor(this.BackColor, 25)), new Rectangle(new Point(0, 0), new Size(this.Width-1,this.Height-1))); }
         private void CheckSetting() { if (Properties.Settings.Default.NormalStartup == false) { Form WelcomeScreen = new FirstStart(); WelcomeScreen.Show(); } }
         private void Choose_Color_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             e.Graphics.FillPie(new SolidBrush(MainFunctions.Color_Check()), new Rectangle(new Point(1, 1),
                 new Size(Button_Color_Choose.Width - 2, Button_Color_Choose.Height - 2)), 0, 360);
-            e.Graphics.DrawString(Button_Color_Choose.Text, new Font("Impact", 20, FontStyle.Regular), new SolidBrush(MainFunctions.SuitableContrast(MainFunctions.Color_Check())),
-                MainFunctions.String_Centre(Button_Color_Choose.Text, e.Graphics, Button_Color_Choose.Size, new Font("Impact", 20, FontStyle.Regular)));
+            e.Graphics.DrawString(Button_Color_Choose.Text, new Font("Segoe UI", 20, FontStyle.Regular), new SolidBrush(MainFunctions.SuitableContrast(MainFunctions.Color_Check())),
+                MainFunctions.String_Centre(Button_Color_Choose.Text, e.Graphics, Button_Color_Choose.Size, new Font("Segoe UI", 20, FontStyle.Regular),0,1));
         }
         private void App_About_Paint(object sender, PaintEventArgs e)
         {
@@ -409,6 +428,7 @@ namespace AniDeskimated
                 MainFunctions.String_Centre(App_About.Text, e.Graphics, App_About.Size, new Font("Segoe UI Light", MainFunctions.IntProportion(32, 16, App_About.Width), FontStyle.Regular)));
         }
         private void App_About_Click(object sender, EventArgs e) { Form_License Frm_License = new Form_License(); Frm_License.ShowDialog(); }
+        private void Exit_Button_Click(object sender, EventArgs e) { this.Close(); }
         private void DeskSettings_FormClosing(object sender, FormClosingEventArgs e)
         { if (Properties.Settings.Default.CanClose == false) { e.Cancel = true; this.WindowState = FormWindowState.Minimized; this.Hide(); }}
         #endregion
@@ -423,6 +443,7 @@ namespace AniDeskimated
             Properties.Settings.Default.CanClose = true;
             MainFunctions.Log("User is intentionally closing the app.");
             MainFunctions.Delete_Player_Files();
+            this.TaskBar_Notify_Icon.Visible = false;
             Application.Exit();
         }
         private void TaskBar_Notify_Icon_DoubleClick(object sender, EventArgs e)
@@ -438,8 +459,8 @@ namespace AniDeskimated
         #endregion
         #endregion
         #region Changing Image
-        private void Browse_Button_Click(object sender, EventArgs e)
-        { BackMenuChoose.Show(MousePosition.X - 50%BackMenuChoose.Width,MousePosition.Y - 50%BackMenuChoose.Height);}
+        private void Button_NewMedia_Click(object sender, EventArgs e)
+        { BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height); }
         private void BackMenu_Gif_Click(object sender, EventArgs e){GetMediaFile.ShowDialog();}
         private void GetMediaFile_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {try
@@ -466,5 +487,14 @@ namespace AniDeskimated
         {Menu_Color.ShowDialog();MainFunctions.ChangeColor(Menu_Color.Color);}
         #endregion
         #endregion
+        #region Language
+        private void Replace_Text()
+        {
+            Button_NewMedia.Button_Part.Text = "New background";
+            Exit_Button.Button_Part.Text = "x";
+        }
+        #endregion
+
+        
     }
 }
