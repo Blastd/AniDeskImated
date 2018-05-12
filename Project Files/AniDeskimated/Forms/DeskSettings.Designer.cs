@@ -1,4 +1,6 @@
-﻿namespace AniDeskimated
+﻿using AniDeskimated.Forms;
+
+namespace AniDeskimated
 {
     partial class DeskSettings
     {
@@ -29,6 +31,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeskSettings));
             this.TaskBar_Notify_Icon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ContextMenu_IconBar = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.IconButton_Browse = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,9 +46,11 @@
             this.ColorPick_Screen = new System.Windows.Forms.ToolStripMenuItem();
             this.ColorPick_Menù = new System.Windows.Forms.ToolStripMenuItem();
             this.App_About = new System.Windows.Forms.Button();
-            this.Viewpreview = new System.Windows.Forms.PictureBox();
             this.Menu_Color = new System.Windows.Forms.ColorDialog();
-            this.Exit_Button = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Viewpreview = new System.Windows.Forms.PictureBox();
+            this.Button_Exit = new System.Windows.Forms.Button();
+            this.Button_Magnifier = new System.Windows.Forms.Button();
+            this.Button_VideoVolume = new System.Windows.Forms.Button();
             this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
@@ -140,9 +145,9 @@
             this.Button_Color_Choose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Color_Choose.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.Button_Color_Choose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Button_Color_Choose.Location = new System.Drawing.Point(375, 303);
+            this.Button_Color_Choose.Location = new System.Drawing.Point(373, 301);
             this.Button_Color_Choose.Name = "Button_Color_Choose";
-            this.Button_Color_Choose.Size = new System.Drawing.Size(30, 30);
+            this.Button_Color_Choose.Size = new System.Drawing.Size(32, 32);
             this.Button_Color_Choose.TabIndex = 6;
             this.Button_Color_Choose.Text = "c";
             this.Button_Color_Choose.UseVisualStyleBackColor = false;
@@ -185,14 +190,18 @@
             this.App_About.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.App_About.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.App_About.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.App_About.Location = new System.Drawing.Point(35, 303);
+            this.App_About.Location = new System.Drawing.Point(35, 301);
             this.App_About.Name = "App_About";
-            this.App_About.Size = new System.Drawing.Size(30, 30);
+            this.App_About.Size = new System.Drawing.Size(32, 32);
             this.App_About.TabIndex = 7;
             this.App_About.Text = "i";
             this.App_About.UseVisualStyleBackColor = false;
             this.App_About.Click += new System.EventHandler(this.App_About_Click);
             this.App_About.Paint += new System.Windows.Forms.PaintEventHandler(this.App_About_Paint);
+            // 
+            // Menu_Color
+            // 
+            this.Menu_Color.AnyColor = true;
             // 
             // Viewpreview
             // 
@@ -206,29 +215,68 @@
             this.Viewpreview.TabIndex = 3;
             this.Viewpreview.TabStop = false;
             // 
-            // Menu_Color
+            // Button_Exit
             // 
-            this.Menu_Color.AnyColor = true;
+            this.Button_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Button_Exit.FlatAppearance.BorderSize = 0;
+            this.Button_Exit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Button_Exit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(235)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Exit.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10F);
+            this.Button_Exit.ForeColor = System.Drawing.Color.White;
+            this.Button_Exit.Location = new System.Drawing.Point(389, 1);
+            this.Button_Exit.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_Exit.Name = "Button_Exit";
+            this.Button_Exit.Size = new System.Drawing.Size(50, 25);
+            this.Button_Exit.TabIndex = 12;
+            this.Button_Exit.Text = "x";
+            this.Button_Exit.UseVisualStyleBackColor = false;
+            this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
             // 
-            // Exit_Button
+            // Button_Magnifier
             // 
-            this.Exit_Button.BackColor = System.Drawing.Color.Transparent;
-            this.Exit_Button.Location = new System.Drawing.Point(405, 5);
-            this.Exit_Button.Margin = new System.Windows.Forms.Padding(0);
-            this.Exit_Button.MinimumSize = new System.Drawing.Size(30, 30);
-            this.Exit_Button.Name = "Exit_Button";
-            this.Exit_Button.Size = new System.Drawing.Size(30, 30);
-            this.Exit_Button.TabIndex = 10;
-            this.Exit_Button.Click += new System.EventHandler(this.Exit_Button_Click);
+            this.Button_Magnifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Button_Magnifier.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Button_Magnifier.BackgroundImage")));
+            this.Button_Magnifier.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Button_Magnifier.FlatAppearance.BorderSize = 0;
+            this.Button_Magnifier.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Button_Magnifier.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.Button_Magnifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Magnifier.ForeColor = System.Drawing.Color.White;
+            this.Button_Magnifier.Location = new System.Drawing.Point(2, 119);
+            this.Button_Magnifier.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_Magnifier.Name = "Button_Magnifier";
+            this.Button_Magnifier.Size = new System.Drawing.Size(32, 32);
+            this.Button_Magnifier.TabIndex = 13;
+            this.Button_Magnifier.UseVisualStyleBackColor = false;
+            this.Button_Magnifier.Visible = false;
+            // 
+            // Button_VideoVolume
+            // 
+            this.Button_VideoVolume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Button_VideoVolume.BackgroundImage = global::AniDeskimated.Forms.FS_UI.VolumeButton_Small;
+            this.Button_VideoVolume.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Button_VideoVolume.FlatAppearance.BorderSize = 0;
+            this.Button_VideoVolume.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Button_VideoVolume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.Button_VideoVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_VideoVolume.ForeColor = System.Drawing.Color.White;
+            this.Button_VideoVolume.Location = new System.Drawing.Point(2, 171);
+            this.Button_VideoVolume.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_VideoVolume.Name = "Button_VideoVolume";
+            this.Button_VideoVolume.Size = new System.Drawing.Size(32, 32);
+            this.Button_VideoVolume.TabIndex = 14;
+            this.Button_VideoVolume.UseVisualStyleBackColor = false;
+            this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
             // 
             // Button_NewMedia
             // 
             this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.Location = new System.Drawing.Point(68, 303);
+            this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
             this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
             this.Button_NewMedia.Name = "Button_NewMedia";
-            this.Button_NewMedia.Size = new System.Drawing.Size(304, 30);
+            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
             this.Button_NewMedia.TabIndex = 9;
             this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
@@ -238,7 +286,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(440, 350);
-            this.Controls.Add(this.Exit_Button);
+            this.Controls.Add(this.Button_VideoVolume);
+            this.Controls.Add(this.Button_Magnifier);
+            this.Controls.Add(this.Button_Exit);
             this.Controls.Add(this.Button_NewMedia);
             this.Controls.Add(this.App_About);
             this.Controls.Add(this.Button_Color_Choose);
@@ -286,7 +336,9 @@
         private System.Windows.Forms.ToolStripMenuItem Online_Store;
         private System.Windows.Forms.ColorDialog Menu_Color;
         private Forms.Controls.Round_Button Button_NewMedia;
-        private Forms.Controls.Round_Button Exit_Button;
+        private System.Windows.Forms.Button Button_Exit;
+        private System.Windows.Forms.Button Button_Magnifier;
+        private System.Windows.Forms.Button Button_VideoVolume;
     }
 }
 

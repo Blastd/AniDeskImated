@@ -377,6 +377,11 @@ namespace AniDeskimated.Classes
             SetKey("contentPath", mediaFile);
             Update_View();
         }
+        public static void ChangeVolume(int Value)
+        {
+            SetKey("volumeValue",Value.ToString());
+            Update_View();
+        }
         public static void ChangeColor(Color Pixel_color) {
             MainFunctions.SetKey("colorFill", Pixel_color.R.ToString() + "-" + Pixel_color.G.ToString() + "-" + Pixel_color.B.ToString());
             Update_View();
@@ -436,9 +441,16 @@ namespace AniDeskimated.Classes
         public static Color SuitableContrast(Color Color_input)
         {
             {
-                if ((double)((Color_input.R + Color_input.G + Color_input.B) / 3) <= 42.5)
+                if ((double)((Color_input.R + Color_input.G + Color_input.B) / 3) <= 127.5)
                 { return Color.White; } else { return Color.Black; }
             }
+        }
+        public static int ColorContrast(Color Base, int value)
+        {
+            if (((Base.R + Base.G + Base.B) / 3) <= 127.5)
+                return value * 1;
+            else
+                return value * -1;
         }
         public static Color VariableColor(Color Base, int DeltaR,int DeltaG,int DeltaB)
         {
@@ -464,8 +476,10 @@ namespace AniDeskimated.Classes
         }
         public static string Color_to_hex(Color Oc)
         {return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2");}
-        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color,Color Color_BackColor)
+        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color)
         {
+            Width = Width - 1;
+            Height = Height - 1;
             e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Point[] Lns = new Point[6];
             int ArcWidth = IntProportion(35, 35, Height);
@@ -477,16 +491,18 @@ namespace AniDeskimated.Classes
             Lns[4] = new Point(0, 0);
             Lns[5] = new Point(Width - ArcWidth - 1, 0);
             Size ArcS = new Size(ArcWidth, Height - 1);
-            e.FillPie(new SolidBrush(Color_BackColor), new Rectangle(0, 0, Height, Height),0,360);
-            e.FillPie(new SolidBrush(Color_BackColor), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
-            e.FillRectangle(new SolidBrush(Color_BackColor), new Rectangle(Height, 0, Width - (Height * 2), Height));
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height),0,360);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
+            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height, 0, Width - (Height * 2), Height));
             e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
             e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
             e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
             e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
         }
-        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Color_BackColor, string Prompt, int FontSize, FontStyle FontSt, Color Color_Font)
+        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color, string Prompt, int FontSize, FontStyle FontSt, Color Color_Font)
         {
+            Width = Width - 1;
+            Height = Height - 1;
             e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Point[] Lns = new Point[6];
             int ArcWidth = IntProportion(35, 35, Height);
@@ -498,18 +514,20 @@ namespace AniDeskimated.Classes
             Lns[4] = new Point(0, 0);
             Lns[5] = new Point(Width - ArcWidth - 1, 0);
             Size ArcS = new Size(ArcWidth, Height - 1);
-            e.FillPie(new SolidBrush(Color_BackColor), new Rectangle(0, 0, Height, Height), 0, 360);
-            e.FillPie(new SolidBrush(Color_BackColor), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
-            e.FillRectangle(new SolidBrush(Color_BackColor), new Rectangle(Height / 2, 0, Width - ((Height * 2) / 2), Height));
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height), 0, 360);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
+            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height / 2, 0, Width - ((Height * 2) / 2), Height));
             e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
             e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
             e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
             e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
-            e.DrawString(Prompt, new Font("Segoe Ui Black", FontSize), new SolidBrush(Color_Font), 
-                MainFunctions.String_Centre(Prompt, e, new Size(Width,Height), new Font("Segoe Ui SemiBold", FontSize, FontSt),1,-1));
+            e.DrawString(Prompt, new Font("Dubai", FontSize), new SolidBrush(Color_Font), 
+                MainFunctions.String_Centre(Prompt, e, new Size(Width,Height), new Font("Dubai", FontSize, FontSt),0,-3));
         }
         public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color)
         {
+            Width = Width - 1;
+            Height = Height - 1;
             e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             Point[] Lns = new Point[6];
             int ArcWidth = IntProportion(35, 35, Height);
@@ -548,17 +566,17 @@ namespace AniDeskimated.Classes
                 CSubKey(@"Software\ADM");
                 ResetAsset();
                 Properties.Settings.Default.NormalStartup = false;
-                Application.Run(new DeskSettings());
+                CheckData();
             }
             if (CheckResult() == 6582)// A.R. All Right
             {
                 Log("Check Complete. Normal Startup.");
-                Properties.Settings.Default.NormalStartup = true;
                 Application.Run(new DeskSettings());
             }
-            if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); }//R. M. Registry Missing
-            if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); }//C. R. M. Color Registry Missing
-            if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); }// M.M. Media Missing
+            if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); CheckData(); }//R. M. Registry Missing
+            if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
+            if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
+            if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
 
         }
         public static int CheckResult()
@@ -568,6 +586,7 @@ namespace AniDeskimated.Classes
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
                 else if (ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; }
                 else if (ReadKey("colorFill") == null) { return 678277; }
+                else if(ReadKey("volumeValue") == null) { return 8677;}
                 else { return 6582; } }
         }
         #endregion
@@ -601,15 +620,16 @@ namespace AniDeskimated.Classes
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .videocontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: 100%;max-height: 100vh;margin: 0 auto;display: block;}
-                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay class=""videofile""> 
-                    <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" >"
-                    + "</video></div></ body ></ html >";
+                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile""> 
+                    <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" ><script>"
+                    + @"var vid = document.getElementById(""videofile"");function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey("volumeValue"))/100).ToString().Replace(',','.')
+                    + ";}setVolume();</script></video></div></body ></html >";
             else
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: 100%;max-height: 100vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""imgcontainer""><img class=""imgfile"" src='" +
-                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "</div></ body ></ html >";
+                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></ body ></ html >";
         }
         public static void Delete_Player_Files(){try{File.Delete(Properties.Settings.Default.HTML_Location);}
         catch (Exception Ex)

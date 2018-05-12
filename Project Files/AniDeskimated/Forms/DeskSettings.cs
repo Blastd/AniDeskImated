@@ -392,24 +392,19 @@ namespace AniDeskimated
         }
         private void DeskSettings_MouseUp(object sender, MouseEventArgs e) { isHooked = false; }
         #endregion
+        private void Button_VideoVolume_Click(object sender, EventArgs e) { (new Forms.Media_Settings.Volume_UI()).ShowDialog(); }
         private void DeskSettings_Load(object sender, EventArgs e)
         {
             this.Hide();
             if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
-            {
-                Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));
-            }
-            else
-            {
-                Viewpreview.Image = FS_UI.VideoFormat;
-                Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;
-            }
+            {Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));Viewpreview.SizeMode = PictureBoxSizeMode.Zoom;Button_VideoVolume.Enabled = false; }
+            else{Viewpreview.Image = FS_UI.VideoFormat;Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;}
             Replace_Text();
             CheckSetting();
             StartShow();
         }
         private void DeskSettings_Paint(object sender, PaintEventArgs e)
-        { e.Graphics.DrawRectangle(new Pen(MainFunctions.VariableColor(this.BackColor, 25)), new Rectangle(new Point(0, 0), new Size(this.Width-1,this.Height-1))); }
+        {e.Graphics.DrawRectangle(new Pen(MainFunctions.VariableColor(this.BackColor, 25)), new Rectangle(new Point(0, 0), new Size(this.Width-1,this.Height-1)));}
         private void CheckSetting() { if (Properties.Settings.Default.NormalStartup == false) { Form WelcomeScreen = new FirstStart(); WelcomeScreen.Show(); } }
         private void Choose_Color_Paint(object sender, PaintEventArgs e)
         {
@@ -428,7 +423,7 @@ namespace AniDeskimated
                 MainFunctions.String_Centre(App_About.Text, e.Graphics, App_About.Size, new Font("Segoe UI Light", MainFunctions.IntProportion(32, 16, App_About.Width), FontStyle.Regular)));
         }
         private void App_About_Click(object sender, EventArgs e) { Form_License Frm_License = new Form_License(); Frm_License.ShowDialog(); }
-        private void Exit_Button_Click(object sender, EventArgs e) { this.Close(); }
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Close(); }
         private void DeskSettings_FormClosing(object sender, FormClosingEventArgs e)
         { if (Properties.Settings.Default.CanClose == false) { e.Cancel = true; this.WindowState = FormWindowState.Minimized; this.Hide(); }}
         #endregion
@@ -464,14 +459,15 @@ namespace AniDeskimated
         private void BackMenu_Gif_Click(object sender, EventArgs e){GetMediaFile.ShowDialog();}
         private void GetMediaFile_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {try
-            {if(MainFunctions.File_Ext(GetMediaFile.FileName)==0){Viewpreview.Image = Image.FromFile(GetMediaFile.FileName);}
-                else { Viewpreview.Image = FS_UI.VideoFormat;Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage; }
+            {if(MainFunctions.File_Ext(GetMediaFile.FileName)==0){Viewpreview.Image = Image.FromFile(GetMediaFile.FileName); Button_VideoVolume.Enabled = false; }
+                else { Viewpreview.Image = FS_UI.VideoFormat;Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage; Button_VideoVolume.Enabled = true; }
                 MainFunctions.ChangeAsset(GetMediaFile.FileName);
-            } catch(Exception Ex)
-            {Console.Write(Ex.Message);MainFunctions.Log("Entered an invalid media file."); Graphics ViewFrame = Viewpreview.CreateGraphics();
+            }catch(Exception Ex){
+                Console.Write(Ex.Message);MainFunctions.Log("Entered an invalid media file."); Graphics ViewFrame = Viewpreview.CreateGraphics();
                  ViewFrame.DrawString("Try Another File", new Font("Segoe Ui", 12),
                  new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
-                 MainFunctions.String_Centre("Try Another File", ViewFrame,Viewpreview.Size, new Font("Segoe Ui Light", 12)));}}
+                 MainFunctions.String_Centre("Try Another File", ViewFrame,Viewpreview.Size, new Font("Segoe Ui Light", 12)));}
+        }
         #region Changing Color
         private void Choose_Color_Click(object sender, EventArgs e)
         {ColorPickMenuChoose.Show(MousePosition.X - 50 % ColorPickMenuChoose.Width, MousePosition.Y - 50 % ColorPickMenuChoose.Height);}
@@ -489,12 +485,7 @@ namespace AniDeskimated
         #endregion
         #region Language
         private void Replace_Text()
-        {
-            Button_NewMedia.Button_Part.Text = "New background";
-            Exit_Button.Button_Part.Text = "x";
-        }
+        {Button_NewMedia.Button_Part.Text = "New background";}
         #endregion
-
-        
     }
 }

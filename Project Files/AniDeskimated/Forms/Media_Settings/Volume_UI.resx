@@ -117,49 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="TaskBar_Notify_Icon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="ContextMenu_IconBar.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>177, 17</value>
-  </metadata>
-  <metadata name="GetMediaFile.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>348, 17</value>
-  </metadata>
-  <metadata name="BackMenuChoose.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>471, 17</value>
-  </metadata>
-  <metadata name="ColorPickMenuChoose.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>620, 17</value>
-  </metadata>
-  <metadata name="Menu_Color.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>795, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="Button_Magnifier.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABNlJREFUeF7d
-        23noZWMcx/FBJPvQWMtWsmSbTEaK/yhLyl8KKcZMsk+ZmqKRGuaPmWT+MSVKlCKJLJElWWb8LBn8wSzI
-        UBMhZYts70/OU+c+53Pudp7n3HPvr15n7vl2v895zveee5bnuTNvbm5uHCfhVjyOD/ENfscv+AKb8Chu
-        wLFwbXSCDdbYE8vwMf4d0XtYgj3g2p4YGzSuwFdwOzeKHbgcu8Btp3U2WHIgnoXbmSZewCFw22yVDRaO
-        w1a4HUhB543T4bbdGhvEafgBruMp/YTFcH1ohQueiO/gOly2DatwLg6FcvfGUTgf92A7XG6ZinA84n60
-        Ig4cAF3GXEeDz3AxdkWcH9PJ7kJ8CtdWsAX7wLWRVRx4Gq6DwTqUL2U6WlbgOfyI3/AlnsK1CDulnNX4
-        B65duR+h3daUVy6D65j8haUovz+2O07FLdgI5X2PmxGOlqvwJ+L25W+cgbjdrMKLvaCzsuuYPjV9mj2J
-        QzgTuiNUGy9iPyh+ZRFzXkLcTlbhxU1wHZK16Ekagc4Bd0FFfAfhK/Eg3LZkIeJ2sgkvdBJyndkMHdo9
-        SWO4HmrvGagoOtnq6xFvT9bDtZGFFovgOiLnoZI0pnuhNq8r1u8o1mM7McwVJgktbofriJ7yKgkN6Erw
-        EXSPoa+CboV1cnXb1o2YayM5LXTJcp1YiUpCQ+dAbV9TrL9erMduRJybhRa6sXGdyHWLqjP9E8XrO+G2
-        /RDivCy00A2M68RBqCQkcBG+Ll5fALftNxDnZaGFbkBcJypvTmQ36ESn16fAbfsTxHlZaPEzXCf0YFNJ
-        SCQc4rpzdNvWqFOck4UWGqVxndC4XyUhEd0l6t9OfAVeg+vE1agkJKYrjdv2I3DvT06L++A68RgqCYnV
-        Ff82uPcnp8UlcJ3QELduWStJiRyJuhuh8BXJTot9oZ11HdHtaiUpET1kuW1+C10pXE5y4YUmMVxnfsXR
-        6ElKYAE0FOa2qa+ky8kivOj3QPQyUn8iOsm5bemxOefVp6K88jxcp6TJmECs38iThuRcTjbllRPwB1zH
-        REVoMqOj3OWoGxJT/GS43GziQN2jcaBZosMQ5w1yDPRVcm0Ga+Bys4oD+q6/AtfBQA9PGkLTZGmcHzsY
-        d6PuKhPo0w9zC61yQZ2h64bIyjSktQGXQoeuBjiOgEZ2NYv8JDRl7nIdDaDuD9enbGwQh2PQZEYOGjht
-        tQg2WNDh+yZcR1PQPYaLt1oEGyzRiLBmg+rGDMahK43mFDXgop1172mtCDZonIUwydGEptDKE6HayYkW
-        wQb70PO7dqLuIcbRfOHDqJv26lcE/WUtgg0OQVcK/WzmAejI+By6PIp+VKFLqW6c9KSpaTfXRpl2su4I
-        01+2ItjghEykCDY4Qa0XwQYnrF8R3kXSIthgB7RWBBvsCO1k+KFFtiLYYIdkL4INdky/IugnuI2KYIMd
-        pJ18G8mLYIMdlaUINthhg4ow8jyGDXZc0iLY4BRIVgQbnBL63WHjItjgFOlXhPcxsAg2OGUaFcEGp9DY
-        RbDBKaUivIWRilAJTLlBRZiPnpyelRkxUhHKibNk6CLEibNkqCK4xFmin//UFeEDzHdJs6ZfEV51CbPI
-        FUG/UVrk3jyrVIQw2aud13TfzJ8DYiqC/t/y2f+vz837D8/358DIEkCgAAAAAElFTkSuQmCC
-</value>
-  </data>
 </root>
