@@ -51,11 +51,17 @@ namespace AniDeskimated
             this.Button_Exit = new System.Windows.Forms.Button();
             this.Button_Magnifier = new System.Windows.Forms.Button();
             this.Button_VideoVolume = new System.Windows.Forms.Button();
+            this.App_Main_Interface_Container = new System.Windows.Forms.Panel();
+            this.Controls_Container = new System.Windows.Forms.Panel();
             this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Acontrol_Scale = new AniDeskimated.Forms.Media_Settings.Control_Scale();
+            this.BVolume_Control = new AniDeskimated.Forms.Media_Settings.Control_Volume();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Viewpreview)).BeginInit();
+            this.App_Main_Interface_Container.SuspendLayout();
+            this.Controls_Container.SuspendLayout();
             this.SuspendLayout();
             // 
             // TaskBar_Notify_Icon
@@ -207,10 +213,11 @@ namespace AniDeskimated
             // 
             this.Viewpreview.BackColor = System.Drawing.Color.Transparent;
             this.Viewpreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Viewpreview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Viewpreview.ErrorImage = null;
-            this.Viewpreview.Location = new System.Drawing.Point(35, 37);
+            this.Viewpreview.Location = new System.Drawing.Point(0, 0);
             this.Viewpreview.Name = "Viewpreview";
-            this.Viewpreview.Size = new System.Drawing.Size(370, 247);
+            this.Viewpreview.Size = new System.Drawing.Size(440, 247);
             this.Viewpreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Viewpreview.TabIndex = 3;
             this.Viewpreview.TabStop = false;
@@ -243,13 +250,14 @@ namespace AniDeskimated
             this.Button_Magnifier.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_Magnifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Magnifier.ForeColor = System.Drawing.Color.White;
-            this.Button_Magnifier.Location = new System.Drawing.Point(2, 119);
+            this.Button_Magnifier.Location = new System.Drawing.Point(1, 80);
             this.Button_Magnifier.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Magnifier.Name = "Button_Magnifier";
             this.Button_Magnifier.Size = new System.Drawing.Size(32, 32);
             this.Button_Magnifier.TabIndex = 13;
+            this.Button_Magnifier.TabStop = false;
             this.Button_Magnifier.UseVisualStyleBackColor = false;
-            this.Button_Magnifier.Visible = false;
+            this.Button_Magnifier.Click += new System.EventHandler(this.Button_Magnifier_Click);
             // 
             // Button_VideoVolume
             // 
@@ -261,13 +269,34 @@ namespace AniDeskimated
             this.Button_VideoVolume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_VideoVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_VideoVolume.ForeColor = System.Drawing.Color.White;
-            this.Button_VideoVolume.Location = new System.Drawing.Point(2, 171);
+            this.Button_VideoVolume.Location = new System.Drawing.Point(1, 132);
             this.Button_VideoVolume.Margin = new System.Windows.Forms.Padding(0);
             this.Button_VideoVolume.Name = "Button_VideoVolume";
             this.Button_VideoVolume.Size = new System.Drawing.Size(32, 32);
             this.Button_VideoVolume.TabIndex = 14;
+            this.Button_VideoVolume.TabStop = false;
             this.Button_VideoVolume.UseVisualStyleBackColor = false;
             this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
+            // 
+            // App_Main_Interface_Container
+            // 
+            this.App_Main_Interface_Container.Controls.Add(this.Controls_Container);
+            this.App_Main_Interface_Container.Location = new System.Drawing.Point(0, 27);
+            this.App_Main_Interface_Container.Name = "App_Main_Interface_Container";
+            this.App_Main_Interface_Container.Size = new System.Drawing.Size(440, 268);
+            this.App_Main_Interface_Container.TabIndex = 15;
+            // 
+            // Controls_Container
+            // 
+            this.Controls_Container.Controls.Add(this.Acontrol_Scale);
+            this.Controls_Container.Controls.Add(this.BVolume_Control);
+            this.Controls_Container.Controls.Add(this.Button_Magnifier);
+            this.Controls_Container.Controls.Add(this.Button_VideoVolume);
+            this.Controls_Container.Controls.Add(this.Viewpreview);
+            this.Controls_Container.Location = new System.Drawing.Point(0, 11);
+            this.Controls_Container.Name = "Controls_Container";
+            this.Controls_Container.Size = new System.Drawing.Size(440, 247);
+            this.Controls_Container.TabIndex = 15;
             // 
             // Button_NewMedia
             // 
@@ -280,19 +309,37 @@ namespace AniDeskimated
             this.Button_NewMedia.TabIndex = 9;
             this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
+            // Acontrol_Scale
+            // 
+            this.Acontrol_Scale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Acontrol_Scale.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Acontrol_Scale.Location = new System.Drawing.Point(0, 0);
+            this.Acontrol_Scale.Name = "Acontrol_Scale";
+            this.Acontrol_Scale.Size = new System.Drawing.Size(440, 247);
+            this.Acontrol_Scale.TabIndex = 16;
+            this.Acontrol_Scale.Visible = false;
+            // 
+            // BVolume_Control
+            // 
+            this.BVolume_Control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BVolume_Control.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BVolume_Control.Location = new System.Drawing.Point(0, 0);
+            this.BVolume_Control.Name = "BVolume_Control";
+            this.BVolume_Control.Size = new System.Drawing.Size(440, 247);
+            this.BVolume_Control.TabIndex = 15;
+            this.BVolume_Control.Visible = false;
+            // 
             // DeskSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(440, 350);
-            this.Controls.Add(this.Button_VideoVolume);
-            this.Controls.Add(this.Button_Magnifier);
             this.Controls.Add(this.Button_Exit);
             this.Controls.Add(this.Button_NewMedia);
             this.Controls.Add(this.App_About);
             this.Controls.Add(this.Button_Color_Choose);
-            this.Controls.Add(this.Viewpreview);
+            this.Controls.Add(this.App_Main_Interface_Container);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = global::AniDeskimated.Properties.Resources.NIcon;
             this.MaximizeBox = false;
@@ -313,6 +360,8 @@ namespace AniDeskimated
             this.BackMenuChoose.ResumeLayout(false);
             this.ColorPickMenuChoose.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Viewpreview)).EndInit();
+            this.App_Main_Interface_Container.ResumeLayout(false);
+            this.Controls_Container.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -339,6 +388,10 @@ namespace AniDeskimated
         private System.Windows.Forms.Button Button_Exit;
         private System.Windows.Forms.Button Button_Magnifier;
         private System.Windows.Forms.Button Button_VideoVolume;
+        private System.Windows.Forms.Panel App_Main_Interface_Container;
+        private System.Windows.Forms.Panel Controls_Container;
+        private Forms.Media_Settings.Control_Volume BVolume_Control;
+        private Forms.Media_Settings.Control_Scale Acontrol_Scale;
     }
 }
 

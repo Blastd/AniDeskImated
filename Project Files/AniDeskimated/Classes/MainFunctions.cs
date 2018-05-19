@@ -382,6 +382,11 @@ namespace AniDeskimated.Classes
             SetKey("volumeValue",Value.ToString());
             Update_View();
         }
+        public static void ChangeScale(int Percentage)
+        {
+            SetKey("viewScale", Percentage.ToString());
+            Update_View();
+        }
         public static void ChangeColor(Color Pixel_color) {
             MainFunctions.SetKey("colorFill", Pixel_color.R.ToString() + "-" + Pixel_color.G.ToString() + "-" + Pixel_color.B.ToString());
             Update_View();
@@ -577,6 +582,7 @@ namespace AniDeskimated.Classes
             if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
             if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
             if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
+            if (CheckResult() == 7777) { SetKey("viewScale", "100"); CheckData(); }// M.M. Media Missing
 
         }
         public static int CheckResult()
@@ -587,6 +593,7 @@ namespace AniDeskimated.Classes
                 else if (ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; }
                 else if (ReadKey("colorFill") == null) { return 678277; }
                 else if(ReadKey("volumeValue") == null) { return 8677;}
+                else if (ReadKey("viewScale") == null) { return 8377; }
                 else { return 6582; } }
         }
         #endregion
@@ -619,15 +626,15 @@ namespace AniDeskimated.Classes
             if (filetype == 1)
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
-                    .videocontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: 100%;max-height: 100vh;margin: 0 auto;display: block;}
-                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile""> 
+                    .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
+                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile"" Class=""videofile""> 
                     <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" ><script>"
                     + @"var vid = document.getElementById(""videofile"");function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey("volumeValue"))/100).ToString().Replace(',','.')
                     + ";}setVolume();</script></video></div></body ></html >";
             else
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
-                    .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: 100%;max-height: 100vh;margin: 0 auto;display: block;}
+                    .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: "+ ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""imgcontainer""><img class=""imgfile"" src='" +
                      new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></ body ></ html >";
         }

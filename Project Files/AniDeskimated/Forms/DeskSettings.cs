@@ -352,6 +352,8 @@ using System.Windows.Forms;
 using AniDeskimated.Classes;
 using AniDeskimated.Forms;
 using AniDeskimated.Forms.Interfaces;
+using AniDeskimated.Forms.Media_Settings;
+
 namespace AniDeskimated
 {
     public partial class DeskSettings : Form
@@ -392,7 +394,8 @@ namespace AniDeskimated
         }
         private void DeskSettings_MouseUp(object sender, MouseEventArgs e) { isHooked = false; }
         #endregion
-        private void Button_VideoVolume_Click(object sender, EventArgs e) { (new Forms.Media_Settings.Volume_UI()).ShowDialog(); }
+        private void Button_VideoVolume_Click(object sender, EventArgs e) { BVolume_Control.Visible = true;}
+        private void Button_Magnifier_Click(object sender, EventArgs e) { Acontrol_Scale.Visible = true; }
         private void DeskSettings_Load(object sender, EventArgs e)
         {
             this.Hide();
@@ -439,6 +442,7 @@ namespace AniDeskimated
             MainFunctions.Log("User is intentionally closing the app.");
             MainFunctions.Delete_Player_Files();
             this.TaskBar_Notify_Icon.Visible = false;
+            backform.Close();
             Application.Exit();
         }
         private void TaskBar_Notify_Icon_DoubleClick(object sender, EventArgs e)
