@@ -35,12 +35,15 @@ namespace AniDeskimated.Forms.Controls
         }
         private void Button_Part_MouseUp(object sender, MouseEventArgs e)
         {
-            Graphics Up = Button_Part.CreateGraphics();
-            MainFunctions.Draw_Terminator(Up, Button_Part.Width, Button_Part.Height,
-            MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), 10)),
-            MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), -10)),
-            Button_Part.Text, MainFunctions.IntProportion(30, 12, this.Height), FontStyle.Bold,
-            MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), 135)));
+            try
+            {
+                Graphics Up = Button_Part.CreateGraphics();
+                MainFunctions.Draw_Terminator(Up, Button_Part.Width, Button_Part.Height,
+                MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), 10)),
+                MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), -10)),
+                Button_Part.Text, MainFunctions.IntProportion(30, 12, this.Height), FontStyle.Bold,
+                MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), 135)));
+            }catch (Exception Ex){}
         }
         private void Button_Part_MouseLeave(object sender, EventArgs e) { Button_Part.Invalidate(); }
         private void Button_Part_Click(object sender, EventArgs e){this.InvokeOnClick(this,e);}

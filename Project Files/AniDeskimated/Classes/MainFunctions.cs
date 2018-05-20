@@ -418,7 +418,7 @@ namespace AniDeskimated.Classes
             {
                 using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                     return hkcu.OpenSubKey(@"Software\ADM", true).GetValue(KeyName).ToString();
-            } catch (Exception Ex) { Log("Cannot read Registry Keys", Ex); return "Error"; }
+            } catch (Exception Ex) { Log("Cannot read Registry Keys", Ex); return "0"; }
         }
         public static void DelVal(string ValueName)
         {
@@ -571,6 +571,8 @@ namespace AniDeskimated.Classes
                 CSubKey(@"Software\ADM");
                 ResetAsset();
                 Properties.Settings.Default.NormalStartup = false;
+                ChangeVolume(0);
+                ChangeScale(100);
                 CheckData();
             }
             if (CheckResult() == 6582)// A.R. All Right
@@ -579,6 +581,7 @@ namespace AniDeskimated.Classes
                 Application.Run(new DeskSettings());
             }
             if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); CheckData(); }//R. M. Registry Missing
+            if (CheckResult() == 7077) { ResetAsset(); } //F. M. Files Missing
             if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
             if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
             if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
@@ -590,9 +593,10 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             { if (hkcu.OpenSubKey(@"Software\ADM") == null && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
+                else if (Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7077; }// Files Missing
                 else if (ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; }
                 else if (ReadKey("colorFill") == null) { return 678277; }
-                else if(ReadKey("volumeValue") == null) { return 8677;}
+                else if (ReadKey("volumeValue") == null) { return 8677; }
                 else if (ReadKey("viewScale") == null) { return 8377; }
                 else { return 6582; } }
         }

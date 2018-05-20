@@ -31,7 +31,6 @@ namespace AniDeskimated.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.Button_Browse = new System.Windows.Forms.Button();
             this.GetMediaFile = new System.Windows.Forms.OpenFileDialog();
             this.BackMenuChoose = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.BackMenu_Gif = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,33 +38,15 @@ namespace AniDeskimated.Forms
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ColorPicker_MenuPicker = new System.Windows.Forms.ColorDialog();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Button_Skip = new System.Windows.Forms.Button();
-            this.Button_license = new System.Windows.Forms.Button();
+            this.Button_Informations = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_NewFile = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_Refuse = new AniDeskimated.Forms.Controls.Round_Button();
             this.ViewFrame = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BackMenuChoose.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ViewFrame)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Button_Browse
-            // 
-            this.Button_Browse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))));
-            this.Button_Browse.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Button_Browse.FlatAppearance.BorderSize = 0;
-            this.Button_Browse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.Button_Browse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.Button_Browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Browse.Font = new System.Drawing.Font("Segoe UI Black", 12F);
-            this.Button_Browse.ForeColor = System.Drawing.Color.White;
-            this.Button_Browse.Location = new System.Drawing.Point(135, 0);
-            this.Button_Browse.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_Browse.Name = "Button_Browse";
-            this.Button_Browse.Size = new System.Drawing.Size(320, 40);
-            this.Button_Browse.TabIndex = 0;
-            this.Button_Browse.Text = "Change my look";
-            this.Button_Browse.UseVisualStyleBackColor = false;
-            this.Button_Browse.Click += new System.EventHandler(this.Browse_Media_Click);
             // 
             // GetMediaFile
             // 
@@ -116,9 +97,9 @@ namespace AniDeskimated.Forms
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.Button_Skip);
-            this.flowLayoutPanel1.Controls.Add(this.Button_Browse);
-            this.flowLayoutPanel1.Controls.Add(this.Button_license);
+            this.flowLayoutPanel1.Controls.Add(this.Button_Informations);
+            this.flowLayoutPanel1.Controls.Add(this.Button_NewFile);
+            this.flowLayoutPanel1.Controls.Add(this.Button_Refuse);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 351);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
@@ -126,51 +107,46 @@ namespace AniDeskimated.Forms
             this.flowLayoutPanel1.Size = new System.Drawing.Size(590, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // Button_Skip
+            // Button_Informations
             // 
-            this.Button_Skip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.Button_Skip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Button_Skip.FlatAppearance.BorderSize = 0;
-            this.Button_Skip.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.Button_Skip.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.Button_Skip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Skip.Font = new System.Drawing.Font("Segoe UI Black", 12F);
-            this.Button_Skip.ForeColor = System.Drawing.Color.White;
-            this.Button_Skip.Location = new System.Drawing.Point(0, 0);
-            this.Button_Skip.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_Skip.Name = "Button_Skip";
-            this.Button_Skip.Size = new System.Drawing.Size(135, 40);
-            this.Button_Skip.TabIndex = 1;
-            this.Button_Skip.Text = "Not Now";
-            this.Button_Skip.UseVisualStyleBackColor = false;
-            this.Button_Skip.Click += new System.EventHandler(this.Button_Skip_Click);
+            this.Button_Informations.BackColor = System.Drawing.Color.Transparent;
+            this.Button_Informations.Location = new System.Drawing.Point(0, 0);
+            this.Button_Informations.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_Informations.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_Informations.Name = "Button_Informations";
+            this.Button_Informations.Size = new System.Drawing.Size(135, 40);
+            this.Button_Informations.TabIndex = 5;
+            this.Button_Informations.Click += new System.EventHandler(this.Button_Informations_Click);
             // 
-            // Button_license
+            // Button_NewFile
             // 
-            this.Button_license.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(0)))), ((int)(((byte)(200)))), ((int)(((byte)(255)))));
-            this.Button_license.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Button_license.FlatAppearance.BorderSize = 0;
-            this.Button_license.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.Button_license.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.Button_license.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_license.Font = new System.Drawing.Font("Segoe UI Black", 12F);
-            this.Button_license.ForeColor = System.Drawing.Color.White;
-            this.Button_license.Location = new System.Drawing.Point(455, 0);
-            this.Button_license.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_license.Name = "Button_license";
-            this.Button_license.Size = new System.Drawing.Size(135, 40);
-            this.Button_license.TabIndex = 2;
-            this.Button_license.Text = "License";
-            this.Button_license.UseVisualStyleBackColor = false;
-            this.Button_license.Click += new System.EventHandler(this.Button_license_Click);
+            this.Button_NewFile.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewFile.Location = new System.Drawing.Point(135, 0);
+            this.Button_NewFile.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_NewFile.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_NewFile.Name = "Button_NewFile";
+            this.Button_NewFile.Size = new System.Drawing.Size(320, 40);
+            this.Button_NewFile.TabIndex = 4;
+            this.Button_NewFile.Click += new System.EventHandler(this.Button_NewFile_Click);
+            // 
+            // Button_Refuse
+            // 
+            this.Button_Refuse.BackColor = System.Drawing.Color.Transparent;
+            this.Button_Refuse.Location = new System.Drawing.Point(455, 0);
+            this.Button_Refuse.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_Refuse.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_Refuse.Name = "Button_Refuse";
+            this.Button_Refuse.Size = new System.Drawing.Size(135, 40);
+            this.Button_Refuse.TabIndex = 6;
+            this.Button_Refuse.Click += new System.EventHandler(this.Button_Refuse_Click);
             // 
             // ViewFrame
             // 
             this.ViewFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ViewFrame.ErrorImage = global::AniDeskimated.Forms.FS_UI.CannotLoad;
-            this.ViewFrame.Location = new System.Drawing.Point(167, 80);
+            this.ViewFrame.Location = new System.Drawing.Point(120, 49);
             this.ViewFrame.Name = "ViewFrame";
-            this.ViewFrame.Size = new System.Drawing.Size(250, 164);
+            this.ViewFrame.Size = new System.Drawing.Size(350, 264);
             this.ViewFrame.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ViewFrame.TabIndex = 1;
             this.ViewFrame.TabStop = false;
@@ -180,7 +156,7 @@ namespace AniDeskimated.Forms
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(191, 56);
+            this.label1.Location = new System.Drawing.Point(191, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(208, 21);
             this.label1.TabIndex = 3;
@@ -218,8 +194,6 @@ namespace AniDeskimated.Forms
         }
 
         #endregion
-
-        private System.Windows.Forms.Button Button_Browse;
         private System.Windows.Forms.PictureBox ViewFrame;
         private System.Windows.Forms.OpenFileDialog GetMediaFile;
         private System.Windows.Forms.ContextMenuStrip BackMenuChoose;
@@ -228,8 +202,9 @@ namespace AniDeskimated.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ColorDialog ColorPicker_MenuPicker;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button Button_Skip;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Button_license;
+        private Controls.Round_Button Button_NewFile;
+        private Controls.Round_Button Button_Informations;
+        private Controls.Round_Button Button_Refuse;
     }
 }

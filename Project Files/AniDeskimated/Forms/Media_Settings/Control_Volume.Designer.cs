@@ -37,13 +37,12 @@
             // Label_StatusPercentage
             // 
             this.Label_StatusPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label_StatusPercentage.AutoSize = true;
             this.Label_StatusPercentage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Label_StatusPercentage.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.Label_StatusPercentage.ForeColor = System.Drawing.Color.White;
-            this.Label_StatusPercentage.Location = new System.Drawing.Point(160, 126);
+            this.Label_StatusPercentage.Location = new System.Drawing.Point(0, 126);
             this.Label_StatusPercentage.Name = "Label_StatusPercentage";
-            this.Label_StatusPercentage.Size = new System.Drawing.Size(50, 28);
+            this.Label_StatusPercentage.Size = new System.Drawing.Size(370, 28);
             this.Label_StatusPercentage.TabIndex = 4;
             this.Label_StatusPercentage.Text = "10%";
             this.Label_StatusPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

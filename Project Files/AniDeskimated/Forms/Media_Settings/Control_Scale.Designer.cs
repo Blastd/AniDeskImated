@@ -39,13 +39,12 @@
             // Label_StatusPercentage
             // 
             this.Label_StatusPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label_StatusPercentage.AutoSize = true;
             this.Label_StatusPercentage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Label_StatusPercentage.Font = new System.Drawing.Font("Segoe UI", 15F);
             this.Label_StatusPercentage.ForeColor = System.Drawing.Color.White;
-            this.Label_StatusPercentage.Location = new System.Drawing.Point(160, 168);
+            this.Label_StatusPercentage.Location = new System.Drawing.Point(0, 168);
             this.Label_StatusPercentage.Name = "Label_StatusPercentage";
-            this.Label_StatusPercentage.Size = new System.Drawing.Size(50, 28);
+            this.Label_StatusPercentage.Size = new System.Drawing.Size(370, 28);
             this.Label_StatusPercentage.TabIndex = 4;
             this.Label_StatusPercentage.Text = "10%";
             this.Label_StatusPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -56,7 +55,8 @@
             this.Scale_Tracker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Scale_Tracker.LargeChange = 10;
             this.Scale_Tracker.Location = new System.Drawing.Point(8, 135);
-            this.Scale_Tracker.Maximum = 100;
+            this.Scale_Tracker.Maximum = 200;
+            this.Scale_Tracker.Minimum = 1;
             this.Scale_Tracker.Name = "Scale_Tracker";
             this.Scale_Tracker.Size = new System.Drawing.Size(354, 45);
             this.Scale_Tracker.SmallChange = 10;
