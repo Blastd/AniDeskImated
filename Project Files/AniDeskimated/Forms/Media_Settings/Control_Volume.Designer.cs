@@ -64,6 +64,8 @@
             this.Volume_Tracker.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.Volume_Tracker.Value = 10;
             this.Volume_Tracker.Scroll += new System.EventHandler(this.Volume_Tracker_Scroll);
+            this.Volume_Tracker.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Volume_Tracker_KeyDown);
+            this.Volume_Tracker.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Volume_Tracker_KeyUp);
             // 
             // Button_Done
             // 

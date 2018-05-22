@@ -18,6 +18,12 @@ namespace AniDeskimated.Forms.Media_Settings
             if (Scale_Tracker.Value >= 100) { e.Graphics.FillRectangle(new SolidBrush(Color.White), new Rectangle(new Point(0, 0), ScaleView.Size)); }
         }
         private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.ChangeScale(Scale_Tracker.Value); this.Visible = false; }
+        private void Scale_Tracker_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Shift)
+                Scale_Tracker.SmallChange = 5;
+        }
+        private void Scale_Tracker_KeyUp(object sender, KeyEventArgs e) { Scale_Tracker.SmallChange = 1; }
         #region Form
         private void Control_Scale_Load(object sender, EventArgs e)
         {
@@ -25,6 +31,7 @@ namespace AniDeskimated.Forms.Media_Settings
             Label_StatusPercentage.Text = MainFunctions.ReadKey("viewScale") + '%'; ScaleView.Invalidate();
         }
         #endregion
+
         #endregion
     }
 }

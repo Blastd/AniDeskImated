@@ -55,16 +55,17 @@
             this.Scale_Tracker.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Scale_Tracker.LargeChange = 10;
             this.Scale_Tracker.Location = new System.Drawing.Point(8, 135);
-            this.Scale_Tracker.Maximum = 200;
+            this.Scale_Tracker.Maximum = 100;
             this.Scale_Tracker.Minimum = 1;
             this.Scale_Tracker.Name = "Scale_Tracker";
             this.Scale_Tracker.Size = new System.Drawing.Size(354, 45);
-            this.Scale_Tracker.SmallChange = 10;
             this.Scale_Tracker.TabIndex = 3;
             this.Scale_Tracker.TickFrequency = 10;
             this.Scale_Tracker.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
             this.Scale_Tracker.Value = 10;
             this.Scale_Tracker.Scroll += new System.EventHandler(this.Scale_Tracker_Scroll);
+            this.Scale_Tracker.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Scale_Tracker_KeyDown);
+            this.Scale_Tracker.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Scale_Tracker_KeyUp);
             // 
             // ScaleView
             // 
