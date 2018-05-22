@@ -53,9 +53,9 @@ namespace AniDeskimated
             this.Controls_Container = new System.Windows.Forms.Panel();
             this.Acontrol_Scale = new AniDeskimated.Forms.Media_Settings.Control_Scale();
             this.BVolume_Control = new AniDeskimated.Forms.Media_Settings.Control_Volume();
-            this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
             this.Button_Magnifier = new System.Windows.Forms.Button();
             this.Button_VideoVolume = new System.Windows.Forms.Button();
+            this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
@@ -279,17 +279,6 @@ namespace AniDeskimated
             this.BVolume_Control.TabIndex = 15;
             this.BVolume_Control.Visible = false;
             // 
-            // Button_NewMedia
-            // 
-            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
-            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
-            this.Button_NewMedia.Name = "Button_NewMedia";
-            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
-            this.Button_NewMedia.TabIndex = 9;
-            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
-            // 
             // Button_Magnifier
             // 
             this.Button_Magnifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -300,13 +289,14 @@ namespace AniDeskimated
             this.Button_Magnifier.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_Magnifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Magnifier.ForeColor = System.Drawing.Color.White;
-            this.Button_Magnifier.Location = new System.Drawing.Point(9, 67);
+            this.Button_Magnifier.Location = new System.Drawing.Point(1, 65);
             this.Button_Magnifier.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Magnifier.Name = "Button_Magnifier";
             this.Button_Magnifier.Size = new System.Drawing.Size(32, 32);
             this.Button_Magnifier.TabIndex = 16;
             this.Button_Magnifier.TabStop = false;
             this.Button_Magnifier.UseVisualStyleBackColor = false;
+            this.Button_Magnifier.Click += new System.EventHandler(this.Button_Magnifier_Click);
             // 
             // Button_VideoVolume
             // 
@@ -318,13 +308,25 @@ namespace AniDeskimated
             this.Button_VideoVolume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_VideoVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_VideoVolume.ForeColor = System.Drawing.Color.White;
-            this.Button_VideoVolume.Location = new System.Drawing.Point(9, 99);
+            this.Button_VideoVolume.Location = new System.Drawing.Point(1, 97);
             this.Button_VideoVolume.Margin = new System.Windows.Forms.Padding(0);
             this.Button_VideoVolume.Name = "Button_VideoVolume";
             this.Button_VideoVolume.Size = new System.Drawing.Size(32, 32);
             this.Button_VideoVolume.TabIndex = 17;
             this.Button_VideoVolume.TabStop = false;
             this.Button_VideoVolume.UseVisualStyleBackColor = false;
+            this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
+            // 
+            // Button_NewMedia
+            // 
+            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
+            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_NewMedia.Name = "Button_NewMedia";
+            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
+            this.Button_NewMedia.TabIndex = 9;
+            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
             // DeskSettings
             // 
