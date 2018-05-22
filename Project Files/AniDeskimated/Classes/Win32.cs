@@ -525,6 +525,10 @@ namespace AniDeskimated
         public static extern IntPtr SendMessageTimeout(IntPtr windowHandle, uint Msg, IntPtr wParam, IntPtr lParam, SendMessageTimeoutFlags flags, uint timeout, out IntPtr result);
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         #endregion
         /*[StructLayout(LayoutKind.Sequential)]
         public struct BbStruct

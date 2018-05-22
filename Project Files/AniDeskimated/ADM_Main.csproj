@@ -107,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Win32.cs" />
+    <Compile Include="Forms\Controls\Round_Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Round_Button.Designer.cs">
+      <DependentUpon>Round_Button.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Form_License.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,11 +143,17 @@
     <Compile Include="Forms\Media_Settings\Color_Picker_Frame.Designer.cs">
       <DependentUpon>Color_Picker_Frame.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Media_Settings\Zoom_Ui.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Forms\Media_Settings\Control_Scale.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Media_Settings\Zoom_Ui.Designer.cs">
-      <DependentUpon>Zoom_Ui.cs</DependentUpon>
+    <Compile Include="Forms\Media_Settings\Control_Scale.Designer.cs">
+      <DependentUpon>Control_Scale.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Media_Settings\Control_Volume.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Media_Settings\Control_Volume.Designer.cs">
+      <DependentUpon>Control_Volume.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ShowView.cs">
       <SubType>Form</SubType>
@@ -151,6 +163,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Controls\Round_Button.resx">
+      <DependentUpon>Round_Button.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_License.resx">
       <DependentUpon>Form_License.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,8 +182,11 @@
     <EmbeddedResource Include="Forms\Media_Settings\Color_Picker_Frame.resx">
       <DependentUpon>Color_Picker_Frame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Media_Settings\Zoom_Ui.resx">
-      <DependentUpon>Zoom_Ui.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Media_Settings\Control_Scale.resx">
+      <DependentUpon>Control_Scale.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Media_Settings\Control_Volume.resx">
+      <DependentUpon>Control_Volume.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ShowView.resx">
       <DependentUpon>ShowView.cs</DependentUpon>
@@ -198,15 +216,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\FirstStartForm.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MediaPreview.png" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="stdole">
       <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -221,9 +230,6 @@
     <None Include="Resources\CannotLoad.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Fileico.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MIcon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -231,8 +237,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Pen.cur" />
+    <None Include="Resources\Magnifier_Small.png" />
+    <None Include="Resources\VolumeButton_Small.png" />
     <None Include="Resources\VideoFormat.png" />
-    <None Include="Resources\Browse_Button.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -246,5 +253,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

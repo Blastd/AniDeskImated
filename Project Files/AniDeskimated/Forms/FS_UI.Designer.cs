@@ -73,9 +73,29 @@ namespace AniDeskimated.Forms {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Magnifier_Small {
+            get {
+                object obj = ResourceManager.GetObject("Magnifier_Small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap VideoFormat {
             get {
                 object obj = ResourceManager.GetObject("VideoFormat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VolumeButton_Small {
+            get {
+                object obj = ResourceManager.GetObject("VolumeButton_Small", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

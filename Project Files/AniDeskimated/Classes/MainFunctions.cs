@@ -356,6 +356,11 @@ namespace AniDeskimated.Classes
 {
     class MainFunctions
     {
+        #region Maths
+        //Remember that the proportions code follows the formula     a1:a2=b1:x     where x is the given value
+        public static double Proportion(double a1, double a2, double b1) { return (a2 * b1) / a1; }
+        public static int IntProportion(double a1, double a2, double b1) { return (int)Math.Floor((decimal)((a2 * b1) / a1)); }
+        #endregion
         #region Registry Management
         public static void ResetAsset()
         {
@@ -370,6 +375,16 @@ namespace AniDeskimated.Classes
         {
             DelVal("contentPath");
             SetKey("contentPath", mediaFile);
+            Update_View();
+        }
+        public static void ChangeVolume(int Value)
+        {
+            SetKey("volumeValue",Value.ToString());
+            Update_View();
+        }
+        public static void ChangeScale(int Percentage)
+        {
+            SetKey("viewScale", Percentage.ToString());
             Update_View();
         }
         public static void ChangeColor(Color Pixel_color) {
@@ -403,7 +418,7 @@ namespace AniDeskimated.Classes
             {
                 using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                     return hkcu.OpenSubKey(@"Software\ADM", true).GetValue(KeyName).ToString();
-            } catch (Exception Ex) { Log("Cannot read Registry Keys", Ex); return "Error"; }
+            } catch (Exception Ex) { Log("Cannot read Registry Keys", Ex); return "0"; }
         }
         public static void DelVal(string ValueName)
         {
@@ -418,20 +433,122 @@ namespace AniDeskimated.Classes
         }
         #endregion
         #region Graphics
+        public static Point String_Centre(string Txt, Graphics Ctrl_G, Size Ctrl_size, Font font_type, int offset_x, int offset_y)
+        {
+            return new Point(((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1)-offset_x,
+                (Ctrl_size.Height / 2) - ((Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1)-offset_y);
+        }
         public static Point String_Centre(string Txt, Graphics Ctrl_G, Size Ctrl_size, Font font_type)
         {
-            return new Point((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1,
-                (Ctrl_size.Height / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1);
+            return new Point(((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1),
+                (Ctrl_size.Height / 2) - ((Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1));
         }
         public static Color SuitableContrast(Color Color_input)
         {
             {
-                if ((double)((Color_input.R + Color_input.G + Color_input.B) / 3) <= 42.5)
+                if ((double)((Color_input.R + Color_input.G + Color_input.B) / 3) <= 127.5)
                 { return Color.White; } else { return Color.Black; }
             }
         }
+        public static int ColorContrast(Color Base, int value)
+        {
+            if (((Base.R + Base.G + Base.B) / 3) <= 127.5)
+                return value * 1;
+            else
+                return value * -1;
+        }
+        public static Color VariableColor(Color Base, int DeltaR,int DeltaG,int DeltaB)
+        {
+            int ResR, ResG, ResB;
+            ResR = Base.R + DeltaR;
+            ResG = Base.G + DeltaG;
+            ResB = Base.B + DeltaB;
+            if (ResR < 0) { ResR = 0; } else if(ResR > 255) { ResR = 255; }
+            if (ResG < 0) { ResG = 0; } else if (ResG > 255) { ResG = 255; }
+            if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
+            return Color.FromArgb(Base.A, ResR, ResG, ResB);
+        }
+        public static Color VariableColor(Color Base, int Delta)
+        {
+            int ResR, ResG, ResB;
+            ResR = Base.R + Delta;
+            ResG = Base.G + Delta;
+            ResB = Base.B + Delta;
+            if (ResR < 0) { ResR = 0; } else if (ResR > 255) { ResR = 255; }
+            if (ResG < 0) { ResG = 0; } else if (ResG > 255) { ResG = 255; }
+            if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
+            return Color.FromArgb(Base.A, ResR, ResG, ResB);
+        }
         public static string Color_to_hex(Color Oc)
         {return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2");}
+        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color)
+        {
+            Width = Width - 1;
+            Height = Height - 1;
+            e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            Point[] Lns = new Point[6];
+            int ArcWidth = IntProportion(35, 35, Height);
+            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
+            Lns[0] = new Point(ArcHalf, 0);
+            Lns[1] = new Point(Width - ArcHalf, 0);
+            Lns[2] = new Point(ArcHalf, Height - 1);
+            Lns[3] = new Point(Width - ArcHalf, Height - 1);
+            Lns[4] = new Point(0, 0);
+            Lns[5] = new Point(Width - ArcWidth - 1, 0);
+            Size ArcS = new Size(ArcWidth, Height - 1);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height),0,360);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
+            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height, 0, Width - (Height * 2), Height));
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
+        }
+        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color, string Prompt, int FontSize, FontStyle FontSt, Color Color_Font)
+        {
+            Width = Width - 1;
+            Height = Height - 1;
+            e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            Point[] Lns = new Point[6];
+            int ArcWidth = IntProportion(35, 35, Height);
+            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
+            Lns[0] = new Point(ArcHalf, 0);
+            Lns[1] = new Point(Width - ArcHalf, 0);
+            Lns[2] = new Point(ArcHalf, Height - 1);
+            Lns[3] = new Point(Width - ArcHalf, Height - 1);
+            Lns[4] = new Point(0, 0);
+            Lns[5] = new Point(Width - ArcWidth - 1, 0);
+            Size ArcS = new Size(ArcWidth, Height - 1);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height), 0, 360);
+            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
+            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height / 2, 0, Width - ((Height * 2) / 2), Height));
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
+            e.DrawString(Prompt, new Font("Dubai", FontSize), new SolidBrush(Color_Font), 
+                MainFunctions.String_Centre(Prompt, e, new Size(Width,Height), new Font("Dubai", FontSize, FontSt),0,-3));
+        }
+        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color)
+        {
+            Width = Width - 1;
+            Height = Height - 1;
+            e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            Point[] Lns = new Point[6];
+            int ArcWidth = IntProportion(35, 35, Height);
+            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
+            Lns[0] = new Point(ArcHalf, 0);
+            Lns[1] = new Point(Width - ArcHalf, 0);
+            Lns[2] = new Point(ArcHalf, Height - 1);
+            Lns[3] = new Point(Width - ArcHalf, Height - 1);
+            Lns[4] = new Point(0, 0);
+            Lns[5] = new Point(Width - ArcWidth - 1, 0);
+            Size ArcS = new Size(ArcWidth, Height - 1);
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
+            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
+            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
+        }
         #endregion
         #region Logging
         public static void Log(string add_msg, Exception ex) { Write_Log(add_msg + ": " + ex.Message); }
@@ -454,17 +571,21 @@ namespace AniDeskimated.Classes
                 CSubKey(@"Software\ADM");
                 ResetAsset();
                 Properties.Settings.Default.NormalStartup = false;
-                Application.Run(new DeskSettings());
+                ChangeVolume(0);
+                ChangeScale(100);
+                CheckData();
             }
             if (CheckResult() == 6582)// A.R. All Right
             {
                 Log("Check Complete. Normal Startup.");
-                Properties.Settings.Default.NormalStartup = true;
                 Application.Run(new DeskSettings());
             }
-            if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); }//R. M. Registry Missing
-            if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); }//C. R. M. Color Registry Missing
-            if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); }// M.M. Media Missing
+            if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); CheckData(); }//R. M. Registry Missing
+            if (CheckResult() == 7077) { ResetAsset(); } //F. M. Files Missing
+            if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
+            if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
+            if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
+            if (CheckResult() == 7777) { SetKey("viewScale", "100"); CheckData(); }// M.M. Media Missing
 
         }
         public static int CheckResult()
@@ -472,8 +593,11 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             { if (hkcu.OpenSubKey(@"Software\ADM") == null && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
+                else if (Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7077; }// Files Missing
                 else if (ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; }
                 else if (ReadKey("colorFill") == null) { return 678277; }
+                else if (ReadKey("volumeValue") == null) { return 8677; }
+                else if (ReadKey("viewScale") == null) { return 8377; }
                 else { return 6582; } }
         }
         #endregion
@@ -506,26 +630,22 @@ namespace AniDeskimated.Classes
             if (filetype == 1)
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
-                    .videocontainer {display: grid;height: 100%;}.videofile {max-width: 100%;max-height: 100vh;margin: auto;}
-                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay class=""videofile""> 
-                    <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" >"
-                    + "</video></div></ body ></ html >";
+                    .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
+                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile"" Class=""videofile""> 
+                    <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" ><script>"
+                    + @"var vid = document.getElementById(""videofile"");function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey("volumeValue"))/100).ToString().Replace(',','.')
+                    + ";}setVolume();</script></video></div></body ></html >";
             else
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
-                    .imgcontainer {display: grid;height: 100%;}.imgfile {max-width: 100%;max-height: 100vh;margin: auto;}
+                    .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: "+ ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""imgcontainer""><img class=""imgfile"" src='" +
-                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "</div></ body ></ html >";
+                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></ body ></ html >";
         }
         public static void Delete_Player_Files(){try{File.Delete(Properties.Settings.Default.HTML_Location);}
         catch (Exception Ex)
             { Console.Write(Ex.Message);
             Log(@"Cannot delete Media Player Files, you may delete them  manually. They're located in %Appdata%\<random>.html and <random>.css");}}
-        #endregion
-        #region Maths
-        //Remember that the proportions code follows the formula     a1:a2=b1:x     where x is the given value
-        public static double Proportion(double a1, double a2, double b1){return (a2 * b1)/a1;}
-        public static int IntProportion(double a1,double a2,double b1){return (int)Math.Floor((decimal)((a2*b1)/a1));}
         #endregion
     }
 }

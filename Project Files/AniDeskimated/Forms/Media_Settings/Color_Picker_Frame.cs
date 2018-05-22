@@ -384,9 +384,9 @@ namespace AniDeskimated.Forms.Interfaces
         }
         private void Color_Picker_Frame_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui", 12),
+            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui", 14),
                        new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
-                       MainFunctions.String_Centre("Try Another Image", e.Graphics, this.Size, new Font("Segoe Ui Light", 12)));
+                       MainFunctions.String_Centre("Click anywhere to pick a color from the screen.", e.Graphics, this.Size, new Font("Segoe Ui", 14)));
         }
         #region Custom Cursor
         private void Color_Picker_Frame_Load(object sender, EventArgs e)

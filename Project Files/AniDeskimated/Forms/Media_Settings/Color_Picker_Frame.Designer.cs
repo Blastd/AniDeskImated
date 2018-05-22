@@ -41,7 +41,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimizeBox = false;
             this.Name = "Color_Picker_Frame";
-            this.Opacity = 0.2D;
+            this.Opacity = 0.4D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
