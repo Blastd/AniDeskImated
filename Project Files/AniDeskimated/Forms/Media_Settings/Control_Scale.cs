@@ -25,9 +25,12 @@ namespace AniDeskimated.Forms.Media_Settings
         }
         private void Scale_Tracker_KeyUp(object sender, KeyEventArgs e) { Scale_Tracker.SmallChange = 1; }
         #region Form
-        private void Control_Scale_Load(object sender, EventArgs e)
-        {
-            Button_Done.Button_Part.Text = "Done"; Scale_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey("viewScale"));
+        private void Control_Scale_Load(object sender, EventArgs e){
+            #region Button Properties
+            Button_Done.Button_Part.Text = "";
+            Button_Done.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
+            #endregion
+            Scale_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey("viewScale"));
             Label_StatusPercentage.Text = MainFunctions.ReadKey("viewScale") + '%'; ScaleView.Invalidate();
         }
         #endregion

@@ -31,7 +31,6 @@ namespace AniDeskimated
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeskSettings));
             this.TaskBar_Notify_Icon = new System.Windows.Forms.NotifyIcon(this.components);
             this.ContextMenu_IconBar = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.IconButton_Browse = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,10 +130,11 @@ namespace AniDeskimated
             // BackMenu_WebComponent
             // 
             this.BackMenu_WebComponent.Font = new System.Drawing.Font("Segoe UI Black", 9F);
-            this.BackMenu_WebComponent.ForeColor = System.Drawing.Color.Gray;
+            this.BackMenu_WebComponent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.BackMenu_WebComponent.Name = "BackMenu_WebComponent";
             this.BackMenu_WebComponent.Size = new System.Drawing.Size(177, 22);
-            this.BackMenu_WebComponent.Text = "Not Implemented";
+            this.BackMenu_WebComponent.Text = "Online";
+            this.BackMenu_WebComponent.Click += new System.EventHandler(this.BackMenu_WebComponent_Click);
             // 
             // Online_Store
             // 
@@ -149,13 +149,13 @@ namespace AniDeskimated
             this.Button_Color_Choose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Button_Color_Choose.FlatAppearance.BorderSize = 0;
             this.Button_Color_Choose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Color_Choose.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.Button_Color_Choose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Button_Color_Choose.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F);
+            this.Button_Color_Choose.ForeColor = System.Drawing.Color.White;
             this.Button_Color_Choose.Location = new System.Drawing.Point(373, 301);
             this.Button_Color_Choose.Name = "Button_Color_Choose";
             this.Button_Color_Choose.Size = new System.Drawing.Size(32, 32);
             this.Button_Color_Choose.TabIndex = 6;
-            this.Button_Color_Choose.Text = "c";
+            this.Button_Color_Choose.Text = "";
             this.Button_Color_Choose.UseVisualStyleBackColor = false;
             this.Button_Color_Choose.Click += new System.EventHandler(this.Choose_Color_Click);
             this.Button_Color_Choose.Paint += new System.Windows.Forms.PaintEventHandler(this.Choose_Color_Paint);
@@ -229,14 +229,14 @@ namespace AniDeskimated
             this.Button_Exit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Button_Exit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(235)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Exit.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10F);
+            this.Button_Exit.Font = new System.Drawing.Font("Segoe MDL2 Assets", 10F);
             this.Button_Exit.ForeColor = System.Drawing.Color.White;
-            this.Button_Exit.Location = new System.Drawing.Point(389, 1);
+            this.Button_Exit.Location = new System.Drawing.Point(415, 0);
             this.Button_Exit.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Exit.Name = "Button_Exit";
-            this.Button_Exit.Size = new System.Drawing.Size(50, 25);
+            this.Button_Exit.Size = new System.Drawing.Size(25, 25);
             this.Button_Exit.TabIndex = 12;
-            this.Button_Exit.Text = "x";
+            this.Button_Exit.Text = "";
             this.Button_Exit.UseVisualStyleBackColor = false;
             this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
             // 
@@ -282,12 +282,12 @@ namespace AniDeskimated
             // Button_Magnifier
             // 
             this.Button_Magnifier.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Button_Magnifier.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Button_Magnifier.BackgroundImage")));
             this.Button_Magnifier.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Button_Magnifier.FlatAppearance.BorderSize = 0;
             this.Button_Magnifier.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Button_Magnifier.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_Magnifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Magnifier.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14F);
             this.Button_Magnifier.ForeColor = System.Drawing.Color.White;
             this.Button_Magnifier.Location = new System.Drawing.Point(1, 65);
             this.Button_Magnifier.Margin = new System.Windows.Forms.Padding(0);
@@ -295,18 +295,19 @@ namespace AniDeskimated
             this.Button_Magnifier.Size = new System.Drawing.Size(32, 32);
             this.Button_Magnifier.TabIndex = 16;
             this.Button_Magnifier.TabStop = false;
+            this.Button_Magnifier.Text = "";
             this.Button_Magnifier.UseVisualStyleBackColor = false;
             this.Button_Magnifier.Click += new System.EventHandler(this.Button_Magnifier_Click);
             // 
             // Button_VideoVolume
             // 
             this.Button_VideoVolume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Button_VideoVolume.BackgroundImage = global::AniDeskimated.Forms.FS_UI.VolumeButton_Small;
             this.Button_VideoVolume.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Button_VideoVolume.FlatAppearance.BorderSize = 0;
             this.Button_VideoVolume.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Button_VideoVolume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_VideoVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_VideoVolume.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14F);
             this.Button_VideoVolume.ForeColor = System.Drawing.Color.White;
             this.Button_VideoVolume.Location = new System.Drawing.Point(1, 97);
             this.Button_VideoVolume.Margin = new System.Windows.Forms.Padding(0);
@@ -314,12 +315,14 @@ namespace AniDeskimated
             this.Button_VideoVolume.Size = new System.Drawing.Size(32, 32);
             this.Button_VideoVolume.TabIndex = 17;
             this.Button_VideoVolume.TabStop = false;
+            this.Button_VideoVolume.Text = "";
             this.Button_VideoVolume.UseVisualStyleBackColor = false;
             this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
             // 
             // Button_NewMedia
             // 
             this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
             this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
             this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);

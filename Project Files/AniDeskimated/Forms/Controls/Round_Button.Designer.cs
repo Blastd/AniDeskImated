@@ -38,7 +38,9 @@
             this.Button_Part.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.Button_Part.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.Button_Part.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Part.Font = new System.Drawing.Font("Segoe UI Black", 14F);
             this.Button_Part.Location = new System.Drawing.Point(0, 0);
+            this.Button_Part.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Part.Name = "Button_Part";
             this.Button_Part.Size = new System.Drawing.Size(100, 40);
             this.Button_Part.TabIndex = 0;
@@ -61,6 +63,7 @@
             this.MinimumSize = new System.Drawing.Size(30, 30);
             this.Name = "Round_Button";
             this.Size = new System.Drawing.Size(100, 40);
+            this.Load += new System.EventHandler(this.Round_Button_Load);
             this.ResumeLayout(false);
 
         }

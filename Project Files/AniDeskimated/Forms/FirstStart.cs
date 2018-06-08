@@ -388,9 +388,8 @@ namespace AniDeskimated.Forms
                 Console.Write(Ex.Message);
                 MainFunctions.Log("Entered an invalid media file.");
                 Graphics ViewFrameG = ViewFrame.CreateGraphics();
-                ViewFrameG.DrawString("Try Another Image", new Font("Segoe Ui", 12),
-                    new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
-                    MainFunctions.String_Centre("Try Another Image", ViewFrameG, ViewFrame.Size, new Font("Segoe Ui Light", 12)));
+                ViewFrameG.DrawString("Try Another Image", new Font("Segoe Ui Black", 12),
+                    new SolidBrush(Color.FromArgb(255, 0, 148, 255)), MainFunctions.String_Centre("Try Another Image", ViewFrameG, ViewFrame.Size, new Font("Segoe Ui Black", 12)));
             }
         }
         #endregion

@@ -56,7 +56,7 @@ namespace AniDeskimated.Forms
             // 
             // BackMenuChoose
             // 
-            this.BackMenuChoose.BackColor = System.Drawing.Color.White;
+            this.BackMenuChoose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.BackMenuChoose.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BackMenu_Gif,
             this.BackMenu_WebComponent,
@@ -77,11 +77,12 @@ namespace AniDeskimated.Forms
             // 
             // BackMenu_WebComponent
             // 
+            this.BackMenu_WebComponent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.BackMenu_WebComponent.Font = new System.Drawing.Font("Segoe UI Black", 9F);
-            this.BackMenu_WebComponent.ForeColor = System.Drawing.Color.Gray;
+            this.BackMenu_WebComponent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.BackMenu_WebComponent.Name = "BackMenu_WebComponent";
             this.BackMenu_WebComponent.Size = new System.Drawing.Size(177, 22);
-            this.BackMenu_WebComponent.Text = "Not Implemented";
+            this.BackMenu_WebComponent.Text = "Online";
             // 
             // toolStripMenuItem1
             // 
@@ -110,6 +111,7 @@ namespace AniDeskimated.Forms
             // Button_Informations
             // 
             this.Button_Informations.BackColor = System.Drawing.Color.Transparent;
+            this.Button_Informations.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_Informations.Location = new System.Drawing.Point(0, 0);
             this.Button_Informations.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Informations.MinimumSize = new System.Drawing.Size(30, 30);
@@ -121,6 +123,7 @@ namespace AniDeskimated.Forms
             // Button_NewFile
             // 
             this.Button_NewFile.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewFile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_NewFile.Location = new System.Drawing.Point(135, 0);
             this.Button_NewFile.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewFile.MinimumSize = new System.Drawing.Size(30, 30);
@@ -132,6 +135,7 @@ namespace AniDeskimated.Forms
             // Button_Refuse
             // 
             this.Button_Refuse.BackColor = System.Drawing.Color.Transparent;
+            this.Button_Refuse.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_Refuse.Location = new System.Drawing.Point(455, 0);
             this.Button_Refuse.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Refuse.MinimumSize = new System.Drawing.Size(30, 30);
@@ -154,11 +158,11 @@ namespace AniDeskimated.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Light", 12F);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(191, 25);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Black", 12F);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(235)))), ((int)(((byte)(235)))));
+            this.label1.Location = new System.Drawing.Point(173, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(208, 21);
+            this.label1.Size = new System.Drawing.Size(245, 21);
             this.label1.TabIndex = 3;
             this.label1.Text = "Make your screen come to life";
             // 

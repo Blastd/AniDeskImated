@@ -362,7 +362,7 @@ namespace AniDeskimated.Forms.Interfaces
 {
     public partial class Color_Picker_Frame : Form
     {
-        public Color_Picker_Frame(){InitializeComponent();}
+        public Color_Picker_Frame()=>InitializeComponent();
         #region Functions
         [DllImport("User32.dll", CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         private static extern IntPtr LoadCursorFromFile(String str);
@@ -384,9 +384,9 @@ namespace AniDeskimated.Forms.Interfaces
         }
         private void Color_Picker_Frame_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui", 14),
+            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui Black", 14),
                        new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
-                       MainFunctions.String_Centre("Click anywhere to pick a color from the screen.", e.Graphics, this.Size, new Font("Segoe Ui", 14)));
+                       MainFunctions.String_Centre("Click anywhere to pick a color from the screen.", e.Graphics, this.Size, new Font("Segoe Ui Black", 14)));
         }
         #region Custom Cursor
         private void Color_Picker_Frame_Load(object sender, EventArgs e)

@@ -40,8 +40,8 @@
             // 
             this.Label_StatusPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Label_StatusPercentage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Label_StatusPercentage.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.Label_StatusPercentage.ForeColor = System.Drawing.Color.White;
+            this.Label_StatusPercentage.Font = new System.Drawing.Font("Segoe UI Black", 12F);
+            this.Label_StatusPercentage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.Label_StatusPercentage.Location = new System.Drawing.Point(0, 168);
             this.Label_StatusPercentage.Name = "Label_StatusPercentage";
             this.Label_StatusPercentage.Size = new System.Drawing.Size(370, 28);
@@ -82,12 +82,13 @@
             // 
             this.Button_Done.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Done.BackColor = System.Drawing.Color.Transparent;
-            this.Button_Done.Location = new System.Drawing.Point(135, 200);
+            this.Button_Done.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(120)))), ((int)(((byte)(110)))));
+            this.Button_Done.Location = new System.Drawing.Point(214, 169);
             this.Button_Done.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Done.MinimumSize = new System.Drawing.Size(30, 30);
             this.Button_Done.Name = "Button_Done";
-            this.Button_Done.Size = new System.Drawing.Size(100, 36);
-            this.Button_Done.TabIndex = 5;
+            this.Button_Done.Size = new System.Drawing.Size(30, 30);
+            this.Button_Done.TabIndex = 7;
             this.Button_Done.Click += new System.EventHandler(this.Button_Done_Click);
             // 
             // Control_Scale
@@ -95,8 +96,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Controls.Add(this.ScaleView);
             this.Controls.Add(this.Button_Done);
+            this.Controls.Add(this.ScaleView);
             this.Controls.Add(this.Label_StatusPercentage);
             this.Controls.Add(this.Scale_Tracker);
             this.DoubleBuffered = true;
@@ -111,10 +112,9 @@
         }
 
         #endregion
-
-        private Controls.Round_Button Button_Done;
         private System.Windows.Forms.Label Label_StatusPercentage;
         private System.Windows.Forms.TrackBar Scale_Tracker;
         private System.Windows.Forms.PictureBox ScaleView;
+        private Controls.Round_Button Button_Done;
     }
 }
