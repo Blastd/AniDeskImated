@@ -416,10 +416,19 @@ namespace AniDeskimated
         private void DeskSettings_Load(object sender, EventArgs e)
         {
             this.Hide();
+            CheckStartup();
             Replace_Text();
             CheckSetting();
             Viewpreview.Invalidate();
             StartShow();
+        }
+        private void CheckStartup()
+        {
+            using (var hkcu = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.CurrentUser, Microsoft.Win32.RegistryView.Registry64))
+                if (hkcu.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).GetValue("Animated Desktop - ADM") == null)
+                    Check_WindowsStartup.Checked = false;
+                else
+                    Check_WindowsStartup.Checked = true;
         }
         private void DeskSettings_Paint(object sender, PaintEventArgs e)
         {e.Graphics.DrawRectangle(new Pen(MainFunctions.VariableColor(this.BackColor, 25)), new Rectangle(new Point(0, 0), new Size(this.Width-1,this.Height-1)));}
@@ -521,5 +530,6 @@ namespace AniDeskimated
         private void Replace_Text()
         {Button_NewMedia.Button_Part.Text = "New background";}
         #endregion
+        private void Check_WindowsStartup_CheckedChanged(object sender, EventArgs e){MainFunctions.WinStartup(Check_WindowsStartup.Checked);}
     }
 }

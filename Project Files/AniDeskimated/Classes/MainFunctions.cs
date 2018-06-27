@@ -416,6 +416,19 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 hkcu.OpenSubKey(@"Software\ADM", true).SetValue(ValueName, Value);
         }
+        public static void WinStartup(bool boot_state)
+        {
+            if (boot_state) {
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                    hkcu.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).SetValue("Animated Desktop - ADM", 
+                        new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            }else
+            {
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                    hkcu.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).DeleteValue("Animated Desktop - ADM");
+            }
+            
+        }
         public static string ReadKey(string KeyName)
         {
             try
@@ -584,7 +597,7 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             { if (hkcu.OpenSubKey(@"Software\ADM").Equals(null) && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
-                else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false || ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; } 
+                else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false || ReadKey("contentPath") == null) { return 7777; } 
                 else if (ReadKey("colorFill") == null) { return 678277; }
                 else if (ReadKey("volumeValue") == null) { return 8677; }
                 else if (ReadKey("viewScale") == null) { return 8377; }

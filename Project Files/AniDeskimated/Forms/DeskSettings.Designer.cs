@@ -55,6 +55,7 @@ namespace AniDeskimated
             this.Button_Magnifier = new System.Windows.Forms.Button();
             this.Button_VideoVolume = new System.Windows.Forms.Button();
             this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Check_WindowsStartup = new System.Windows.Forms.CheckBox();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
@@ -334,12 +335,26 @@ namespace AniDeskimated
             this.Button_NewMedia.TabIndex = 9;
             this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
+            // Check_WindowsStartup
+            // 
+            this.Check_WindowsStartup.AutoSize = true;
+            this.Check_WindowsStartup.Font = new System.Drawing.Font("Segoe UI Black", 8.25F);
+            this.Check_WindowsStartup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.Check_WindowsStartup.Location = new System.Drawing.Point(154, 8);
+            this.Check_WindowsStartup.Name = "Check_WindowsStartup";
+            this.Check_WindowsStartup.Size = new System.Drawing.Size(133, 17);
+            this.Check_WindowsStartup.TabIndex = 18;
+            this.Check_WindowsStartup.Text = "Start with Windows";
+            this.Check_WindowsStartup.UseVisualStyleBackColor = true;
+            this.Check_WindowsStartup.CheckedChanged += new System.EventHandler(this.Check_WindowsStartup_CheckedChanged);
+            // 
             // DeskSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(440, 350);
+            this.Controls.Add(this.Check_WindowsStartup);
             this.Controls.Add(this.Button_VideoVolume);
             this.Controls.Add(this.Button_Magnifier);
             this.Controls.Add(this.Button_Exit);
@@ -370,6 +385,7 @@ namespace AniDeskimated
             this.App_Main_Interface_Container.ResumeLayout(false);
             this.Controls_Container.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -399,6 +415,7 @@ namespace AniDeskimated
         private Forms.Media_Settings.Control_Scale Acontrol_Scale;
         private System.Windows.Forms.Button Button_Magnifier;
         private System.Windows.Forms.Button Button_VideoVolume;
+        private System.Windows.Forms.CheckBox Check_WindowsStartup;
     }
 }
 
