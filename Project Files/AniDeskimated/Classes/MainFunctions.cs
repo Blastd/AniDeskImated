@@ -351,6 +351,7 @@ using System.Drawing;
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace AniDeskimated.Classes
 {
@@ -360,6 +361,9 @@ namespace AniDeskimated.Classes
         //Remember that the proportions code follows the formula     a1:a2=b1:x     where x is the given value
         public static double Proportion(double a1, double a2, double b1) { return (a2 * b1) / a1; }
         public static int IntProportion(double a1, double a2, double b1) { return (int)Math.Floor((decimal)((a2 * b1) / a1)); }
+        //Remember that the inverted proportions code follows the formula     a1*a2=b1*x     where x is the given value
+        public static double InvertedProportion(double a1, double a2, double b1) { return (a1 * a2) / b1; }
+        public static int IntInvertedProportion(double a1, double a2, double b1) { return (int)Math.Floor((decimal)((a1 * a2) / b1)); }
         #endregion
         #region Registry Management
         public static void ResetAsset()
@@ -368,7 +372,7 @@ namespace AniDeskimated.Classes
             try { Directory.Delete(Properties.Settings.Default.AppletPath + @"\ADM", true); } catch (Exception ex) { Log("Creating Directory"); }
             try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists."); }
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
-            ChangeAsset(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif");} catch (Exception ex)
+                ChangeAsset(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
             { Log("Cannot restore Placeholder Image. Closing..."); Application.Exit(); }
         }
         public static void ChangeAsset(string mediaFile)
@@ -379,7 +383,7 @@ namespace AniDeskimated.Classes
         }
         public static void ChangeVolume(int Value)
         {
-            SetKey("volumeValue",Value.ToString());
+            SetKey("volumeValue", Value.ToString());
             Update_View();
         }
         public static void ChangeScale(int Percentage)
@@ -412,6 +416,19 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 hkcu.OpenSubKey(@"Software\ADM", true).SetValue(ValueName, Value);
         }
+        public static void WinStartup(bool boot_state)
+        {
+            if (boot_state) {
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                    hkcu.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).SetValue("Animated Desktop - ADM", 
+                        new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+            }else
+            {
+                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+                    hkcu.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true).DeleteValue("Animated Desktop - ADM");
+            }
+            
+        }
         public static string ReadKey(string KeyName)
         {
             try
@@ -433,16 +450,18 @@ namespace AniDeskimated.Classes
         }
         #endregion
         #region Graphics
+        #region Center String
         public static Point String_Centre(string Txt, Graphics Ctrl_G, Size Ctrl_size, Font font_type, int offset_x, int offset_y)
         {
-            return new Point(((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1)-offset_x,
-                (Ctrl_size.Height / 2) - ((Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1)-offset_y);
+            return new Point(((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1) - offset_x,
+                (Ctrl_size.Height / 2) - ((Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1) - offset_y);
         }
         public static Point String_Centre(string Txt, Graphics Ctrl_G, Size Ctrl_size, Font font_type)
         {
             return new Point(((Ctrl_size.Width / 2) - (Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Width) / 2)) + 1),
                 (Ctrl_size.Height / 2) - ((Convert.ToInt32(Math.Ceiling(Ctrl_G.MeasureString(Txt, font_type).Height) / 2)) + 1));
         }
+        #endregion
         public static Color SuitableContrast(Color Color_input)
         {
             {
@@ -450,26 +469,23 @@ namespace AniDeskimated.Classes
                 { return Color.White; } else { return Color.Black; }
             }
         }
-        public static int ColorContrast(Color Base, int value)
-        {
+        public static int ColorContrast(Color Base, int value){
             if (((Base.R + Base.G + Base.B) / 3) <= 127.5)
                 return value * 1;
             else
                 return value * -1;
         }
-        public static Color VariableColor(Color Base, int DeltaR,int DeltaG,int DeltaB)
-        {
-            int ResR, ResG, ResB;
-            ResR = Base.R + DeltaR;
-            ResG = Base.G + DeltaG;
-            ResB = Base.B + DeltaB;
-            if (ResR < 0) { ResR = 0; } else if(ResR > 255) { ResR = 255; }
-            if (ResG < 0) { ResG = 0; } else if (ResG > 255) { ResG = 255; }
-            if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
-            return Color.FromArgb(Base.A, ResR, ResG, ResB);
-        }
-        public static Color VariableColor(Color Base, int Delta)
-        {
+       //public static Color VariableColor(Color Base, int DeltaR, int DeltaG, int DeltaB){
+       //    int ResR, ResG, ResB;
+       //    ResR = Base.R + DeltaR;
+       //    ResG = Base.G + DeltaG;
+       //    ResB = Base.B + DeltaB;
+       //    if (ResR < 0) { ResR = 0; } else if (ResR > 255) { ResR = 255; }
+       //    if (ResG < 0) { ResG = 0; } else if (ResG > 255) { ResG = 255; }
+       //    if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
+       //    return Color.FromArgb(Base.A, ResR, ResG, ResB);
+       //}
+        public static Color VariableColor(Color Base, int Delta){
             int ResR, ResG, ResB;
             ResR = Base.R + Delta;
             ResG = Base.G + Delta;
@@ -479,79 +495,69 @@ namespace AniDeskimated.Classes
             if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
             return Color.FromArgb(Base.A, ResR, ResG, ResB);
         }
-        public static string Color_to_hex(Color Oc)
-        {return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2");}
-        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color)
+        public static string Color_to_hex(Color Oc){ return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2"); }
+        //public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color)
+        //{
+        //    Width = Width - 1;
+        //    Height = Height - 1;
+        //    e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        //    Point[] Lns = new Point[6];
+        //    int ArcWidth = IntProportion(35, 35, Height);
+        //    int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
+        //    Lns[0] = new Point(ArcHalf, 0);
+        //    Lns[1] = new Point(Width - ArcHalf, 0);
+        //    Lns[2] = new Point(ArcHalf, Height - 1);
+        //    Lns[3] = new Point(Width - ArcHalf, Height - 1);
+        //    Lns[4] = new Point(0, 0);
+        //    Lns[5] = new Point(Width - ArcWidth - 1, 0);
+        //    Size ArcS = new Size(ArcWidth, Height - 1);
+        //    e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height), 0, 360);
+        //    e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
+        //    e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height, 0, Width - (Height * 2), Height));
+        //    e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
+        //    e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
+        //    e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
+        //    e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
+        //}
+        //public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color)
+        //{
+        //    Width -= 2;
+        //    Height -= 2;
+        //    e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+        //    Point[] Lns = new Point[6];
+        //    int ArcWidth = Height;
+        //    int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
+        //    Lns[0] = new Point(ArcHalf - 1, 1);
+        //    Lns[1] = new Point(Width - ArcHalf, 1);
+        //    Lns[2] = new Point(ArcHalf - 1, Height - 1);
+        //    Lns[3] = new Point(Width - ArcHalf, Height - 1);
+        //    Lns[4] = new Point(1, 1);
+        //    Lns[5] = new Point(Width - ArcWidth - 1, 1);
+        //    Size ArcS = new Size(ArcWidth, Height - 2);
+        //    e.DrawLine(new Pen(new SolidBrush(Line_Color), 2), Lns[0], Lns[1]);
+        //    e.DrawLine(new Pen(new SolidBrush(Line_Color), 2), Lns[2], Lns[3]);
+        //    e.DrawArc(new Pen(new SolidBrush(Line_Color), 2), new Rectangle(Lns[4], ArcS), -90, -180);
+        //    e.DrawArc(new Pen(new SolidBrush(Line_Color), 2), new Rectangle(Lns[5], ArcS), -90, 180);
+        //}
+        public static void Draw_Terminator(Graphics e, Color Line_Color,Control C)
         {
-            Width = Width - 1;
-            Height = Height - 1;
             e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            Point[] Lns = new Point[6];
-            int ArcWidth = IntProportion(35, 35, Height);
-            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
-            Lns[0] = new Point(ArcHalf, 0);
-            Lns[1] = new Point(Width - ArcHalf, 0);
-            Lns[2] = new Point(ArcHalf, Height - 1);
-            Lns[3] = new Point(Width - ArcHalf, Height - 1);
-            Lns[4] = new Point(0, 0);
-            Lns[5] = new Point(Width - ArcWidth - 1, 0);
-            Size ArcS = new Size(ArcWidth, Height - 1);
-            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height),0,360);
-            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
-            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height, 0, Width - (Height * 2), Height));
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
-        }
-        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color, Color Back_Color, string Prompt, int FontSize, FontStyle FontSt, Color Color_Font)
-        {
-            Width = Width - 1;
-            Height = Height - 1;
-            e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            Point[] Lns = new Point[6];
-            int ArcWidth = IntProportion(35, 35, Height);
-            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
-            Lns[0] = new Point(ArcHalf, 0);
-            Lns[1] = new Point(Width - ArcHalf, 0);
-            Lns[2] = new Point(ArcHalf, Height - 1);
-            Lns[3] = new Point(Width - ArcHalf, Height - 1);
-            Lns[4] = new Point(0, 0);
-            Lns[5] = new Point(Width - ArcWidth - 1, 0);
-            Size ArcS = new Size(ArcWidth, Height - 1);
-            e.FillPie(new SolidBrush(Back_Color), new Rectangle(0, 0, Height, Height), 0, 360);
-            e.FillPie(new SolidBrush(Back_Color), new Rectangle(Width - Height, 0, Height, Height), 0, 360);
-            e.FillRectangle(new SolidBrush(Back_Color), new Rectangle(Height / 2, 0, Width - ((Height * 2) / 2), Height));
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
-            e.DrawString(Prompt, new Font("Dubai", FontSize), new SolidBrush(Color_Font), 
-                MainFunctions.String_Centre(Prompt, e, new Size(Width,Height), new Font("Dubai", FontSize, FontSt),0,-3));
-        }
-        public static void Draw_Terminator(Graphics e, int Width, int Height, Color Line_Color)
-        {
-            Width = Width - 1;
-            Height = Height - 1;
-            e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            Point[] Lns = new Point[6];
-            int ArcWidth = IntProportion(35, 35, Height);
-            int ArcHalf = Convert.ToInt32(Math.Floor((double)(ArcWidth / 2)));
-            Lns[0] = new Point(ArcHalf, 0);
-            Lns[1] = new Point(Width - ArcHalf, 0);
-            Lns[2] = new Point(ArcHalf, Height - 1);
-            Lns[3] = new Point(Width - ArcHalf, Height - 1);
-            Lns[4] = new Point(0, 0);
-            Lns[5] = new Point(Width - ArcWidth - 1, 0);
-            Size ArcS = new Size(ArcWidth, Height - 1);
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[0], Lns[1]);
-            e.DrawLine(new Pen(new SolidBrush(Line_Color), 1), Lns[2], Lns[3]);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[4], ArcS), -90, -180);
-            e.DrawArc(new Pen(new SolidBrush(Line_Color), 1), new Rectangle(Lns[5], ArcS), -90, 180);
+            GraphicsPath Terminator = new GraphicsPath();
+            Terminator.AddArc(new Rectangle(C.DisplayRectangle.Location, new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 270, -90);
+            Terminator.AddArc(new Rectangle(C.DisplayRectangle.Location, new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 180, -90);
+
+            Terminator.AddArc(new Rectangle(new Point(C.DisplayRectangle.Width - C.DisplayRectangle.Height-1, C.DisplayRectangle.Top),
+                new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 90, -90);
+
+            Terminator.AddArc(new Rectangle(new Point(C.DisplayRectangle.Width - C.DisplayRectangle.Height-1, C.DisplayRectangle.Top),
+                new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 0, -90);
+
+            Terminator.CloseFigure();
+            e.DrawPath(new Pen(Line_Color), Terminator);
         }
         #endregion
         #region Logging
-        public static void Log(string add_msg, Exception ex) { Write_Log(add_msg + ": " + ex.Message); }
+            public static void Log(string add_msg, Exception ex) { Write_Log(add_msg + ": " + ex.Message); }
         public static void Log(string msg) { Write_Log(msg); }
         public static void Write_Log(string msg)
         {
@@ -581,24 +587,45 @@ namespace AniDeskimated.Classes
                 Application.Run(new DeskSettings());
             }
             if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey("colorFill", "0-0-0"); CheckData(); }//R. M. Registry Missing
-            if (CheckResult() == 7077) { ResetAsset(); } //F. M. Files Missing
             if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
             if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
             if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
             if (CheckResult() == 7777) { SetKey("viewScale", "100"); CheckData(); }// M.M. Media Missing
-
         }
         public static int CheckResult()
         {
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-            { if (hkcu.OpenSubKey(@"Software\ADM") == null && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
+            { if (hkcu.OpenSubKey(@"Software\ADM").Equals(null) && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
-                else if (Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7077; }// Files Missing
-                else if (ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; }
+                else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false || ReadKey("contentPath") == null) { return 7777; } 
                 else if (ReadKey("colorFill") == null) { return 678277; }
                 else if (ReadKey("volumeValue") == null) { return 8677; }
                 else if (ReadKey("viewScale") == null) { return 8377; }
-                else { return 6582; } }
+                else { return 6582; }
+        }}
+        #endregion
+        #region Online Data Processing
+        public static int ParseLink(string input_link)
+        {
+            if (input_link.Contains("youtu.be") || input_link.Contains("youtube.com"))
+            {
+                return 2;
+            }
+            if (Uri.TryCreate(input_link, UriKind.RelativeOrAbsolute, out Uri X))
+            {
+                ChangeAsset(X.ToString());
+                return 1;
+            }
+            else return 0;
+        }
+        public static string YoutubeIdParse(string fullUrl)
+        {
+            return fullUrl.Replace("youtu.be/", "")
+                .Replace("http://", "")
+                .Replace("https://", "")
+                .Replace("www.youtube.com/watch?v=", "")
+                .Replace("www.youtube.com/v/", "")
+                .Replace("www.youtube.com/embed/", "").Split('?')[0];
         }
         #endregion
         #region Media View
@@ -606,7 +633,23 @@ namespace AniDeskimated.Classes
         private static Random rnd = new Random();
         #endregion
         public static int File_Ext(string filename)
-        {FileInfo media_handle = new FileInfo(filename);if (media_handle.Extension.Contains("mp4") || media_handle.Extension.Contains("MP4")) { return 1; } else { return 0; }}
+        {
+            if (Uri.TryCreate(filename, UriKind.Absolute, out var n))
+            {
+                if (filename.Contains("mp4") || filename.Contains("webm"))
+                {
+                    return 1;
+                }
+                else if (filename.Contains("youtu") && filename.Contains("be"))
+                {
+                    return 2;
+                }
+                else
+                    return 0;
+            }
+            else
+                return -1;
+        }
         public static void Update_View()
         {if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
             { Delete_Player_Files(); }
@@ -627,20 +670,65 @@ namespace AniDeskimated.Classes
             { Log("Cannot create Player media files. Closing Application...", Ex);Application.Exit(); }}
         public static string Generate_HTML_Code(int filetype)
         {
-            if (filetype == 1)
+            if (filetype == 1) {
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile"" Class=""videofile""> 
                     <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" ><script>"
                     + @"var vid = document.getElementById(""videofile"");function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey("volumeValue"))/100).ToString().Replace(',','.')
-                    + ";}setVolume();</script></video></div></body ></html >";
-            else
+                    + ";}setVolume();</script></video></div></body></html>";}
+            else if (filetype == 0) {
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: "+ ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""imgcontainer""><img class=""imgfile"" src='" +
-                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></ body ></ html >";
+                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></body></html>";}
+            else if (filetype == 2) {
+                #region code samples provided by Google https://developers.google.com/youtube/iframe_api_reference
+                /*return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
+                    <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
+                    .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") +
+                    @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
+                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer"">
+                    <div id=""videofile"" class=""videofile"" allow=""autoplay"">
+                    <script>
+                    var tag = document.createElement('script');
+                    tag.src = ""https://www.youtube.com/iframe_api"";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                    var player;
+                    function onYouTubeIframeAPIReady() {
+                      player = new YT.Player('videofile', {
+                        height: '3000',
+                        width: '3000',
+                    videoId: '" + YoutubeIdParse(ReadKey("contentPath")) + @"',
+                    playerVars: {
+                                'autoplay': 1,
+								'mute': 1,
+                                'controls': 0,           
+                                'showinfo': 0,
+                                'rel': 0,
+								'loop': 1,
+                                'origin': null},
+                    events: {
+                               'onReady': onPlayerReady,
+							   'onStateChange': onPlayerStateChange
+                             }
+                           });
+                         }
+                    function onPlayerReady(event) {
+                    event.target.setVolume(10);
+                    event.target.playVideo();
+					event.target.unMute();
+                    }
+					function onPlayerStateChange(event) {
+					        
+					}</script></div></div></body ></html >";*/
+                #endregion
+                return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Youtube Links are not supported</p>";
+            }
+            else { return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Unsupported file type or Link not working</p>"; }
         }
         public static void Delete_Player_Files(){try{File.Delete(Properties.Settings.Default.HTML_Location);}
         catch (Exception Ex)

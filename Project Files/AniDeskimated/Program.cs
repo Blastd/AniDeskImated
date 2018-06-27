@@ -359,9 +359,9 @@ namespace AniDeskimated
         static void Main(string[] args)
             {Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Properties.Settings.Default.AppletPath = (Directory.GetParent(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath)).FullName;
+            Properties.Settings.Default.AppletPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             #region Check Arguments
-            try{if (args[0] == "nolog") { Properties.Settings.Default.nolog = true; }
+            try{if (args[0] == "log") { Properties.Settings.Default.nolog = false; }
             }catch(Exception ex) { MainFunctions.Log("No startup arguments given."); }
             #endregion
             MainFunctions.CheckData();
