@@ -104,7 +104,6 @@ namespace AniDeskimated
             // 
             this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4";
             this.GetMediaFile.InitialDirectory = "%USERPROFILE%\\Pictures";
-            this.GetMediaFile.ShowHelp = true;
             this.GetMediaFile.Title = "Select a Media File";
             this.GetMediaFile.FileOk += new System.ComponentModel.CancelEventHandler(this.GetMediaFile_FileOk);
             this.GetMediaFile.HelpRequest += new System.EventHandler(this.GetMediaFile_HelpRequest);

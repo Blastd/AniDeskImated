@@ -369,7 +369,6 @@ namespace AniDeskimated.Classes
         public static void ResetAsset()
         {
             Log("Resetting Asset...");
-            try { Directory.Delete(Properties.Settings.Default.AppletPath + @"\ADM", true); } catch (Exception ex) { Log("Creating Directory"); }
             try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists."); }
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
                 ChangeAsset(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
@@ -595,7 +594,7 @@ namespace AniDeskimated.Classes
         public static int CheckResult()
         {
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-            { if (hkcu.OpenSubKey(@"Software\ADM").Equals(null) && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
+            { if (hkcu.OpenSubKey(@"Software\ADM") == null && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
                 else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false || ReadKey("contentPath") == null) { return 7777; } 
                 else if (ReadKey("colorFill") == null) { return 678277; }
