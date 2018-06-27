@@ -584,7 +584,7 @@ namespace AniDeskimated.Classes
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             { if (hkcu.OpenSubKey(@"Software\ADM").Equals(null) && Directory.Exists(@Properties.Settings.Default.AppletPath + @"\ADM\") == false) { return 7873; } //Not Initialized
                 else if (hkcu.OpenSubKey(@"Software\ADM") == null) { return 8277; } //Registry Missing
-                else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false && ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; } 
+                else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false || ReadKey("contentPath") == null || File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false) { return 7777; } 
                 else if (ReadKey("colorFill") == null) { return 678277; }
                 else if (ReadKey("volumeValue") == null) { return 8677; }
                 else if (ReadKey("viewScale") == null) { return 8377; }
@@ -594,12 +594,25 @@ namespace AniDeskimated.Classes
         #region Online Data Processing
         public static int ParseLink(string input_link)
         {
+            if (input_link.Contains("youtu.be") || input_link.Contains("youtube.com"))
+            {
+                return 2;
+            }
             if (Uri.TryCreate(input_link, UriKind.RelativeOrAbsolute, out Uri X))
             {
                 ChangeAsset(X.ToString());
                 return 1;
             }
             else return 0;
+        }
+        public static string YoutubeIdParse(string fullUrl)
+        {
+            return fullUrl.Replace("youtu.be/", "")
+                .Replace("http://", "")
+                .Replace("https://", "")
+                .Replace("www.youtube.com/watch?v=", "")
+                .Replace("www.youtube.com/v/", "")
+                .Replace("www.youtube.com/embed/", "").Split('?')[0];
         }
         #endregion
         #region Media View
@@ -608,26 +621,21 @@ namespace AniDeskimated.Classes
         #endregion
         public static int File_Ext(string filename)
         {
-            FileInfo media_handle;
-            try { media_handle = new FileInfo(filename); } catch (Exception x) { }
-            if (Uri.TryCreate(filename, UriKind.RelativeOrAbsolute, out var n))
+            if (Uri.TryCreate(filename, UriKind.Absolute, out var n))
             {
-                if (n.IsFile)
+                if (filename.Contains("mp4") || filename.Contains("webm"))
                 {
-                    media_handle = new FileInfo(n.LocalPath);
+                    return 1;
                 }
-                else if (n.AbsoluteUri.Contains("youtu") && n.AbsolutePath.Contains("be"))
+                else if (filename.Contains("youtu") && filename.Contains("be"))
                 {
-                    ResetAsset();
-                    //return 2;
+                    return 2;
                 }
-            }
-            if (filename.Contains("mp4") || filename.Contains("webm"))
-            {
-                return 1;
+                else
+                    return 0;
             }
             else
-                return 0;
+                return -1;
         }
         public static void Update_View()
         {if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
@@ -656,16 +664,59 @@ namespace AniDeskimated.Classes
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer""><video loop preload autoplay Id=""videofile"" Class=""videofile""> 
                     <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey("contentPath")).AbsoluteUri + @""" ><script>"
                     + @"var vid = document.getElementById(""videofile"");function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey("volumeValue"))/100).ToString().Replace(',','.')
-                    + ";}setVolume();</script></video></div></body ></html >";}
+                    + ";}setVolume();</script></video></div></body></html>";}
             else if (filetype == 0) {
                 return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .imgcontainer {display: grid;height: 100%;position: relative;}.imgfile {max-width: "+ ReadKey("viewScale") + @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
                     </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""imgcontainer""><img class=""imgfile"" src='" +
-                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></ body ></ html >";}
-            else {
-                return "YoutubeVideo";
-        }}
+                     new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></body></html>";}
+            else if (filetype == 2) {
+                #region code samples provided by Google https://developers.google.com/youtube/iframe_api_reference
+                /*return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
+                    <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
+                    .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") +
+                    @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
+                    </style><body bgcolor=""#" + Color_to_hex(Color_Check()) + @"""> <div class=""videocontainer"">
+                    <div id=""videofile"" class=""videofile"" allow=""autoplay"">
+                    <script>
+                    var tag = document.createElement('script');
+                    tag.src = ""https://www.youtube.com/iframe_api"";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                    var player;
+                    function onYouTubeIframeAPIReady() {
+                      player = new YT.Player('videofile', {
+                        height: '3000',
+                        width: '3000',
+                    videoId: '" + YoutubeIdParse(ReadKey("contentPath")) + @"',
+                    playerVars: {
+                                'autoplay': 1,
+								'mute': 1,
+                                'controls': 0,           
+                                'showinfo': 0,
+                                'rel': 0,
+								'loop': 1,
+                                'origin': null},
+                    events: {
+                               'onReady': onPlayerReady,
+							   'onStateChange': onPlayerStateChange
+                             }
+                           });
+                         }
+                    function onPlayerReady(event) {
+                    event.target.setVolume(10);
+                    event.target.playVideo();
+					event.target.unMute();
+                    }
+					function onPlayerStateChange(event) {
+					        
+					}</script></div></div></body ></html >";*/
+                #endregion
+                return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Youtube Links are not supported</p>";
+            }
+            else { return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Unsupported file type or Link not working</p>"; }
+        }
         public static void Delete_Player_Files(){try{File.Delete(Properties.Settings.Default.HTML_Location);}
         catch (Exception Ex)
             { Console.Write(Ex.Message);

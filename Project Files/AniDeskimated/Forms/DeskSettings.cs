@@ -393,17 +393,32 @@ namespace AniDeskimated
         }
         private void DeskSettings_MouseUp(object sender, MouseEventArgs e) { isHooked = false; }
         #endregion
+        private void Viewpreview_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
+            {
+                e.Graphics.DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(Color.White),
+                    MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = false;
+            }
+            else
+            {
+                e.Graphics.DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(Color.White),
+                    MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = true;
+            }
+        }
         private void Button_VideoVolume_Click(object sender, EventArgs e) { BVolume_Control.Visible = true;}
         private void Button_Magnifier_Click(object sender, EventArgs e) { Acontrol_Scale.Visible = true; }
         private void DeskSettings_Load(object sender, EventArgs e)
         {
             this.Hide();
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
-            {Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));Viewpreview.SizeMode = PictureBoxSizeMode.Zoom;Button_VideoVolume.Enabled = false; }
-            else{Viewpreview.Image = FS_UI.VideoFormat;Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;}
             Replace_Text();
             CheckSetting();
-            FileExtRefresh();
+            Viewpreview.Invalidate();
             StartShow();
         }
         private void DeskSettings_Paint(object sender, PaintEventArgs e)
@@ -452,39 +467,36 @@ namespace AniDeskimated
         {
             this.Show();
             this.WindowState = FormWindowState.Normal;
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 0)
-                Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath"));
-            else
-                Viewpreview.Image = FS_UI.VideoFormat;
-            Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;
         }
         #endregion
         #endregion
         #region Changing Image
         private void Button_NewMedia_Click(object sender, EventArgs e)
         { BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height); }
+        private void GetMediaFile_HelpRequest(object sender, EventArgs e) { MessageBox.Show("Supported Files: gif jpg jpeg bmp wmf png mp4"); }
         private void BackMenu_Gif_Click(object sender, EventArgs e) => GetMediaFile.ShowDialog();
         private void BackMenu_WebComponent_Click(object sender, EventArgs e) {
             Form X = new Forms.Controls.LinkInput();
             X.ShowDialog();
-            FileExtRefresh();
-        }
-        private void FileExtRefresh()
-        {
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 1)
-            {
-                Viewpreview.Image = FS_UI.VideoFormat;
-                Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage;
-                Button_VideoVolume.Enabled = true;
-            }
-            else
-            { Viewpreview.Image = Image.FromFile(MainFunctions.ReadKey("contentPath")); Button_VideoVolume.Enabled = false; }
+            Viewpreview.Invalidate();
         }
         private void GetMediaFile_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {try
-            {if(MainFunctions.File_Ext(GetMediaFile.FileName)==0){Viewpreview.Image = Image.FromFile(GetMediaFile.FileName); Button_VideoVolume.Enabled = false; }
-                else { Viewpreview.Image = FS_UI.VideoFormat;Viewpreview.SizeMode = PictureBoxSizeMode.CenterImage; Button_VideoVolume.Enabled = true; }
-                MainFunctions.ChangeAsset(GetMediaFile.FileName);
+        {try{
+            if (MainFunctions.File_Ext(GetMediaFile.FileName) == 0)
+            {
+                Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(MainFunctions.Color_Check()),
+                    MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = false;
+            }
+            else
+            {
+                Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(MainFunctions.Color_Check()),
+                    MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = true;
+            }
+            MainFunctions.ChangeAsset(GetMediaFile.FileName);
             }catch(Exception Ex){
                 Console.Write(Ex.Message);MainFunctions.Log("Entered an invalid media file."); Graphics ViewFrame = Viewpreview.CreateGraphics();
                  ViewFrame.DrawString("Try Another Image", new Font("Segoe Ui Black", 12),
@@ -509,7 +521,5 @@ namespace AniDeskimated
         private void Replace_Text()
         {Button_NewMedia.Button_Part.Text = "New background";}
         #endregion
-
-        
     }
 }

@@ -103,8 +103,10 @@ namespace AniDeskimated
             // 
             this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4";
             this.GetMediaFile.InitialDirectory = "%USERPROFILE%\\Pictures";
+            this.GetMediaFile.ShowHelp = true;
             this.GetMediaFile.Title = "Select a Media File";
             this.GetMediaFile.FileOk += new System.ComponentModel.CancelEventHandler(this.GetMediaFile_FileOk);
+            this.GetMediaFile.HelpRequest += new System.EventHandler(this.GetMediaFile_HelpRequest);
             // 
             // BackMenuChoose
             // 
@@ -221,6 +223,7 @@ namespace AniDeskimated
             this.Viewpreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Viewpreview.TabIndex = 3;
             this.Viewpreview.TabStop = false;
+            this.Viewpreview.Paint += new System.Windows.Forms.PaintEventHandler(this.Viewpreview_Paint);
             // 
             // Button_Exit
             // 
@@ -322,7 +325,7 @@ namespace AniDeskimated
             // Button_NewMedia
             // 
             this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(110)))), ((int)(((byte)(110)))));
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(144)))), ((int)(((byte)(0)))));
             this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
             this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);

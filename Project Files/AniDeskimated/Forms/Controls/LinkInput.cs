@@ -28,6 +28,11 @@ namespace AniDeskimated.Forms.Controls
                 Link_Try.Visible = true;
                 input_box.ReadOnly = false;
                 message_label.Text = "Something tells me that this address is wrong. Retry?";
+            } else if(MainFunctions.ParseLink(input_box.Text) == 2)
+            {
+                Link_Try.Visible = true;
+                input_box.ReadOnly = false;
+                message_label.Text = "I am so sorry, but Youtube links aren't supported.";
             }
             else this.Close();
         }
@@ -36,6 +41,7 @@ namespace AniDeskimated.Forms.Controls
             Link_Try.Button_Part.Font = new Font("Segoe MDL2 Assets", Link_Try.Font.Size, FontStyle.Regular);
             Link_Try.Button_Part.Text = "";
         }
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Close(); }
         #endregion
         #endregion
     }
