@@ -102,7 +102,8 @@ namespace AniDeskimated
             // 
             // GetMediaFile
             // 
-            this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4";
+            this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4;*.dll|ADT Files|*.dll|" +
+    "Image files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png|Video files|*.mp4;*.webm";
             this.GetMediaFile.InitialDirectory = "%USERPROFILE%\\Pictures";
             this.GetMediaFile.Title = "Select a Media File";
             this.GetMediaFile.FileOk += new System.ComponentModel.CancelEventHandler(this.GetMediaFile_FileOk);
@@ -325,7 +326,7 @@ namespace AniDeskimated
             // Button_NewMedia
             // 
             this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(144)))), ((int)(((byte)(0)))));
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
             this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);

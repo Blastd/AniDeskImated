@@ -383,6 +383,15 @@ namespace AniDeskimated
         #endregion
         #region Events
         #region Form
+        private void DeskSettings_Load(object sender, EventArgs e)
+        {
+            this.Hide();
+            CheckStartup();
+            Replace_Text();
+            CheckSetting();
+            Viewpreview.Invalidate();
+            StartShow();
+        }
         #region Form Move
         private void DeskSettings_MouseDown(object sender, MouseEventArgs e) { isHooked = true; beforeMove = new Point(e.X,e.Y); }
         private void DeskSettings_MouseMove(object sender, MouseEventArgs e)
@@ -402,6 +411,15 @@ namespace AniDeskimated
                     new SolidBrush(Color.White),
                     MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
+                Button_Magnifier.Enabled = true;
+            }
+            else if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 3)
+            {
+                Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(Color.White),
+                    MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = false;
+                Button_Magnifier.Enabled = false;
             }
             else
             {
@@ -409,19 +427,13 @@ namespace AniDeskimated
                     new SolidBrush(Color.White),
                     MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = true;
+                Button_Magnifier.Enabled = true;
             }
         }
-        private void Button_VideoVolume_Click(object sender, EventArgs e) { BVolume_Control.Visible = true;}
+        #region Media Control
+        private void Button_VideoVolume_Click(object sender, EventArgs e) { BVolume_Control.Visible = true; }
         private void Button_Magnifier_Click(object sender, EventArgs e) { Acontrol_Scale.Visible = true; }
-        private void DeskSettings_Load(object sender, EventArgs e)
-        {
-            this.Hide();
-            CheckStartup();
-            Replace_Text();
-            CheckSetting();
-            Viewpreview.Invalidate();
-            StartShow();
-        }
+        #endregion
         private void CheckStartup()
         {
             using (var hkcu = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.CurrentUser, Microsoft.Win32.RegistryView.Registry64))
@@ -482,7 +494,7 @@ namespace AniDeskimated
         #region Changing Image
         private void Button_NewMedia_Click(object sender, EventArgs e)
         { BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height); }
-        private void GetMediaFile_HelpRequest(object sender, EventArgs e) { MessageBox.Show("Supported Files: gif jpg jpeg bmp wmf png mp4"); }
+        private void GetMediaFile_HelpRequest(object sender, EventArgs e) { MessageBox.Show("Supported Files: gif jpg jpeg bmp wmf png mp4 webm dll"); }
         private void BackMenu_Gif_Click(object sender, EventArgs e) => GetMediaFile.ShowDialog();
         private void BackMenu_WebComponent_Click(object sender, EventArgs e) {
             Form X = new Forms.Controls.LinkInput();
@@ -493,18 +505,31 @@ namespace AniDeskimated
         {try{
             if (MainFunctions.File_Ext(GetMediaFile.FileName) == 0)
             {
+                    Viewpreview.CreateGraphics().Clear(Color.FromArgb(255,32,32,32));
                 Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
-                    new SolidBrush(MainFunctions.Color_Check()),
+                    new SolidBrush(Color.White),
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
+                    Button_Magnifier.Enabled = true;
             }
-            else
+            else if (MainFunctions.File_Ext(GetMediaFile.FileName) == 3)
             {
-                Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
-                    new SolidBrush(MainFunctions.Color_Check()),
+                Viewpreview.CreateGraphics().Clear(Color.FromArgb(255, 32, 32, 32));
+                Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(Color.White),
+                    MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
+                Button_VideoVolume.Enabled = false;
+                    Button_Magnifier.Enabled = false;
+            }
+                else
+            {
+                    Viewpreview.CreateGraphics().Clear(Color.FromArgb(255, 32, 32, 32));
+                    Viewpreview.CreateGraphics().DrawString("", new Font("Segoe MDL2 Assets", 40, FontStyle.Regular),
+                    new SolidBrush(Color.White),
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = true;
-            }
+                    Button_Magnifier.Enabled = true;
+                }
             MainFunctions.ChangeAsset(GetMediaFile.FileName);
             }catch(Exception Ex){
                 Console.Write(Ex.Message);MainFunctions.Log("Entered an invalid media file."); Graphics ViewFrame = Viewpreview.CreateGraphics();

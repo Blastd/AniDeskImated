@@ -107,6 +107,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Win32.cs" />
+    <Compile Include="Forms\Controls\LinkInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\LinkInput.Designer.cs">
+      <DependentUpon>LinkInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Controls\Loading_Animation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Controls\Loading_Animation.designer.cs">
+      <DependentUpon>Loading_Animation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Controls\Round_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,6 +175,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\Controls\LinkInput.resx">
+      <DependentUpon>LinkInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Controls\Loading_Animation.resx">
+      <DependentUpon>Loading_Animation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Controls\Round_Button.resx">
       <DependentUpon>Round_Button.cs</DependentUpon>
     </EmbeddedResource>
