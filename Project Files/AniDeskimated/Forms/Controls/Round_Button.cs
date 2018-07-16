@@ -32,7 +32,7 @@ namespace AniDeskimated.Forms.Controls
                 Graphics Up = Button_Part.CreateGraphics();
                 MainFunctions.Draw_Terminator(Up,
                 MainFunctions.VariableColor(MainFunctions.Color_Check(), MainFunctions.ColorContrast(MainFunctions.Color_Check(), 10)),this);
-            }catch (Exception Ex){}
+            }catch (Exception Ex){ Console.WriteLine(Ex.Message);MainFunctions.Log(Ex.Message); }
         }
         private void Button_Part_MouseLeave(object sender, EventArgs e) =>Button_Part.Invalidate();
         private void Button_Part_Click(object sender, EventArgs e) =>this.InvokeOnClick(this,e);

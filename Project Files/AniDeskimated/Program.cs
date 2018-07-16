@@ -362,7 +362,7 @@ namespace AniDeskimated
             Properties.Settings.Default.AppletPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             #region Check Arguments
             try{if (args[0] == "log") { Properties.Settings.Default.nolog = false; }
-            }catch(Exception ex) { MainFunctions.Log("No startup arguments given."); }
+            }catch(Exception ex) { MainFunctions.Log("No startup arguments given.",ex); Console.WriteLine("No startup arguments given." + ex.Message); }
             #endregion
             MainFunctions.CheckData();
         }        

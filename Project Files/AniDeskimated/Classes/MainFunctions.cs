@@ -373,15 +373,13 @@ namespace AniDeskimated.Classes
         public static void ResetAsset()
         {
             Log("Resetting Asset...");
-            try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists."); }
+            try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists.",ex); Console.WriteLine(ex.Message); }
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
                 ChangeAsset(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
-            { Log("Cannot restore Placeholder Image. Closing..."); Application.Exit(); }
+            { Log("Cannot restore Placeholder Image. Closing. - " + ex.Message); Application.Exit(); }
         }
         public static void ChangeAsset(string mediaFile)
         {
-            foreach (Control CRem in DeskSettings.backform.Controls) { CRem.Dispose(); }
-            DelVal("contentPath");
             SetKey("contentPath", mediaFile);
             Update_View();
         }
@@ -408,7 +406,7 @@ namespace AniDeskimated.Classes
                 Color_Test = Color.FromArgb(255, Convert.ToInt32(Reg_Value[0]), Convert.ToInt32(Reg_Value[1]), Convert.ToInt32(Reg_Value[2]));
                 return Color_Test;
             }
-            catch (Exception Ex) { MainFunctions.SetKey("colorFill", "000-000-000"); return Color_Check(); }
+            catch (Exception Ex) { Console.WriteLine(Ex.Message); MainFunctions.Log(Ex.Message); MainFunctions.SetKey("colorFill", "000-000-000"); return Color_Check(); }
         }
         public static void CSubKey(string Keypath)
         {
@@ -669,9 +667,12 @@ namespace AniDeskimated.Classes
                 return -1;
         }
         public static void Update_View()
-        {if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
-            { Delete_Player_Files(); }
-            MainFunctions.Generate_Player_Files(MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")));}
+        {
+            foreach (Control CRem in DeskSettings.backform.Controls) { CRem.Dispose(); }
+            if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
+            { Delete_Player_Files();}
+            MainFunctions.Generate_Player_Files(MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")));
+        }
         public static void Generate_Player_Files(int filetype)
         {try
             {
@@ -791,6 +792,31 @@ namespace AniDeskimated.Classes
                 Console.WriteLine("Cannot parse dll file correctly: "+ex.Message);
                 Log("Cannot parse dll file correctly",ex);
                 MessageBox.Show("Something is telling me that this custom theme is not valid");
+            }
+        }
+        public static Form LoadADTS()
+        {
+            try
+            {
+                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey("contentPath"));
+                foreach (Type ASSEMBLYTYPE in LOADEDFILE.GetTypes())
+                {
+                    try
+                    {
+                        return (Form)Activator.CreateInstance(ASSEMBLYTYPE);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot parse dll file correctly: " + ex.Message);
+                Log("Cannot parse dll file correctly", ex);
+                return null;
             }
         }
         #endregion

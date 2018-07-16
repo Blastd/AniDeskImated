@@ -9,6 +9,7 @@ namespace AniDeskimated.Forms.Media_Settings
     {
         public Control_Scale(){InitializeComponent();}
         #region Events
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Visible = false; }
         private void Scale_Tracker_Scroll(object sender, EventArgs e) { Label_StatusPercentage.Text = Scale_Tracker.Value.ToString() + '%'; ScaleView.Invalidate(); }
         private void ScaleView_Paint(object sender, PaintEventArgs e)
         {

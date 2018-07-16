@@ -412,6 +412,7 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
                 Button_Magnifier.Enabled = true;
+                Button_ADT_Settings.Enabled = false;
             }
             else if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) == 3)
             {
@@ -420,6 +421,10 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
                 Button_Magnifier.Enabled = false;
+                if(MainFunctions.LoadADTS() !=null)
+                {
+                    Button_ADT_Settings.Enabled = true;
+                }
             }
             else
             {
@@ -428,11 +433,17 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", e.Graphics, Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = true;
                 Button_Magnifier.Enabled = true;
+                Button_ADT_Settings.Enabled = false;
             }
         }
         #region Media Control
         private void Button_VideoVolume_Click(object sender, EventArgs e) { BVolume_Control.Visible = true; }
         private void Button_Magnifier_Click(object sender, EventArgs e) { Acontrol_Scale.Visible = true; }
+        private void Button_ADT_Settings_Click(object sender, EventArgs e)
+        {
+            if (MainFunctions.LoadADTS() != null)
+            { MainFunctions.LoadADTS().ShowDialog(); }
+        }
         #endregion
         private void CheckStartup()
         {
@@ -491,7 +502,7 @@ namespace AniDeskimated
         }
         #endregion
         #endregion
-        #region Changing Image
+        #region Changing Content
         private void Button_NewMedia_Click(object sender, EventArgs e)
         { BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height); }
         private void GetMediaFile_HelpRequest(object sender, EventArgs e) { MessageBox.Show("Supported Files: gif jpg jpeg bmp wmf png mp4 webm dll"); }
@@ -511,7 +522,8 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
                     Button_Magnifier.Enabled = true;
-            }
+                    Button_ADT_Settings.Enabled = false;
+                }
             else if (MainFunctions.File_Ext(GetMediaFile.FileName) == 3)
             {
                 Viewpreview.CreateGraphics().Clear(Color.FromArgb(255, 32, 32, 32));
@@ -520,6 +532,8 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = false;
                     Button_Magnifier.Enabled = false;
+                    if(MainFunctions.LoadADTS() != null)
+                    {Button_ADT_Settings.Enabled = true;}
             }
                 else
             {
@@ -529,6 +543,7 @@ namespace AniDeskimated
                     MainFunctions.String_Centre("", Viewpreview.CreateGraphics(), Viewpreview.Size, new Font("Segoe MDL2 Assets", 40, FontStyle.Regular)));
                 Button_VideoVolume.Enabled = true;
                     Button_Magnifier.Enabled = true;
+                    Button_ADT_Settings.Enabled = false;
                 }
             MainFunctions.ChangeAsset(GetMediaFile.FileName);
             }catch(Exception Ex){
