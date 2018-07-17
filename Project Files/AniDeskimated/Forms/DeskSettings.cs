@@ -441,8 +441,9 @@ namespace AniDeskimated
         private void Button_Magnifier_Click(object sender, EventArgs e) { Acontrol_Scale.Visible = true; }
         private void Button_ADT_Settings_Click(object sender, EventArgs e)
         {
-            if (MainFunctions.LoadADTS() != null)
-            { MainFunctions.LoadADTS().ShowDialog(); }
+            Form ADTS = MainFunctions.LoadADTS();
+            if (ADTS != null)
+            {ADTS.TopMost = true;ADTS.ShowDialog();}
         }
         #endregion
         private void CheckStartup()
