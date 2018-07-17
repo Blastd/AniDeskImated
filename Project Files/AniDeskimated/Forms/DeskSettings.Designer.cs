@@ -56,6 +56,10 @@ namespace AniDeskimated
             this.Button_VideoVolume = new System.Windows.Forms.Button();
             this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
             this.Check_WindowsStartup = new System.Windows.Forms.CheckBox();
+            this.Button_ADT_Settings = new System.Windows.Forms.Button();
+            this.Tip_Scale = new System.Windows.Forms.ToolTip(this.components);
+            this.Tip_Volume = new System.Windows.Forms.ToolTip(this.components);
+            this.Tip_ADT_Settings = new System.Windows.Forms.ToolTip(this.components);
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
@@ -102,7 +106,8 @@ namespace AniDeskimated
             // 
             // GetMediaFile
             // 
-            this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4";
+            this.GetMediaFile.Filter = "Supported Files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png;*.mp4;*.dll|ADT Files|*.dll|" +
+    "Image files|*.gif;*.jpg;*.jpeg;*.bmp*;.wmf;*.png|Video files|*.mp4;*.webm";
             this.GetMediaFile.InitialDirectory = "%USERPROFILE%\\Pictures";
             this.GetMediaFile.Title = "Select a Media File";
             this.GetMediaFile.FileOk += new System.ComponentModel.CancelEventHandler(this.GetMediaFile_FileOk);
@@ -290,7 +295,7 @@ namespace AniDeskimated
             this.Button_Magnifier.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Button_Magnifier.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_Magnifier.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_Magnifier.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14F);
+            this.Button_Magnifier.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14.5F);
             this.Button_Magnifier.ForeColor = System.Drawing.Color.White;
             this.Button_Magnifier.Location = new System.Drawing.Point(1, 65);
             this.Button_Magnifier.Margin = new System.Windows.Forms.Padding(0);
@@ -299,6 +304,7 @@ namespace AniDeskimated
             this.Button_Magnifier.TabIndex = 16;
             this.Button_Magnifier.TabStop = false;
             this.Button_Magnifier.Text = "";
+            this.Tip_Scale.SetToolTip(this.Button_Magnifier, "Scale your image/video");
             this.Button_Magnifier.UseVisualStyleBackColor = false;
             this.Button_Magnifier.Click += new System.EventHandler(this.Button_Magnifier_Click);
             // 
@@ -310,7 +316,7 @@ namespace AniDeskimated
             this.Button_VideoVolume.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Button_VideoVolume.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.Button_VideoVolume.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Button_VideoVolume.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14F);
+            this.Button_VideoVolume.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14.5F);
             this.Button_VideoVolume.ForeColor = System.Drawing.Color.White;
             this.Button_VideoVolume.Location = new System.Drawing.Point(1, 97);
             this.Button_VideoVolume.Margin = new System.Windows.Forms.Padding(0);
@@ -319,13 +325,14 @@ namespace AniDeskimated
             this.Button_VideoVolume.TabIndex = 17;
             this.Button_VideoVolume.TabStop = false;
             this.Button_VideoVolume.Text = "";
+            this.Tip_Volume.SetToolTip(this.Button_VideoVolume, "Adapt video\'s volume");
             this.Button_VideoVolume.UseVisualStyleBackColor = false;
             this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
             // 
             // Button_NewMedia
             // 
             this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(144)))), ((int)(((byte)(0)))));
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
             this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
             this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
@@ -338,7 +345,7 @@ namespace AniDeskimated
             // 
             this.Check_WindowsStartup.AutoSize = true;
             this.Check_WindowsStartup.Font = new System.Drawing.Font("Segoe UI Black", 8.25F);
-            this.Check_WindowsStartup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.Check_WindowsStartup.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.Check_WindowsStartup.Location = new System.Drawing.Point(154, 8);
             this.Check_WindowsStartup.Name = "Check_WindowsStartup";
             this.Check_WindowsStartup.Size = new System.Drawing.Size(133, 17);
@@ -347,12 +354,52 @@ namespace AniDeskimated
             this.Check_WindowsStartup.UseVisualStyleBackColor = true;
             this.Check_WindowsStartup.CheckedChanged += new System.EventHandler(this.Check_WindowsStartup_CheckedChanged);
             // 
+            // Button_ADT_Settings
+            // 
+            this.Button_ADT_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Button_ADT_Settings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Button_ADT_Settings.FlatAppearance.BorderSize = 0;
+            this.Button_ADT_Settings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Button_ADT_Settings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.Button_ADT_Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_ADT_Settings.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14.5F);
+            this.Button_ADT_Settings.ForeColor = System.Drawing.Color.White;
+            this.Button_ADT_Settings.Location = new System.Drawing.Point(408, 65);
+            this.Button_ADT_Settings.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_ADT_Settings.Name = "Button_ADT_Settings";
+            this.Button_ADT_Settings.Size = new System.Drawing.Size(32, 64);
+            this.Button_ADT_Settings.TabIndex = 19;
+            this.Button_ADT_Settings.TabStop = false;
+            this.Button_ADT_Settings.Text = "";
+            this.Tip_ADT_Settings.SetToolTip(this.Button_ADT_Settings, "Change your selected custom theme\'s settings");
+            this.Button_ADT_Settings.UseVisualStyleBackColor = false;
+            this.Button_ADT_Settings.Click += new System.EventHandler(this.Button_ADT_Settings_Click);
+            // 
+            // Tip_Scale
+            // 
+            this.Tip_Scale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Tip_Scale.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.Tip_Scale.ToolTipTitle = "Scale";
+            // 
+            // Tip_Volume
+            // 
+            this.Tip_Volume.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Tip_Volume.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.Tip_Volume.ToolTipTitle = "Volume";
+            // 
+            // Tip_ADT_Settings
+            // 
+            this.Tip_ADT_Settings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Tip_ADT_Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.Tip_ADT_Settings.ToolTipTitle = "Custom theme settings";
+            // 
             // DeskSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(440, 350);
+            this.Controls.Add(this.Button_ADT_Settings);
             this.Controls.Add(this.Check_WindowsStartup);
             this.Controls.Add(this.Button_VideoVolume);
             this.Controls.Add(this.Button_Magnifier);
@@ -415,6 +462,10 @@ namespace AniDeskimated
         private System.Windows.Forms.Button Button_Magnifier;
         private System.Windows.Forms.Button Button_VideoVolume;
         private System.Windows.Forms.CheckBox Check_WindowsStartup;
+        private System.Windows.Forms.Button Button_ADT_Settings;
+        private System.Windows.Forms.ToolTip Tip_Scale;
+        private System.Windows.Forms.ToolTip Tip_Volume;
+        private System.Windows.Forms.ToolTip Tip_ADT_Settings;
     }
 }
 

@@ -32,6 +32,7 @@
             this.Scale_Tracker = new System.Windows.Forms.TrackBar();
             this.ScaleView = new System.Windows.Forms.PictureBox();
             this.Button_Done = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Scale_Tracker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleView)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +83,7 @@
             // 
             this.Button_Done.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Done.BackColor = System.Drawing.Color.Transparent;
-            this.Button_Done.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(120)))), ((int)(((byte)(110)))));
+            this.Button_Done.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
             this.Button_Done.Location = new System.Drawing.Point(214, 169);
             this.Button_Done.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Done.MinimumSize = new System.Drawing.Size(30, 30);
@@ -91,11 +92,30 @@
             this.Button_Done.TabIndex = 7;
             this.Button_Done.Click += new System.EventHandler(this.Button_Done_Click);
             // 
+            // Button_Exit
+            // 
+            this.Button_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Button_Exit.FlatAppearance.BorderSize = 0;
+            this.Button_Exit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Button_Exit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(235)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Button_Exit.Font = new System.Drawing.Font("Segoe MDL2 Assets", 10F);
+            this.Button_Exit.ForeColor = System.Drawing.Color.White;
+            this.Button_Exit.Location = new System.Drawing.Point(345, 0);
+            this.Button_Exit.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_Exit.Name = "Button_Exit";
+            this.Button_Exit.Size = new System.Drawing.Size(25, 25);
+            this.Button_Exit.TabIndex = 13;
+            this.Button_Exit.Text = "";
+            this.Button_Exit.UseVisualStyleBackColor = false;
+            this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
+            // 
             // Control_Scale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Controls.Add(this.Button_Exit);
             this.Controls.Add(this.Button_Done);
             this.Controls.Add(this.ScaleView);
             this.Controls.Add(this.Label_StatusPercentage);
@@ -116,5 +136,6 @@
         private System.Windows.Forms.TrackBar Scale_Tracker;
         private System.Windows.Forms.PictureBox ScaleView;
         private Controls.Round_Button Button_Done;
+        private System.Windows.Forms.Button Button_Exit;
     }
 }

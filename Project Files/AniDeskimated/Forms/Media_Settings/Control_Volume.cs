@@ -9,6 +9,7 @@ namespace AniDeskimated.Forms.Media_Settings
     {
         public Control_Volume()=>InitializeComponent();
         #region Events
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Visible = false; }
         private void Volume_Tracker_Scroll(object sender, EventArgs e) => Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
         private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.ChangeVolume(Volume_Tracker.Value); this.Visible = false; }
         private void Volume_Tracker_KeyDown(object sender, KeyEventArgs e)
@@ -27,6 +28,7 @@ namespace AniDeskimated.Forms.Media_Settings
         Label_StatusPercentage.Text = MainFunctions.ReadKey("volumeValue") + '%';
         }
         #endregion
+
         #endregion
     }
 }

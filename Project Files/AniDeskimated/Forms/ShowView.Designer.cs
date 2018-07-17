@@ -31,15 +31,8 @@ namespace AniDeskimated.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.CheckChange = new System.Windows.Forms.Timer(this.components);
             this.ViewPart = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
-            // 
-            // CheckChange
-            // 
-            this.CheckChange.Interval = 10000;
-            this.CheckChange.Tick += new System.EventHandler(this.CheckChange_Tick);
             // 
             // ViewPart
             // 
@@ -59,7 +52,7 @@ namespace AniDeskimated.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.ViewPart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -72,7 +65,6 @@ namespace AniDeskimated.Forms
         }
 
         #endregion
-        private System.Windows.Forms.Timer CheckChange;
         private System.Windows.Forms.WebBrowser ViewPart;
     }
 }

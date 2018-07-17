@@ -347,16 +347,20 @@ If the Library as you received it specifies that a proxy can decide whether futu
  */
 #endregion
 using Microsoft.Win32;
-using System.Drawing;
 using System;
 using System.IO;
+using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Linq;
 
 namespace AniDeskimated.Classes
 {
     class MainFunctions
     {
+        #region Variables
+        #endregion
         #region Maths
         //Remember that the proportions code follows the formula     a1:a2=b1:x     where x is the given value
         public static double Proportion(double a1, double a2, double b1) { return (a2 * b1) / a1; }
@@ -369,14 +373,13 @@ namespace AniDeskimated.Classes
         public static void ResetAsset()
         {
             Log("Resetting Asset...");
-            try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists."); }
+            try { Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM"); } catch (Exception ex) { Log("Directory already exists.",ex); Console.WriteLine(ex.Message); }
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
                 ChangeAsset(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
-            { Log("Cannot restore Placeholder Image. Closing..."); Application.Exit(); }
+            { Log("Cannot restore Placeholder Image. Closing. - " + ex.Message); Application.Exit(); }
         }
         public static void ChangeAsset(string mediaFile)
         {
-            DelVal("contentPath");
             SetKey("contentPath", mediaFile);
             Update_View();
         }
@@ -403,7 +406,7 @@ namespace AniDeskimated.Classes
                 Color_Test = Color.FromArgb(255, Convert.ToInt32(Reg_Value[0]), Convert.ToInt32(Reg_Value[1]), Convert.ToInt32(Reg_Value[2]));
                 return Color_Test;
             }
-            catch (Exception Ex) { MainFunctions.SetKey("colorFill", "000-000-000"); return Color_Check(); }
+            catch (Exception Ex) { Console.WriteLine(Ex.Message); MainFunctions.Log(Ex.Message); MainFunctions.SetKey("colorFill", "000-000-000"); return Color_Check(); }
         }
         public static void CSubKey(string Keypath)
         {
@@ -414,6 +417,15 @@ namespace AniDeskimated.Classes
         {
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 hkcu.OpenSubKey(@"Software\ADM", true).SetValue(ValueName, Value);
+        }
+        public static void FixIE()
+        {
+            using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
+            {
+                FileInfo FileH = new FileInfo(new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+                hkcu.OpenSubKey(@"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", true)
+                    .SetValue(FileH.Name, 0x2AF9,RegistryValueKind.DWord);
+            }
         }
         public static void WinStartup(bool boot_state)
         {
@@ -570,6 +582,7 @@ namespace AniDeskimated.Classes
         #region App Data Check
         public static void CheckData()
         {
+            FixIE();
             if (CheckResult() == 7873)// N.I. Not Initialized
             {
                 Log("No app settings found in the system, first Run routine.");
@@ -643,6 +656,10 @@ namespace AniDeskimated.Classes
                 {
                     return 2;
                 }
+                else if (filename.Contains("dll"))
+                {
+                    return 3;
+                }
                 else
                     return 0;
             }
@@ -650,12 +667,22 @@ namespace AniDeskimated.Classes
                 return -1;
         }
         public static void Update_View()
-        {if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
-            { Delete_Player_Files(); }
-            MainFunctions.Generate_Player_Files(MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")));}
+        {
+            foreach (Control CRem in DeskSettings.backform.Controls) { CRem.Dispose(); }
+            if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
+            { Delete_Player_Files();}
+            MainFunctions.Generate_Player_Files(MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")));
+        }
         public static void Generate_Player_Files(int filetype)
         {try
-            { Log("Creating Player media files...");
+            {
+                if (filetype == 3)
+                {
+                    Log("Detected custom theme format.");
+                    DeskSettings.backform.Invalidate();
+                    return;
+                }
+                Log("Creating Player media files...");
                 Properties.Settings.Default.HTML_Location = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                     @"\ADM_" + rnd.Next(DateTime.Now.Second).ToString() + rnd.Next(DateTime.Now.Millisecond).ToString() + ".html";
                 if (File.Exists(Properties.Settings.Default.HTML_Location) == false)
@@ -685,7 +712,7 @@ namespace AniDeskimated.Classes
                      new System.Uri(ReadKey("contentPath")).AbsoluteUri + "'>" + "<script></script></div></body></html>";}
             else if (filetype == 2) {
                 #region code samples provided by Google https://developers.google.com/youtube/iframe_api_reference
-                /*return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
+                return @"<!DOCTYPE html><meta http-equiv='Content-Type' content='text/html; charset=unicode' />
                     <meta http-equiv='X-UA-Compatible' content='IE=9' /><html><style>* {margin: 0;padding: 0;}
                     .videocontainer {display: grid;height: 100%;position: relative;}.videofile {max-width: " + ReadKey("viewScale") +
                     @"%;max-height: " + ReadKey("viewScale") + @"vh;margin: 0 auto;display: block;}
@@ -723,9 +750,9 @@ namespace AniDeskimated.Classes
                     }
 					function onPlayerStateChange(event) {
 					        
-					}</script></div></div></body ></html >";*/
+					}</script></div></div></body ></html >";
                 #endregion
-                return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Youtube Links are not supported</p>";
+                //return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Youtube Links are not supported</p>";
             }
             else { return @"<p style=""font-family: Arial, Helvetica, sans-serif;text-align: center;"">Unsupported file type or Link not working</p>"; }
         }
@@ -733,6 +760,66 @@ namespace AniDeskimated.Classes
         catch (Exception Ex)
             { Console.Write(Ex.Message);
             Log(@"Cannot delete Media Player Files, you may delete them  manually. They're located in %Appdata%\<random>.html and <random>.css");}}
+        #region ADT Custom Code
+        public static void LoadADT()
+        {
+            bool ContainsUC = false;
+            try
+            {
+                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey("contentPath"));
+                foreach (Type ASSEMBLYTYPE in LOADEDFILE.GetTypes())
+                {
+                    try
+                    {
+                        UserControl FACADE = new UserControl();
+                        FACADE = (UserControl)Activator.CreateInstance(ASSEMBLYTYPE);
+                        FACADE.Dock = DockStyle.Fill;
+                        FACADE.Name = "ADT_FACADE";
+                        DeskSettings.backform.Controls.Add(FACADE);
+                        FACADE.BringToFront();
+                        ContainsUC = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                if (ContainsUC == false)
+                    throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot parse dll file correctly: "+ex.Message);
+                Log("Cannot parse dll file correctly",ex);
+                MessageBox.Show("Something is telling me that this custom theme is not valid");
+            }
+        }
+        public static Form LoadADTS()
+        {
+            try
+            {
+                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey("contentPath"));
+                foreach (Type ASSEMBLYTYPE in LOADEDFILE.GetTypes())
+                {
+                    try
+                    {
+                        return (Form)Activator.CreateInstance(ASSEMBLYTYPE);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot parse dll file correctly: " + ex.Message);
+                Log("Cannot parse dll file correctly", ex);
+                return null;
+            }
+        }
+        #endregion
         #endregion
     }
 }

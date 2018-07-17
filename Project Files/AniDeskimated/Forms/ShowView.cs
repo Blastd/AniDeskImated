@@ -363,24 +363,36 @@ namespace AniDeskimated.Forms
     public partial class ShowView : Form
     {
         public ShowView() { InitializeComponent(); }
+        #region Events
+        #region Form
         private void ShowView_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width+1, Screen.PrimaryScreen.Bounds.Height+1);
-            this.Location = new Point(0,0);
+            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
+            this.Location = new Point(0, 0);
             W32.SetParent(this.Handle, DeskSettings.workerw);
-        }
-        private void CheckChange_Tick(object sender, EventArgs e)
-        {
-            { if (ViewPart.DocumentText.Contains("error")) { MainFunctions.Update_View(); } }
         }
         private void ShowView_Paint(object sender, PaintEventArgs e)
         {
-            ViewPart.Url = new System.Uri(new System.Uri(Properties.Settings.Default.HTML_Location).AbsolutePath);
-            ViewPart.Refresh();
+            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
+            this.Location = new Point(0, 0);
+            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) != 3)
+            {
+                WebBrowser ViewPart = new WebBrowser();
+                ViewPart.ScriptErrorsSuppressed = true;
+                ViewPart.Dock = DockStyle.Fill;
+                ViewPart.Navigated += new WebBrowserNavigatedEventHandler(ViewPart_Navigated);
+                this.Controls.Add(ViewPart);
+                ViewPart.BringToFront();
+                ViewPart.Url = new System.Uri(new System.Uri(Properties.Settings.Default.HTML_Location).AbsolutePath);
+                ViewPart.Refresh();
+            }
+            else { MainFunctions.LoadADT(); }
         }
         private void ViewPart_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             { if (ViewPart.DocumentText.Contains("error")) { MainFunctions.Update_View(); } }
         }
+        #endregion
+        #endregion
     }
 }
