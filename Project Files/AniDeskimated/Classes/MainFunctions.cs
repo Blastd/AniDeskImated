@@ -602,7 +602,7 @@ namespace AniDeskimated.Classes
             if (CheckResult() == 678277) { SetKey("colorFill", "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
             if (CheckResult() == 8677) { ChangeVolume(0); CheckData(); }//V. M. Volume Missing
             if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
-            if (CheckResult() == 7777) { SetKey("viewScale", "100"); CheckData(); }// M.M. Media Missing
+            if (CheckResult() == 8377) { SetKey("viewScale", "100"); CheckData(); }//Scale Missing
         }
         public static int CheckResult()
         {
@@ -612,7 +612,7 @@ namespace AniDeskimated.Classes
                 else if ((Uri.TryCreate(ReadKey("contentPath"), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(@"Software\ADM").GetValue("contentPath").ToString()) == false || ReadKey("contentPath") == null) { return 7777; } 
                 else if (ReadKey("colorFill") == null) { return 678277; }
                 else if (ReadKey("volumeValue") == null) { return 8677; }
-                else if (ReadKey("viewScale") == null) { return 8377; }
+                else if (ReadKey("viewScale") == null || ReadKey("viewScale") == "0") { return 8377; }
                 else { return 6582; }
         }}
         #endregion
