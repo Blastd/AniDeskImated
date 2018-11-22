@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿/*AniDeskImated - By Blasted Mind
+ * Draw Behind Desktop feature (Win32.cs and highlighted parts of DeskSettings.cs) are 3rd party derivates that are protected by the Code Project Open Licence (http://www.codeproject.com/info/cpol10.aspx).
+ * This Program is released under the GNU LGPL v3.0 License
+ */
+using System;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AniDeskimated.Classes;
 
-namespace AniDeskimated.Forms.Controls
+namespace AniDeskimated.Forms.Elements
 {
     public partial class Loading_Animation : UserControl
     {

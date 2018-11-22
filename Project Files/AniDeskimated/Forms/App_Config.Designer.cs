@@ -54,7 +54,7 @@ namespace AniDeskimated
             this.BVolume_Control = new AniDeskimated.Forms.Media_Settings.Control_Volume();
             this.Button_Magnifier = new System.Windows.Forms.Button();
             this.Button_VideoVolume = new System.Windows.Forms.Button();
-            this.Button_NewMedia = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_NewMedia = new AniDeskimated.Forms.Elements.Round_Button();
             this.Check_WindowsStartup = new System.Windows.Forms.CheckBox();
             this.Button_ADT_Settings = new System.Windows.Forms.Button();
             this.Tip_Scale = new System.Windows.Forms.ToolTip(this.components);
@@ -453,7 +453,7 @@ namespace AniDeskimated
         private System.Windows.Forms.Button App_About;
         private System.Windows.Forms.ToolStripMenuItem Online_Store;
         private System.Windows.Forms.ColorDialog Menu_Color;
-        private Forms.Controls.Round_Button Button_NewMedia;
+        private Forms.Elements.Round_Button Button_NewMedia;
         private System.Windows.Forms.Button Button_Exit;
         private System.Windows.Forms.Panel App_Main_Interface_Container;
         private System.Windows.Forms.Panel Controls_Container;

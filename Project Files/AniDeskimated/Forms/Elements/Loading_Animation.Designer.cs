@@ -1,4 +1,4 @@
-﻿namespace AniDeskimated.Forms.Controls
+﻿namespace AniDeskimated.Forms.Elements
 {
     partial class Loading_Animation
     {

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AniDeskimated.Forms
 {
-    partial class ShowView
+    partial class App_Back
     {
         /// <summary>
         /// Required designer variable.

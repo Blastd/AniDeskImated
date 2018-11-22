@@ -31,7 +31,7 @@
             this.Label_StatusPercentage = new System.Windows.Forms.Label();
             this.Scale_Tracker = new System.Windows.Forms.TrackBar();
             this.ScaleView = new System.Windows.Forms.PictureBox();
-            this.Button_Done = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_Done = new AniDeskimated.Forms.Elements.Round_Button();
             this.Button_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Scale_Tracker)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScaleView)).BeginInit();
@@ -135,7 +135,7 @@
         private System.Windows.Forms.Label Label_StatusPercentage;
         private System.Windows.Forms.TrackBar Scale_Tracker;
         private System.Windows.Forms.PictureBox ScaleView;
-        private Controls.Round_Button Button_Done;
+        private Elements.Round_Button Button_Done;
         private System.Windows.Forms.Button Button_Exit;
     }
 }

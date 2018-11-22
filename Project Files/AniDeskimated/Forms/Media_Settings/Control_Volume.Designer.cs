@@ -30,7 +30,7 @@
         {
             this.Label_StatusPercentage = new System.Windows.Forms.Label();
             this.Volume_Tracker = new System.Windows.Forms.TrackBar();
-            this.Button_Done = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_Done = new AniDeskimated.Forms.Elements.Round_Button();
             this.Button_Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Volume_Tracker)).BeginInit();
             this.SuspendLayout();
@@ -119,7 +119,7 @@
         #endregion
         private System.Windows.Forms.Label Label_StatusPercentage;
         private System.Windows.Forms.TrackBar Volume_Tracker;
-        private Controls.Round_Button Button_Done;
+        private Elements.Round_Button Button_Done;
         private System.Windows.Forms.Button Button_Exit;
     }
 }

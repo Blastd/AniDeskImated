@@ -1,21 +1,19 @@
-﻿using AniDeskimated.Classes;
+﻿/*AniDeskImated - By Blasted Mind
+ * Draw Behind Desktop feature (Win32.cs and highlighted parts of DeskSettings.cs) are 3rd party derivates that are protected by the Code Project Open Licence (http://www.codeproject.com/info/cpol10.aspx).
+ * This Program is released under the GNU LGPL v3.0 License
+ */
+using AniDeskimated.Classes;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AniDeskimated.Forms.Controls
+namespace AniDeskimated.Forms.Media_Settings
 {
-    public partial class LinkInput : Form
+    public partial class Control_InLink : Form
     {
-        public LinkInput()=>InitializeComponent();
+        public Control_InLink()=>InitializeComponent();
         #region Events
-        private void input_box_KeyDown(object sender, KeyEventArgs e){
+        private void Input_box_KeyDown(object sender, KeyEventArgs e){
             if(e.KeyCode == Keys.Enter)
             Link_Try.Button_Part.PerformClick();
         }

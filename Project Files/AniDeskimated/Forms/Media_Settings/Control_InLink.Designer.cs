@@ -1,6 +1,6 @@
-﻿namespace AniDeskimated.Forms.Controls
+﻿namespace AniDeskimated.Forms.Media_Settings
 {
-    partial class LinkInput
+    partial class Control_InLink
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Link_Try = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Link_Try = new AniDeskimated.Forms.Elements.Round_Button();
             this.input_box = new System.Windows.Forms.TextBox();
             this.message_label = new System.Windows.Forms.Label();
-            this.loading_Animation1 = new AniDeskimated.Forms.Controls.Loading_Animation();
+            this.loading_Animation1 = new AniDeskimated.Forms.Elements.Loading_Animation();
             this.Button_Exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Link_Try
             // 
             this.Link_Try.BackColor = System.Drawing.Color.Transparent;
-            this.Link_Try.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(144)))), ((int)(((byte)(0)))));
+            this.Link_Try.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(162)))), ((int)(((byte)(255)))));
             this.Link_Try.Location = new System.Drawing.Point(366, 79);
             this.Link_Try.Margin = new System.Windows.Forms.Padding(0);
             this.Link_Try.MinimumSize = new System.Drawing.Size(30, 30);
@@ -57,7 +57,7 @@
             this.input_box.Name = "input_box";
             this.input_box.Size = new System.Drawing.Size(310, 32);
             this.input_box.TabIndex = 1;
-            this.input_box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.input_box_KeyDown);
+            this.input_box.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Input_box_KeyDown);
             // 
             // message_label
             // 
@@ -82,6 +82,7 @@
             // 
             // Button_Exit
             // 
+            this.Button_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Button_Exit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Button_Exit.FlatAppearance.BorderSize = 0;
             this.Button_Exit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(205)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -98,7 +99,7 @@
             this.Button_Exit.UseVisualStyleBackColor = false;
             this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
             // 
-            // LinkInput
+            // Control_InLink
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,7 +111,7 @@
             this.Controls.Add(this.input_box);
             this.Controls.Add(this.loading_Animation1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "LinkInput";
+            this.Name = "Control_InLink";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -124,10 +125,10 @@
 
         #endregion
 
-        private Round_Button Link_Try;
+        private Elements.Round_Button Link_Try;
         private System.Windows.Forms.TextBox input_box;
         private System.Windows.Forms.Label message_label;
-        private Loading_Animation loading_Animation1;
+        private Elements.Loading_Animation loading_Animation1;
         private System.Windows.Forms.Button Button_Exit;
     }
 }

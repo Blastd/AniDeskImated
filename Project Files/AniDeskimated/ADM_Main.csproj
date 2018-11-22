@@ -107,29 +107,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Win32.cs" />
-    <Compile Include="Forms\Controls\LinkInput.cs">
+    <Compile Include="Forms\Media_Settings\Control_InLink.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Controls\LinkInput.Designer.cs">
-      <DependentUpon>LinkInput.cs</DependentUpon>
+    <Compile Include="Forms\Media_Settings\Control_InLink.Designer.cs">
+      <DependentUpon>Control_InLink.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Controls\Loading_Animation.cs">
+    <Compile Include="Forms\Elements\Loading_Animation.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Controls\Loading_Animation.designer.cs">
+    <Compile Include="Forms\Elements\Loading_Animation.designer.cs">
       <DependentUpon>Loading_Animation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Controls\Round_Button.cs">
+    <Compile Include="Forms\Elements\Round_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Controls\Round_Button.Designer.cs">
+    <Compile Include="Forms\Elements\Round_Button.Designer.cs">
       <DependentUpon>Round_Button.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form_License.cs">
+    <Compile Include="Forms\App_Lcs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Form_License.Designer.cs">
-      <DependentUpon>Form_License.cs</DependentUpon>
+    <Compile Include="Forms\App_Lcs.Designer.cs">
+      <DependentUpon>App_Lcs.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FS_UI.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -137,23 +137,23 @@
       <DependentUpon>FS_UI.resx</DependentUpon>
     </Compile>
     <Compile Include="Classes\MainFunctions.cs" />
-    <Compile Include="Forms\DeskSettings.cs">
+    <Compile Include="Forms\App_Config.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DeskSettings.Designer.cs">
-      <DependentUpon>DeskSettings.cs</DependentUpon>
+    <Compile Include="Forms\App_Config.Designer.cs">
+      <DependentUpon>App_Config.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FirstStart.cs">
+    <Compile Include="Forms\App_Init.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FirstStart.Designer.cs">
-      <DependentUpon>FirstStart.cs</DependentUpon>
+    <Compile Include="Forms\App_Init.Designer.cs">
+      <DependentUpon>App_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Media_Settings\Color_Picker_Frame.cs">
+    <Compile Include="Forms\Media_Settings\Control_Color-Picker.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Media_Settings\Color_Picker_Frame.Designer.cs">
-      <DependentUpon>Color_Picker_Frame.cs</DependentUpon>
+    <Compile Include="Forms\Media_Settings\Control_Color-Picker.Designer.cs">
+      <DependentUpon>Control_Color-Picker.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Media_Settings\Control_Scale.cs">
       <SubType>UserControl</SubType>
@@ -167,38 +167,43 @@
     <Compile Include="Forms\Media_Settings\Control_Volume.Designer.cs">
       <DependentUpon>Control_Volume.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ShowView.cs">
+    <Compile Include="Forms\App_Back.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ShowView.Designer.cs">
-      <DependentUpon>ShowView.cs</DependentUpon>
+    <Compile Include="Forms\App_Back.Designer.cs">
+      <DependentUpon>App_Back.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\Controls\LinkInput.resx">
-      <DependentUpon>LinkInput.cs</DependentUpon>
+    <Compile Include="Resources\LCS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LCS.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\Media_Settings\Control_InLink.resx">
+      <DependentUpon>Control_InLink.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Controls\Loading_Animation.resx">
+    <EmbeddedResource Include="Forms\Elements\Loading_Animation.resx">
       <DependentUpon>Loading_Animation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Controls\Round_Button.resx">
+    <EmbeddedResource Include="Forms\Elements\Round_Button.resx">
       <DependentUpon>Round_Button.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form_License.resx">
-      <DependentUpon>Form_License.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\App_Lcs.resx">
+      <DependentUpon>App_Lcs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FS_UI.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>FS_UI.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DeskSettings.resx">
-      <DependentUpon>DeskSettings.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\App_Config.resx">
+      <DependentUpon>App_Config.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FirstStart.resx">
-      <DependentUpon>FirstStart.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\App_Init.resx">
+      <DependentUpon>App_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Media_Settings\Color_Picker_Frame.resx">
-      <DependentUpon>Color_Picker_Frame.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Media_Settings\Control_Color-Picker.resx">
+      <DependentUpon>Control_Color-Picker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Media_Settings\Control_Scale.resx">
       <DependentUpon>Control_Scale.cs</DependentUpon>
@@ -206,8 +211,8 @@
     <EmbeddedResource Include="Forms\Media_Settings\Control_Volume.resx">
       <DependentUpon>Control_Volume.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ShowView.resx">
-      <DependentUpon>ShowView.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\App_Back.resx">
+      <DependentUpon>App_Back.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -219,6 +224,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Resources\LCS.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LCS.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -254,7 +263,6 @@
     <None Include="Resources\NIcon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Pen.cur" />
     <None Include="Resources\Magnifier_Small.png" />
     <None Include="Resources\VolumeButton_Small.png" />
     <None Include="Resources\VideoFormat.png" />
@@ -271,6 +279,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\L_LGPL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\L_CPOL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\L_GPL.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

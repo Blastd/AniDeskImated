@@ -2,7 +2,7 @@
 
 namespace AniDeskimated.Forms
 {
-    partial class FirstStart
+    partial class App_Init
     {
         /// <summary>
         /// Required designer variable.
@@ -38,9 +38,9 @@ namespace AniDeskimated.Forms
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ColorPicker_MenuPicker = new System.Windows.Forms.ColorDialog();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.Button_Informations = new AniDeskimated.Forms.Controls.Round_Button();
-            this.Button_NewFile = new AniDeskimated.Forms.Controls.Round_Button();
-            this.Button_Refuse = new AniDeskimated.Forms.Controls.Round_Button();
+            this.Button_Informations = new AniDeskimated.Forms.Elements.Round_Button();
+            this.Button_NewFile = new AniDeskimated.Forms.Elements.Round_Button();
+            this.Button_Refuse = new AniDeskimated.Forms.Elements.Round_Button();
             this.ViewFrame = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BackMenuChoose.SuspendLayout();
@@ -207,8 +207,8 @@ namespace AniDeskimated.Forms
         private System.Windows.Forms.ColorDialog ColorPicker_MenuPicker;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private Controls.Round_Button Button_NewFile;
-        private Controls.Round_Button Button_Informations;
-        private Controls.Round_Button Button_Refuse;
+        private Elements.Round_Button Button_NewFile;
+        private Elements.Round_Button Button_Informations;
+        private Elements.Round_Button Button_Refuse;
     }
 }
