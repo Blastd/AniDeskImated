@@ -149,20 +149,20 @@ namespace AniDeskimated.Classes
                 if (ResB < 0) { ResB = 0; } else if (ResB > 255) { ResB = 255; }
                 return Color.FromArgb(Base.A, ResR, ResG, ResB);
             }
-            public static string Color_to_hex(Color Oc){ return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2"); }
+            public static string Color_to_hex(Color Oc)
+            {
+                return Oc.R.ToString("X2") + Oc.G.ToString("X2") + Oc.B.ToString("X2");
+            }
             public static void Draw_Terminator(Graphics e, Color Line_Color,Control C)
         {
             e.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             GraphicsPath Terminator = new GraphicsPath();
             Terminator.AddArc(new Rectangle(C.DisplayRectangle.Location, new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 270, -90);
             Terminator.AddArc(new Rectangle(C.DisplayRectangle.Location, new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 180, -90);
-
             Terminator.AddArc(new Rectangle(new Point(C.DisplayRectangle.Width - C.DisplayRectangle.Height-1, C.DisplayRectangle.Top),
                 new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 90, -90);
-
             Terminator.AddArc(new Rectangle(new Point(C.DisplayRectangle.Width - C.DisplayRectangle.Height-1, C.DisplayRectangle.Top),
                 new Size(C.DisplayRectangle.Height, C.DisplayRectangle.Height-1)), 0, -90);
-
             Terminator.CloseFigure();
             e.DrawPath(new Pen(Line_Color), Terminator);
         }

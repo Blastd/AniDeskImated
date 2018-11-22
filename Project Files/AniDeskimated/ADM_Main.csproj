@@ -131,11 +131,6 @@
     <Compile Include="Forms\App_Lcs.Designer.cs">
       <DependentUpon>App_Lcs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FS_UI.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FS_UI.resx</DependentUpon>
-    </Compile>
     <Compile Include="Classes\MainFunctions.cs" />
     <Compile Include="Forms\App_Config.cs">
       <SubType>Form</SubType>
@@ -191,10 +186,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\App_Lcs.resx">
       <DependentUpon>App_Lcs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FS_UI.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>FS_UI.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\App_Config.resx">
       <DependentUpon>App_Config.cs</DependentUpon>
@@ -254,18 +245,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\CannotLoad.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\NIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Magnifier_Small.png" />
-    <None Include="Resources\VolumeButton_Small.png" />
-    <None Include="Resources\VideoFormat.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">

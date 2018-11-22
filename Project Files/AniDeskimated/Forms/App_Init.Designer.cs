@@ -147,7 +147,6 @@ namespace AniDeskimated.Forms
             // ViewFrame
             // 
             this.ViewFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ViewFrame.ErrorImage = global::AniDeskimated.Forms.FS_UI.CannotLoad;
             this.ViewFrame.Location = new System.Drawing.Point(120, 49);
             this.ViewFrame.Name = "ViewFrame";
             this.ViewFrame.Size = new System.Drawing.Size(350, 264);

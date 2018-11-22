@@ -41,5 +41,8 @@ namespace AniDeskimated.Forms.Media_Settings
         #endregion
 
         #endregion
+
+        private void Control_Scale_VisibleChanged(object sender, EventArgs e)
+        { ScaleView.Invalidate(); }
     }
 }

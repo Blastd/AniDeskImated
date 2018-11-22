@@ -28,24 +28,46 @@ namespace AniDeskimated.Forms
                 "providing the program an address to reach that file (not implemented)," + '\n' +
                 "or a file stored on your computer." + '\n' + "Yes, that's it.", "How does it work?", MessageBoxButtons.OK, MessageBoxIcon.Question);}
         private void Button_Informations_Click(object sender, EventArgs e)
-        { App_Lcs Frm_License = new App_Lcs(); Frm_License.ShowDialog(); }
-        private void Button_Refuse_Click(object sender, EventArgs e) { this.Close(); }
+        {
+            App_Lcs Frm_License = new App_Lcs(); Frm_License.ShowDialog();
+        }
+        private void Button_Refuse_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         #region ChangingImage
         private void Button_NewFile_Click(object sender, EventArgs e)
-        { BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width, MousePosition.Y - 50 % BackMenuChoose.Height); }
-        private void BackMenu_Gif_Click(object sender, EventArgs e){GetMediaFile.ShowDialog();}
+        {
+            BackMenuChoose.Show(MousePosition.X - 50 % BackMenuChoose.Width,
+                MousePosition.Y - 50 % BackMenuChoose.Height);
+        }
+        private void BackMenu_Gif_Click(object sender, EventArgs e)
+        {
+            GetMediaFile.ShowDialog();
+        }
         private void GetMediaFile_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        {try{ if (MainFunctions.File_Ext(GetMediaFile.FileName) == 0) { ViewFrame.Image = Image.FromFile(GetMediaFile.FileName); }
-                else { ViewFrame.Image = FS_UI.VideoFormat; ViewFrame.SizeMode = PictureBoxSizeMode.CenterImage; }
-                MainFunctions.ChangeAsset(GetMediaFile.FileName);
-                this.Close();}
+        {
+            try {
+                    if (MainFunctions.File_Ext(GetMediaFile.FileName) == 0)
+                    {
+                        ViewFrame.Image = Image.FromFile(GetMediaFile.FileName);
+                    }
+                    else
+                    {
+                        ViewFrame.SizeMode = PictureBoxSizeMode.CenterImage;
+                    }
+                    MainFunctions.ChangeAsset(GetMediaFile.FileName);
+                    this.Close();
+                }
             catch (Exception Ex)
             {
                 Console.Write(Ex.Message);
                 MainFunctions.Log("Entered an invalid media file.");
                 Graphics ViewFrameG = ViewFrame.CreateGraphics();
                 ViewFrameG.DrawString("Try Another Image", new Font("Segoe Ui Black", 12),
-                    new SolidBrush(Color.FromArgb(255, 0, 148, 255)), MainFunctions.String_Centre("Try Another Image", ViewFrameG, ViewFrame.Size, new Font("Segoe Ui Black", 12)));
+                    new SolidBrush(Color.FromArgb(255, 0, 148, 255)), 
+                    MainFunctions.String_Centre("Try Another Image", ViewFrameG, ViewFrame.Size, 
+                    new Font("Segoe Ui Black", 12)));
             }
         }
         #endregion

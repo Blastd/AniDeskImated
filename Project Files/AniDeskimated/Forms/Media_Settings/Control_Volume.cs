@@ -14,7 +14,34 @@ namespace AniDeskimated.Forms.Media_Settings
         public Control_Volume()=>InitializeComponent();
         #region Events
         private void Button_Exit_Click(object sender, EventArgs e) { this.Visible = false; }
-        private void Volume_Tracker_Scroll(object sender, EventArgs e) => Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
+        private void Volume_Tracker_Scroll(object sender, EventArgs e)
+        {
+            Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
+            Vol_icon();
+        }
+        private void Vol_icon()
+        {
+            if (Volume_Tracker.Value == 0)
+            {
+                Vol_Icon.Text = "\uE74F";
+            }
+            else if (Volume_Tracker.Value <= 25)
+            {
+                Vol_Icon.Text = "\uE992";
+            }
+            else if (Volume_Tracker.Value <= 50)
+            {
+                Vol_Icon.Text = "\uE993";
+            }
+            else if (Volume_Tracker.Value <= 75)
+            {
+                Vol_Icon.Text = "\uE994";
+            }
+            else if (Volume_Tracker.Value <= 100)
+            {
+                Vol_Icon.Text = "\uE995";
+            }
+        }
         private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.ChangeVolume(Volume_Tracker.Value); this.Visible = false; }
         private void Volume_Tracker_KeyDown(object sender, KeyEventArgs e)
         {
@@ -34,5 +61,8 @@ namespace AniDeskimated.Forms.Media_Settings
         #endregion
 
         #endregion
+
+        private void Control_Volume_VisibleChanged(object sender, EventArgs e)
+        { Vol_icon(); Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%'; }
     }
 }

@@ -46,26 +46,21 @@ namespace AniDeskimated
             this.ColorPick_Menù = new System.Windows.Forms.ToolStripMenuItem();
             this.App_About = new System.Windows.Forms.Button();
             this.Menu_Color = new System.Windows.Forms.ColorDialog();
-            this.Viewpreview = new System.Windows.Forms.PictureBox();
             this.Button_Exit = new System.Windows.Forms.Button();
-            this.App_Main_Interface_Container = new System.Windows.Forms.Panel();
-            this.Controls_Container = new System.Windows.Forms.Panel();
-            this.Acontrol_Scale = new AniDeskimated.Forms.Media_Settings.Control_Scale();
-            this.BVolume_Control = new AniDeskimated.Forms.Media_Settings.Control_Volume();
             this.Button_Magnifier = new System.Windows.Forms.Button();
             this.Button_VideoVolume = new System.Windows.Forms.Button();
-            this.Button_NewMedia = new AniDeskimated.Forms.Elements.Round_Button();
             this.Check_WindowsStartup = new System.Windows.Forms.CheckBox();
             this.Button_ADT_Settings = new System.Windows.Forms.Button();
             this.Tip_Scale = new System.Windows.Forms.ToolTip(this.components);
             this.Tip_Volume = new System.Windows.Forms.ToolTip(this.components);
             this.Tip_ADT_Settings = new System.Windows.Forms.ToolTip(this.components);
+            this.F_type = new System.Windows.Forms.Label();
+            this.BVolume_Control = new AniDeskimated.Forms.Media_Settings.Control_Volume();
+            this.Acontrol_Scale = new AniDeskimated.Forms.Media_Settings.Control_Scale();
+            this.Button_NewMedia = new AniDeskimated.Forms.Elements.Round_Button();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Viewpreview)).BeginInit();
-            this.App_Main_Interface_Container.SuspendLayout();
-            this.Controls_Container.SuspendLayout();
             this.SuspendLayout();
             // 
             // TaskBar_Notify_Icon
@@ -158,7 +153,7 @@ namespace AniDeskimated
             this.Button_Color_Choose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Color_Choose.Font = new System.Drawing.Font("Segoe MDL2 Assets", 12F);
             this.Button_Color_Choose.ForeColor = System.Drawing.Color.White;
-            this.Button_Color_Choose.Location = new System.Drawing.Point(373, 301);
+            this.Button_Color_Choose.Location = new System.Drawing.Point(375, 310);
             this.Button_Color_Choose.Name = "Button_Color_Choose";
             this.Button_Color_Choose.Size = new System.Drawing.Size(32, 32);
             this.Button_Color_Choose.TabIndex = 6;
@@ -201,13 +196,13 @@ namespace AniDeskimated
             this.App_About.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.App_About.FlatAppearance.BorderSize = 0;
             this.App_About.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.App_About.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.App_About.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.App_About.Location = new System.Drawing.Point(35, 301);
+            this.App_About.Font = new System.Drawing.Font("Segoe MDL2 Assets", 15F);
+            this.App_About.ForeColor = System.Drawing.Color.White;
+            this.App_About.Location = new System.Drawing.Point(36, 312);
             this.App_About.Name = "App_About";
-            this.App_About.Size = new System.Drawing.Size(32, 32);
+            this.App_About.Size = new System.Drawing.Size(32, 30);
             this.App_About.TabIndex = 7;
-            this.App_About.Text = "i";
+            this.App_About.Text = "";
             this.App_About.UseVisualStyleBackColor = false;
             this.App_About.Click += new System.EventHandler(this.App_About_Click);
             this.App_About.Paint += new System.Windows.Forms.PaintEventHandler(this.App_About_Paint);
@@ -215,20 +210,6 @@ namespace AniDeskimated
             // Menu_Color
             // 
             this.Menu_Color.AnyColor = true;
-            // 
-            // Viewpreview
-            // 
-            this.Viewpreview.BackColor = System.Drawing.Color.Transparent;
-            this.Viewpreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Viewpreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Viewpreview.ErrorImage = null;
-            this.Viewpreview.Location = new System.Drawing.Point(0, 0);
-            this.Viewpreview.Name = "Viewpreview";
-            this.Viewpreview.Size = new System.Drawing.Size(370, 268);
-            this.Viewpreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Viewpreview.TabIndex = 3;
-            this.Viewpreview.TabStop = false;
-            this.Viewpreview.Paint += new System.Windows.Forms.PaintEventHandler(this.Viewpreview_Paint);
             // 
             // Button_Exit
             // 
@@ -239,53 +220,14 @@ namespace AniDeskimated
             this.Button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Button_Exit.Font = new System.Drawing.Font("Segoe MDL2 Assets", 10F);
             this.Button_Exit.ForeColor = System.Drawing.Color.White;
-            this.Button_Exit.Location = new System.Drawing.Point(415, 0);
+            this.Button_Exit.Location = new System.Drawing.Point(408, 0);
             this.Button_Exit.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Exit.Name = "Button_Exit";
-            this.Button_Exit.Size = new System.Drawing.Size(25, 25);
+            this.Button_Exit.Size = new System.Drawing.Size(32, 25);
             this.Button_Exit.TabIndex = 12;
             this.Button_Exit.Text = "";
             this.Button_Exit.UseVisualStyleBackColor = false;
             this.Button_Exit.Click += new System.EventHandler(this.Button_Exit_Click);
-            // 
-            // App_Main_Interface_Container
-            // 
-            this.App_Main_Interface_Container.Controls.Add(this.Controls_Container);
-            this.App_Main_Interface_Container.Location = new System.Drawing.Point(35, 27);
-            this.App_Main_Interface_Container.Name = "App_Main_Interface_Container";
-            this.App_Main_Interface_Container.Size = new System.Drawing.Size(370, 268);
-            this.App_Main_Interface_Container.TabIndex = 15;
-            // 
-            // Controls_Container
-            // 
-            this.Controls_Container.Controls.Add(this.Acontrol_Scale);
-            this.Controls_Container.Controls.Add(this.BVolume_Control);
-            this.Controls_Container.Controls.Add(this.Viewpreview);
-            this.Controls_Container.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Controls_Container.Location = new System.Drawing.Point(0, 0);
-            this.Controls_Container.Name = "Controls_Container";
-            this.Controls_Container.Size = new System.Drawing.Size(370, 268);
-            this.Controls_Container.TabIndex = 15;
-            // 
-            // Acontrol_Scale
-            // 
-            this.Acontrol_Scale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Acontrol_Scale.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Acontrol_Scale.Location = new System.Drawing.Point(0, 0);
-            this.Acontrol_Scale.Name = "Acontrol_Scale";
-            this.Acontrol_Scale.Size = new System.Drawing.Size(370, 268);
-            this.Acontrol_Scale.TabIndex = 16;
-            this.Acontrol_Scale.Visible = false;
-            // 
-            // BVolume_Control
-            // 
-            this.BVolume_Control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.BVolume_Control.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BVolume_Control.Location = new System.Drawing.Point(0, 0);
-            this.BVolume_Control.Name = "BVolume_Control";
-            this.BVolume_Control.Size = new System.Drawing.Size(370, 268);
-            this.BVolume_Control.TabIndex = 15;
-            this.BVolume_Control.Visible = false;
             // 
             // Button_Magnifier
             // 
@@ -328,18 +270,6 @@ namespace AniDeskimated
             this.Tip_Volume.SetToolTip(this.Button_VideoVolume, "Adapt video\'s volume");
             this.Button_VideoVolume.UseVisualStyleBackColor = false;
             this.Button_VideoVolume.Click += new System.EventHandler(this.Button_VideoVolume_Click);
-            // 
-            // Button_NewMedia
-            // 
-            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(145)))), ((int)(((byte)(145)))), ((int)(((byte)(145)))));
-            this.Button_NewMedia.Location = new System.Drawing.Point(70, 303);
-            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
-            this.Button_NewMedia.Name = "Button_NewMedia";
-            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
-            this.Button_NewMedia.TabIndex = 9;
-            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
             // Check_WindowsStartup
             // 
@@ -393,12 +323,56 @@ namespace AniDeskimated
             this.Tip_ADT_Settings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.Tip_ADT_Settings.ToolTipTitle = "Custom theme settings";
             // 
+            // F_type
+            // 
+            this.F_type.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.F_type.Font = new System.Drawing.Font("Segoe MDL2 Assets", 40F);
+            this.F_type.ForeColor = System.Drawing.Color.White;
+            this.F_type.Location = new System.Drawing.Point(35, 31);
+            this.F_type.Name = "F_type";
+            this.F_type.Size = new System.Drawing.Size(370, 268);
+            this.F_type.TabIndex = 20;
+            this.F_type.Text = "\\uF259";
+            this.F_type.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BVolume_Control
+            // 
+            this.BVolume_Control.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.BVolume_Control.Location = new System.Drawing.Point(0, 0);
+            this.BVolume_Control.Name = "BVolume_Control";
+            this.BVolume_Control.Size = new System.Drawing.Size(10, 350);
+            this.BVolume_Control.TabIndex = 15;
+            this.BVolume_Control.Visible = false;
+            // 
+            // Acontrol_Scale
+            // 
+            this.Acontrol_Scale.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Acontrol_Scale.Location = new System.Drawing.Point(0, 0);
+            this.Acontrol_Scale.Name = "Acontrol_Scale";
+            this.Acontrol_Scale.Size = new System.Drawing.Size(10, 350);
+            this.Acontrol_Scale.TabIndex = 16;
+            this.Acontrol_Scale.Visible = false;
+            // 
+            // Button_NewMedia
+            // 
+            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(56)))), ((int)(((byte)(145)))));
+            this.Button_NewMedia.Location = new System.Drawing.Point(70, 310);
+            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_NewMedia.Name = "Button_NewMedia";
+            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
+            this.Button_NewMedia.TabIndex = 9;
+            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
+            // 
             // DeskSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(440, 350);
+            this.Controls.Add(this.BVolume_Control);
+            this.Controls.Add(this.Acontrol_Scale);
             this.Controls.Add(this.Button_ADT_Settings);
             this.Controls.Add(this.Check_WindowsStartup);
             this.Controls.Add(this.Button_VideoVolume);
@@ -407,7 +381,7 @@ namespace AniDeskimated
             this.Controls.Add(this.Button_NewMedia);
             this.Controls.Add(this.App_About);
             this.Controls.Add(this.Button_Color_Choose);
-            this.Controls.Add(this.App_Main_Interface_Container);
+            this.Controls.Add(this.F_type);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = global::AniDeskimated.Properties.Resources.NIcon;
             this.MaximizeBox = false;
@@ -427,9 +401,6 @@ namespace AniDeskimated
             this.ContextMenu_IconBar.ResumeLayout(false);
             this.BackMenuChoose.ResumeLayout(false);
             this.ColorPickMenuChoose.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.Viewpreview)).EndInit();
-            this.App_Main_Interface_Container.ResumeLayout(false);
-            this.Controls_Container.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -441,7 +412,6 @@ namespace AniDeskimated
         private System.Windows.Forms.ContextMenuStrip ContextMenu_IconBar;
         private System.Windows.Forms.ToolStripMenuItem IconButton_Browse;
         private System.Windows.Forms.ToolStripMenuItem IconButton_Quit;
-        private System.Windows.Forms.PictureBox Viewpreview;
         private System.Windows.Forms.OpenFileDialog GetMediaFile;
         private System.Windows.Forms.ContextMenuStrip BackMenuChoose;
         private System.Windows.Forms.ToolStripMenuItem BackMenu_Locale;
@@ -455,8 +425,6 @@ namespace AniDeskimated
         private System.Windows.Forms.ColorDialog Menu_Color;
         private Forms.Elements.Round_Button Button_NewMedia;
         private System.Windows.Forms.Button Button_Exit;
-        private System.Windows.Forms.Panel App_Main_Interface_Container;
-        private System.Windows.Forms.Panel Controls_Container;
         private Forms.Media_Settings.Control_Volume BVolume_Control;
         private Forms.Media_Settings.Control_Scale Acontrol_Scale;
         private System.Windows.Forms.Button Button_Magnifier;
@@ -466,6 +434,7 @@ namespace AniDeskimated
         private System.Windows.Forms.ToolTip Tip_Scale;
         private System.Windows.Forms.ToolTip Tip_Volume;
         private System.Windows.Forms.ToolTip Tip_ADT_Settings;
+        private System.Windows.Forms.Label F_type;
     }
 }
 
