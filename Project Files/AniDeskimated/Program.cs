@@ -16,10 +16,7 @@ namespace AniDeskimated
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Properties.Settings.Default.AppletPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            #region Check Arguments
-            try{if (args[0] == "log") { Properties.Settings.Default.nolog = false; }
-            }catch (Exception) { Console.WriteLine("No startup arguments given."); }
-            #endregion
+            MainFunctions.CheckArgs(args);
             MainFunctions.CheckData();
         }        
     }

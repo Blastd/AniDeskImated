@@ -13,19 +13,20 @@ namespace AniDeskimated.Forms.Media_Settings
     {
         public Control_Scale(){InitializeComponent();}
         #region Events
-        private void Button_Exit_Click(object sender, EventArgs e) { this.Visible = false; }
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Parent.Controls.Remove(this); }
         private void Scale_Tracker_Scroll(object sender, EventArgs e) { Label_StatusPercentage.Text = Scale_Tracker.Value.ToString() + '%'; ScaleView.Invalidate(); }
         private void ScaleView_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.FillRectangle(new SolidBrush(Color.White), new Rectangle(
-                new Point((ScaleView.Width - ((Scale_Tracker.Value * ScaleView.Width) / 100)) / 2, 0),
+                new Point((ScaleView.Width - ((Scale_Tracker.Value * ScaleView.Width) / 100)) / 2,
+                (ScaleView.Height - ((Scale_Tracker.Value * ScaleView.Height) / 100)) / 2),
                 new Size((Scale_Tracker.Value * ScaleView.Width) / 100, Scale_Tracker.Value % ScaleView.Height)));
             if (Scale_Tracker.Value >= 100) { e.Graphics.FillRectangle(new SolidBrush(Color.White), new Rectangle(new Point(0, 0), ScaleView.Size)); }
         }
-        private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.ChangeScale(Scale_Tracker.Value); this.Visible = false; }
+        private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.SetKey(MainFunctions.rgk.Scale,Scale_Tracker.Value.ToString()); this.Visible = false; }
         private void Scale_Tracker_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Shift)
+            if (e.Modifiers == Keys.Shift)
                 Scale_Tracker.SmallChange = 5;
         }
         private void Scale_Tracker_KeyUp(object sender, KeyEventArgs e) { Scale_Tracker.SmallChange = 1; }
@@ -35,8 +36,8 @@ namespace AniDeskimated.Forms.Media_Settings
             Button_Done.Button_Part.Text = "";
             Button_Done.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
             #endregion
-            Scale_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey("viewScale"));
-            Label_StatusPercentage.Text = MainFunctions.ReadKey("viewScale") + '%'; ScaleView.Invalidate();
+            Scale_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey(MainFunctions.rgk.Scale));
+            Label_StatusPercentage.Text = MainFunctions.ReadKey(MainFunctions.rgk.Scale) + '%'; ScaleView.Invalidate();
         }
         #endregion
 

@@ -44,6 +44,7 @@
             this.Button_Part.Name = "Button_Part";
             this.Button_Part.Size = new System.Drawing.Size(100, 40);
             this.Button_Part.TabIndex = 0;
+            this.Button_Part.TabStop = false;
             this.Button_Part.Text = "Text";
             this.Button_Part.UseVisualStyleBackColor = true;
             this.Button_Part.Click += new System.EventHandler(this.Button_Part_Click);

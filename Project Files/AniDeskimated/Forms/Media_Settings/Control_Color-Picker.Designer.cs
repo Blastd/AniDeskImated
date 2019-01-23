@@ -47,9 +47,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pick a Color";
             this.TopMost = true;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Color_Picker_Frame_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Color_Picker_Frame_Paint);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Color_Picker_Frame_MouseClick);
             this.ResumeLayout(false);
 

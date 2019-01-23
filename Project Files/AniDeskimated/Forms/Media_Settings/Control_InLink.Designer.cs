@@ -31,7 +31,6 @@
             this.Link_Try = new AniDeskimated.Forms.Elements.Round_Button();
             this.input_box = new System.Windows.Forms.TextBox();
             this.message_label = new System.Windows.Forms.Label();
-            this.loading_Animation1 = new AniDeskimated.Forms.Elements.Loading_Animation();
             this.Button_Exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -71,15 +70,6 @@
             this.message_label.Text = "Enter a valid address that links to your chosen file";
             this.message_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // loading_Animation1
-            // 
-            this.loading_Animation1.BackColor = System.Drawing.Color.Transparent;
-            this.loading_Animation1.Location = new System.Drawing.Point(366, 79);
-            this.loading_Animation1.MinimumSize = new System.Drawing.Size(32, 32);
-            this.loading_Animation1.Name = "loading_Animation1";
-            this.loading_Animation1.Size = new System.Drawing.Size(32, 32);
-            this.loading_Animation1.TabIndex = 3;
-            // 
             // Button_Exit
             // 
             this.Button_Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -109,7 +99,6 @@
             this.Controls.Add(this.Link_Try);
             this.Controls.Add(this.message_label);
             this.Controls.Add(this.input_box);
-            this.Controls.Add(this.loading_Animation1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Control_InLink";
             this.ShowIcon = false;
@@ -128,7 +117,6 @@
         private Elements.Round_Button Link_Try;
         private System.Windows.Forms.TextBox input_box;
         private System.Windows.Forms.Label message_label;
-        private Elements.Loading_Animation loading_Animation1;
         private System.Windows.Forms.Button Button_Exit;
     }
 }

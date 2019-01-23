@@ -63,19 +63,9 @@ namespace AniDeskimated.Properties {
         /// <summary>
         ///   Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
         /// </summary>
-        internal static System.Drawing.Icon MIcon {
+        internal static System.Drawing.Icon AppIcon {
             get {
-                object obj = ResourceManager.GetObject("MIcon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
-        /// </summary>
-        internal static System.Drawing.Icon NIcon {
-            get {
-                object obj = ResourceManager.GetObject("NIcon", resourceCulture);
+                object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -87,6 +77,16 @@ namespace AniDeskimated.Properties {
             get {
                 object obj = ResourceManager.GetObject("NoMedia", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
+        /// </summary>
+        internal static System.Drawing.Icon WhiteAppIcon {
+            get {
+                object obj = ResourceManager.GetObject("WhiteAppIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

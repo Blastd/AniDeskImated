@@ -13,7 +13,7 @@ namespace AniDeskimated.Forms.Media_Settings
     {
         public Control_Volume()=>InitializeComponent();
         #region Events
-        private void Button_Exit_Click(object sender, EventArgs e) { this.Visible = false; }
+        private void Button_Exit_Click(object sender, EventArgs e) { this.Parent.Controls.Remove(this); }
         private void Volume_Tracker_Scroll(object sender, EventArgs e)
         {
             Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
@@ -42,21 +42,22 @@ namespace AniDeskimated.Forms.Media_Settings
                 Vol_Icon.Text = "\uE995";
             }
         }
-        private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.ChangeVolume(Volume_Tracker.Value); this.Visible = false; }
+        private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.SetKey(MainFunctions.rgk.Volume,Volume_Tracker.Value.ToString()); this.Visible = false; }
         private void Volume_Tracker_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Shift)
+            if (e.Modifiers == Keys.Shift)
                 Volume_Tracker.SmallChange = 5;
         }
         private void Volume_Tracker_KeyUp(object sender, KeyEventArgs e) => Volume_Tracker.SmallChange = 1;
         #region Form
         private void Control_Volume_Load(object sender, EventArgs e){
+            Vol_icon();
         #region Button Properties
         Button_Done.Button_Part.Text = "";
         Button_Done.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
         #endregion
-        Volume_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey("volumeValue"));
-        Label_StatusPercentage.Text = MainFunctions.ReadKey("volumeValue") + '%';
+        Volume_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey(MainFunctions.rgk.Volume));
+        Label_StatusPercentage.Text = MainFunctions.ReadKey(MainFunctions.rgk.Volume) + '%';
         }
         #endregion
 

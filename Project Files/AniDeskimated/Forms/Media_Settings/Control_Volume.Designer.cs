@@ -43,13 +43,12 @@
             // Label_StatusPercentage
             // 
             this.Label_StatusPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.Label_StatusPercentage.AutoSize = true;
             this.Label_StatusPercentage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Label_StatusPercentage.Font = new System.Drawing.Font("Segoe UI Black", 12F);
             this.Label_StatusPercentage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.Label_StatusPercentage.Location = new System.Drawing.Point(3, 4);
             this.Label_StatusPercentage.Name = "Label_StatusPercentage";
-            this.Label_StatusPercentage.Size = new System.Drawing.Size(42, 21);
+            this.Label_StatusPercentage.Size = new System.Drawing.Size(52, 21);
             this.Label_StatusPercentage.TabIndex = 4;
             this.Label_StatusPercentage.Text = "10%";
             this.Label_StatusPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -76,7 +75,7 @@
             // 
             this.Button_Done.BackColor = System.Drawing.Color.Transparent;
             this.Button_Done.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(56)))), ((int)(((byte)(145)))));
-            this.Button_Done.Location = new System.Drawing.Point(48, 0);
+            this.Button_Done.Location = new System.Drawing.Point(58, 0);
             this.Button_Done.Margin = new System.Windows.Forms.Padding(0);
             this.Button_Done.MinimumSize = new System.Drawing.Size(30, 30);
             this.Button_Done.Name = "Button_Done";
@@ -110,9 +109,9 @@
             this.Controls_Group.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls_Group.Controls.Add(this.Label_StatusPercentage);
             this.Controls_Group.Controls.Add(this.Button_Done);
-            this.Controls_Group.Location = new System.Drawing.Point(153, 3);
+            this.Controls_Group.Location = new System.Drawing.Point(148, 3);
             this.Controls_Group.Name = "Controls_Group";
-            this.Controls_Group.Size = new System.Drawing.Size(93, 34);
+            this.Controls_Group.Size = new System.Drawing.Size(103, 34);
             this.Controls_Group.TabIndex = 15;
             // 
             // Controls_LayoutPanel
@@ -156,7 +155,6 @@
             this.VisibleChanged += new System.EventHandler(this.Control_Volume_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.Volume_Tracker)).EndInit();
             this.Controls_Group.ResumeLayout(false);
-            this.Controls_Group.PerformLayout();
             this.Controls_LayoutPanel.ResumeLayout(false);
             this.Controls_LayoutPanel.PerformLayout();
             this.ResumeLayout(false);

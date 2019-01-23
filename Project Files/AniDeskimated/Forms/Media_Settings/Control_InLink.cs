@@ -25,19 +25,14 @@ namespace AniDeskimated.Forms.Media_Settings
             {
                 Link_Try.Visible = true;
                 input_box.ReadOnly = false;
-                message_label.Text = "Something tells me that this address is wrong. Retry?";
-            } else if(MainFunctions.ParseLink(input_box.Text) == 2)
-            {
-                Link_Try.Visible = true;
-                input_box.ReadOnly = false;
-                message_label.Text = "I am so sorry, but Youtube links aren't supported.";
+                message_label.Text = "This address is invlid. Retry?";
             }
             else this.Close();
         }
         #region Form
         private void LinkInput_Load(object sender, EventArgs e){
             Link_Try.Button_Part.Font = new Font("Segoe MDL2 Assets", Link_Try.Font.Size, FontStyle.Regular);
-            Link_Try.Button_Part.Text = "";
+            Link_Try.Button_Part.Text = "\uE72A";
         }
         private void Button_Exit_Click(object sender, EventArgs e) { this.Close(); }
         #endregion

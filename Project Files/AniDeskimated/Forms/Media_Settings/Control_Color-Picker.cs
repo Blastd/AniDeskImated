@@ -29,20 +29,25 @@ namespace AniDeskimated.Forms.Interfaces
             IntPtr Image_handle = Image_graphics.GetHdc();
             int Sel_Px = (int)GetPixel(Image_handle, e.Location.X, e.Location.Y);
             Color Pixel_color = Color.FromArgb((Sel_Px & 0x000000FF), (Sel_Px & 0x0000FF00) >> 8, (Sel_Px & 0x00FF0000) >> 16);
-            MainFunctions.ChangeColor(Pixel_color);
-            this.Close();
-        }
-        private void Color_Picker_Frame_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.DrawString("Click anywhere to pick a color from the screen.", new Font("Segoe Ui Black", 14),
-                       new SolidBrush(Color.FromArgb(255, 0, 148, 255)),
-                       MainFunctions.String_Centre("Click anywhere to pick a color from the screen.", e.Graphics, this.Size, new Font("Segoe Ui Black", 14)));
+            var Cl = Pixel_color;
+            MainFunctions.SetKey(MainFunctions.rgk.Color,
+                Cl.R.ToString() +
+                "-" + Cl.G.ToString() +
+                "-" + Cl.B.ToString());
         }
         #region Custom Cursor
         private void Color_Picker_Frame_Load(object sender, EventArgs e)
         {
+            Rectangle ScrWidth = new Rectangle();
             this.Cursor = new Cursor(LoadCursorFromFile(
                System.IO.Directory.GetDirectoryRoot(Environment.GetFolderPath(Environment.SpecialFolder.System)) + "\\Windows\\Cursors\\aero_pen.cur"));
+            foreach(var Scr in Screen.AllScreens)
+            {
+                ScrWidth = Rectangle.Union(ScrWidth, Scr.Bounds);
+            }
+            this.Top = ScrWidth.Top;
+            this.Left = ScrWidth.Left;
+            this.Size = ScrWidth.Size;
         }
         #endregion
         #endregion

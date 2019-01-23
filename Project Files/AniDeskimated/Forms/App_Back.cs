@@ -18,13 +18,13 @@ namespace AniDeskimated.Forms
         {
             this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
             this.Location = new Point(0, 0);
-            W32.SetParent(this.Handle, DeskSettings.workerw);
+            W32.SetParent(this.Handle, MainFunctions.workerw);
         }
         private void ShowView_Paint(object sender, PaintEventArgs e)
         {
             this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
             this.Location = new Point(0, 0);
-            if (MainFunctions.File_Ext(MainFunctions.ReadKey("contentPath")) != 3)
+            if (MainFunctions.File_Ext(MainFunctions.ReadKey(MainFunctions.rgk.Path)) != 3)
             {
                 WebBrowser ViewPart = new WebBrowser
                 {

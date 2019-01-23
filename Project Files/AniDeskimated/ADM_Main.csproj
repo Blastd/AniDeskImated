@@ -50,7 +50,7 @@
     <StartupObject>AniDeskimated.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\MIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -106,18 +106,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Obj_items.cs" />
     <Compile Include="Classes\Win32.cs" />
+    <Compile Include="Forms\Elements\Effect_Item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Elements\Effect_Item.Designer.cs">
+      <DependentUpon>Effect_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Media_Settings\Control_EffectsDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Media_Settings\Control_EffectsDesigner.Designer.cs">
+      <DependentUpon>Control_EffectsDesigner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Media_Settings\Control_InLink.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Media_Settings\Control_InLink.Designer.cs">
       <DependentUpon>Control_InLink.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Elements\Loading_Animation.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Elements\Loading_Animation.designer.cs">
-      <DependentUpon>Loading_Animation.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Elements\Round_Button.cs">
       <SubType>UserControl</SubType>
@@ -137,12 +144,6 @@
     </Compile>
     <Compile Include="Forms\App_Config.Designer.cs">
       <DependentUpon>App_Config.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\App_Init.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\App_Init.Designer.cs">
-      <DependentUpon>App_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Media_Settings\Control_Color-Picker.cs">
       <SubType>Form</SubType>
@@ -175,11 +176,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LCS.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Elements\Effect_Item.resx">
+      <DependentUpon>Effect_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Media_Settings\Control_EffectsDesigner.resx">
+      <DependentUpon>Control_EffectsDesigner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Media_Settings\Control_InLink.resx">
       <DependentUpon>Control_InLink.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Elements\Loading_Animation.resx">
-      <DependentUpon>Loading_Animation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Elements\Round_Button.resx">
       <DependentUpon>Round_Button.cs</DependentUpon>
@@ -189,9 +193,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\App_Config.resx">
       <DependentUpon>App_Config.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\App_Init.resx">
-      <DependentUpon>App_Init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Media_Settings\Control_Color-Picker.resx">
       <DependentUpon>Control_Color-Picker.cs</DependentUpon>
@@ -245,12 +246,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\NIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 e x64%29</ProductName>
@@ -270,6 +265,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\L_GPL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AppIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WhiteAppIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
