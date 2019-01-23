@@ -1,4 +1,4 @@
-![alt text](https://raw.githubusercontent.com/Blastd/AniDeskImated/master/Project%20Files/Assets/Icons/NewIcon.png)
+![alt text](https://raw.githubusercontent.com/Blastd/AniDeskImated/master/Project%20Files/Assets/Icons/Icon-Small.png)
 Youtube trailer: https://youtu.be/e8PXMGN8YT8
 
 # AniDeskImated
