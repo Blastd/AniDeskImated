@@ -13,35 +13,53 @@ namespace AniDeskimated.Forms
     {
         public App_Back() { InitializeComponent(); }
         #region Events
-        #region Form
+            #region Form
         private void ShowView_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
-            this.Location = new Point(0, 0);
+            this.Location = new Point(0,0);
+            this.Size = new Size(10, 10);
+            foreach (var scr in Screen.AllScreens)
+                this.Size = new Size(this.Width + scr.Bounds.Width, scr.Bounds.Height);
             W32.SetParent(this.Handle, MainFunctions.workerw);
         }
         private void ShowView_Paint(object sender, PaintEventArgs e)
         {
-            this.Size = new Size(Screen.PrimaryScreen.Bounds.Width + 1, Screen.PrimaryScreen.Bounds.Height + 1);
-            this.Location = new Point(0, 0);
             if (MainFunctions.File_Ext(MainFunctions.ReadKey(MainFunctions.rgk.Path)) != 3)
             {
-                WebBrowser ViewPart = new WebBrowser
+                Uri VUrl;
+                bool cancreate = Uri.TryCreate(Properties.Settings.Default.HTML_Location, UriKind.RelativeOrAbsolute, out VUrl);
+                foreach (Screen scr in Screen.AllScreens)
                 {
-                    ScriptErrorsSuppressed = true,
-                    Dock = DockStyle.Fill
-                };
-                ViewPart.Navigated += new WebBrowserNavigatedEventHandler(ViewPart_Navigated);
-                this.Controls.Add(ViewPart);
-                ViewPart.BringToFront();
-                ViewPart.Url = new System.Uri(new System.Uri(Properties.Settings.Default.HTML_Location).AbsolutePath);
-                ViewPart.Refresh();
+                    var ViewPart = new WebBrowser
+                    {
+                        ScriptErrorsSuppressed = true,
+                        AllowNavigation = true,
+                        Size = scr.Bounds.Size,
+                        Location = scr.Bounds.Location,
+                        Name = $"Web{scr.Bounds.X.ToString() }",
+                        ScrollBarsEnabled = false,
+                        Url = VUrl
+                    };
+                    this.Controls.Add(ViewPart);
+                    //MessageBox.Show($"Size ={scr.Bounds.Size}, Location={scr.Bounds.Location}. Form Size={this.Size}");
+                    ViewPart.Navigated += new WebBrowserNavigatedEventHandler(ViewPart_Navigated);
+                    this.Controls.Add(ViewPart);
+                    ViewPart.BringToFront();
+                    if (cancreate)
+                        ViewPart.Refresh();
+                    else
+                        MainFunctions.Log("Could not create uri for viewer");
+                }
             }
             else { MainFunctions.LoadADT(); }
         }
         private void ViewPart_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            { if (ViewPart.DocumentText.Contains("error")) { MainFunctions.Update_View(); } }
+            foreach(WebBrowser x in this.Controls)
+            {
+                if (x.DocumentText.Contains("Error"))
+                    x.Refresh();
+            }
         }
         #endregion
         #endregion

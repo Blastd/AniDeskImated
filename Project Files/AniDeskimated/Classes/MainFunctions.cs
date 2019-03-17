@@ -17,8 +17,8 @@ namespace AniDeskimated.Classes
     public class MainFunctions
     {
         #region Background Manager
-        public static Form backform = new App_Back();
         public static IntPtr workerw = IntPtr.Zero;
+        public static App_Back backform;
         public static void StartShow()
         {
             #region //This 3rd party code is protected by the Code Project Open License (CPOL)
@@ -31,8 +31,9 @@ namespace AniDeskimated.Classes
                 return true;
             }), IntPtr.Zero);
             #endregion
+            backform = new App_Back();
             backform.Show();
-            MainFunctions.Update_View();
+            Update_View();
         } //Get Windows Desktop handle showing form and setting its parent to the Windows Desktop
         public static void CloseApp()
         {
@@ -66,6 +67,7 @@ namespace AniDeskimated.Classes
         }
         public static void ResetAsset()
         {
+            Properties.Settings.Default.AppletPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             Log("Resetting Asset...");
             Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM");
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
@@ -192,7 +194,7 @@ namespace AniDeskimated.Classes
             {
                 try
                     {
-                        File.AppendAllText(Properties.Settings.Default.AppletPath + @"\Log.log",
+                        File.AppendAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Log.log",
                             DateTime.Now + " - " + msg + '\n');
                     }
                 catch (Exception exc)
@@ -302,34 +304,33 @@ namespace AniDeskimated.Classes
             }
             public static void Update_View()
             {
-                Log("Updating media player...");
-                foreach (Control CRem in backform.Controls) { CRem.Dispose(); }
-                if (File.Exists(Properties.Settings.Default.HTML_Location) == true)
-                { Delete_Player_Files();}
-                MainFunctions.Generate_Player_Files(MainFunctions.File_Ext(MainFunctions.ReadKey(rgk.Path)));
+                Log("Updating media player.");
+                Delete_Player_Files();
+                Generate_Player_Files(File_Ext(ReadKey(rgk.Path)));
             }
             public static void Generate_Player_Files(int filetype)
-            {try
-                {
+            {
+                try{
                     Properties.Settings.Default.HTML_Location = 
                         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
                             @"\ADM_" + rnd.Next(DateTime.Now.Millisecond).ToString() + ".html";
-
-                    if(filetype == 3)
+                    //MessageBox.Show(Properties.Settings.Default.HTML_Location);
+                    switch(filetype)
                     {
+                        case 3:
                             Log("User has selected a Custom Theme Format");
-                            backform.Invalidate();
-                    }
-                    else
-                    {
+                            break;
+                        default:
                             File.WriteAllText(Properties.Settings.Default.HTML_Location, HTML_Code(filetype));
-                            backform.Invalidate();
+                            break;
                     }
-                }
-                catch (Exception Ex)
-                {
-                    Log("Cannot create Player media files. Closing Application...", Ex); Application.Exit();
-                }
+                    backform.Controls.Clear();
+                    backform.Invalidate();
+                }catch (Exception Ex)
+                   {
+                       Log("Cannot create Player media files. Closing Application...", Ex);
+                       Application.Exit();
+                   }
             }
             public static string HTML_Code(int filetype)
             {
@@ -398,11 +399,19 @@ namespace AniDeskimated.Classes
                         return @"<h2 style=""font-family: Arial, Segoe Ui, sans-serif;
                                 text-align: center;"">Unsupported file type or link not working.</h2>";
                 }
-        }
-            public static void Delete_Player_Files(){try{File.Delete(Properties.Settings.Default.HTML_Location);}
-            catch (Exception Ex)
-                { Console.Write(Ex.Message);
-                Log(@"Cannot delete Media Player Files, you may delete them  manually. They're located in %Appdata%\<random>.html and <random>.css");}}
+            }
+            public static void Delete_Player_Files()
+            {
+                try{
+                    if(File.Exists(Properties.Settings.Default.HTML_Location))
+                        File.Delete(Properties.Settings.Default.HTML_Location);
+                }
+                catch (Exception Ex)
+                {
+                    Console.Write(Ex.Message);
+                    Log($"Cannot delete {Properties.Settings.Default.HTML_Location}. Delete it manually");
+                }
+            }
         #region ADT Custom Code
         public static void LoadADT()
         {
@@ -430,11 +439,10 @@ namespace AniDeskimated.Classes
                 if (ContainsUC == false)
                     throw new Exception();
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine("Cannot parse dll file correctly: "+ex.Message);
-                Log("Cannot parse dll file correctly",ex);
-                MessageBox.Show("Something is telling me that this custom theme is not valid");
+                Log($"Cannot parse {ReadKey(rgk.Path)} correctly.");
+                MessageBox.Show("This custom theme is not valid, re-download it try another file");
             }
         }
         public static Form LoadADTS()
@@ -446,6 +454,7 @@ namespace AniDeskimated.Classes
                 {
                     try
                     {
+                        if(Activator.CreateInstance(ASSEMBLYTYPE) is Form)
                         return (Form)Activator.CreateInstance(ASSEMBLYTYPE);
                     }
                     catch (Exception ex)

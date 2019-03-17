@@ -14,8 +14,7 @@ namespace AniDeskimated
         static void Main(string[] args)
             {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Properties.Settings.Default.AppletPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Application.SetCompatibleTextRenderingDefault(false);            
             MainFunctions.CheckArgs(args);
             MainFunctions.CheckData();
         }        
