@@ -10,36 +10,39 @@ namespace AniDeskimated.Forms.Elements
 {
     public partial class Round_Button : UserControl
     {
+        Color Bc = Color.FromArgb(255,255,255,255);
+        public Color ButtonColor { get => Bc; set => Bc = value; }
+
         public Round_Button()=>InitializeComponent();
         private void Button_Part_Paint(object sender, PaintEventArgs e)
         {
             MainFunctions.Draw_Terminator(e.Graphics,
-                Color.White,this);
-            Button_Part.ForeColor = Color.White;
+                Bc ,this);
+            Button_Part.ForeColor = Bc;
         }
         private void Button_Part_MouseHover(object sender, EventArgs e)
         {
-            Button_Part.Font = new Font(Button_Part.Font.FontFamily, Button_Part.Font.Size, FontStyle.Underline);
-            Button_Part.ForeColor = MainFunctions.VariableColor(Color.White,
-                MainFunctions.ColorContrast(Color.White, 30));
+            Button_Part.Font = new Font(Button_Part.Font.FontFamily, Button_Part.Font.Size, FontStyle.Bold);
+            Button_Part.ForeColor = MainFunctions.VariableColor(Bc,
+                MainFunctions.ColorContrast(Bc, 30));
         }
         private void Button_Part_MouseDown(object sender, MouseEventArgs e)
         {
             Graphics Down = Button_Part.CreateGraphics();
             MainFunctions.Draw_Terminator(Down,
-                MainFunctions.VariableColor(Color.White,
+                MainFunctions.VariableColor(Bc,
                     MainFunctions.ColorContrast(MainFunctions.Color_Check(), 30)),this);
-            Button_Part.ForeColor = MainFunctions.VariableColor(Color.White,
-                MainFunctions.ColorContrast(Color.White, 20));
+            Button_Part.ForeColor = MainFunctions.VariableColor(Bc,
+                MainFunctions.ColorContrast(Bc, 20));
         }
         private void Button_Part_MouseUp(object sender, MouseEventArgs e)
         {
                 Graphics Up = Button_Part.CreateGraphics();
                 MainFunctions.Draw_Terminator(Up,
-                    MainFunctions.VariableColor(Color.White,
-                        MainFunctions.ColorContrast(Color.White, 30)),this);
-                Button_Part.ForeColor = MainFunctions.VariableColor(Color.White,
-                    MainFunctions.ColorContrast(Color.White, 30));
+                    MainFunctions.VariableColor(Bc,
+                        MainFunctions.ColorContrast(Bc, 30)),this);
+                Button_Part.ForeColor = MainFunctions.VariableColor(Bc,
+                    MainFunctions.ColorContrast(Bc, 30));
         }
         private void Button_Part_MouseLeave(object sender, EventArgs e)
         {

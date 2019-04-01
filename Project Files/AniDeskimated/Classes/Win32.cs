@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 namespace AniDeskimated
 {
     #region Draw Behind Desktop Feature
-    //Code was formatted, some DllImports and Enums deleted
     public class W32
     {
         public delegate bool EnumWindowsProc(IntPtr hwnd, IntPtr lParam);
@@ -37,6 +36,9 @@ namespace AniDeskimated
         [DllImport("user32.dll")]
         public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
         #endregion
+        #endregion
+        //https://stackoverflow.com/questions/5622799/how-to-force-window-to-redraw
+        public const int WmPaint = 0x000F;
     }
-    #endregion
+    
 }

@@ -53,8 +53,8 @@ namespace AniDeskimated
             this.btt_adt = new System.Windows.Forms.Button();
             this.InterfaceTips = new System.Windows.Forms.ToolTip(this.components);
             this.btt_FX = new System.Windows.Forms.Button();
-            this.F_type = new System.Windows.Forms.Label();
             this.Button_NewMedia = new AniDeskimated.Forms.Elements.Round_Button();
+            this.F_type = new System.Windows.Forms.Label();
             this.ContextMenu_IconBar.SuspendLayout();
             this.BackMenuChoose.SuspendLayout();
             this.ColorPickMenuChoose.SuspendLayout();
@@ -199,7 +199,7 @@ namespace AniDeskimated
             this.App_About.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.App_About.Font = new System.Drawing.Font("Segoe MDL2 Assets", 15F);
             this.App_About.ForeColor = System.Drawing.Color.White;
-            this.App_About.Location = new System.Drawing.Point(36, 312);
+            this.App_About.Location = new System.Drawing.Point(35, 310);
             this.App_About.Name = "App_About";
             this.App_About.Size = new System.Drawing.Size(32, 30);
             this.App_About.TabIndex = 7;
@@ -313,7 +313,6 @@ namespace AniDeskimated
             // 
             this.InterfaceTips.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.InterfaceTips.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.InterfaceTips.ToolTipTitle = "Scale";
             // 
             // btt_FX
             // 
@@ -335,7 +334,20 @@ namespace AniDeskimated
             this.InterfaceTips.SetToolTip(this.btt_FX, "Add effects on your background");
             this.btt_FX.UseVisualStyleBackColor = false;
             this.btt_FX.Visible = false;
-            this.btt_FX.Click += new System.EventHandler(this.btt_FX_Click);
+            // 
+            // Button_NewMedia
+            // 
+            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
+            this.Button_NewMedia.ButtonColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(56)))), ((int)(((byte)(145)))));
+            this.Button_NewMedia.Location = new System.Drawing.Point(70, 310);
+            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
+            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
+            this.Button_NewMedia.Name = "Button_NewMedia";
+            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
+            this.Button_NewMedia.TabIndex = 9;
+            this.InterfaceTips.SetToolTip(this.Button_NewMedia, "Change the desktop background");
+            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
             // 
             // F_type
             // 
@@ -348,19 +360,9 @@ namespace AniDeskimated
             this.F_type.TabIndex = 20;
             this.F_type.Text = "\\uF259";
             this.F_type.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Button_NewMedia
-            // 
-            this.Button_NewMedia.BackColor = System.Drawing.Color.Transparent;
-            this.Button_NewMedia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(56)))), ((int)(((byte)(145)))));
-            this.Button_NewMedia.Location = new System.Drawing.Point(70, 310);
-            this.Button_NewMedia.Margin = new System.Windows.Forms.Padding(0);
-            this.Button_NewMedia.MinimumSize = new System.Drawing.Size(30, 30);
-            this.Button_NewMedia.Name = "Button_NewMedia";
-            this.Button_NewMedia.Size = new System.Drawing.Size(302, 30);
-            this.Button_NewMedia.TabIndex = 9;
-            this.InterfaceTips.SetToolTip(this.Button_NewMedia, "Change the desktop background");
-            this.Button_NewMedia.Click += new System.EventHandler(this.Button_NewMedia_Click);
+            this.F_type.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeskSettings_MouseDown);
+            this.F_type.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DeskSettings_MouseMove);
+            this.F_type.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DeskSettings_MouseUp);
             // 
             // DeskSettings
             // 
