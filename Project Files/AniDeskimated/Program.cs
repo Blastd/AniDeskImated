@@ -14,7 +14,8 @@ namespace AniDeskimated
         static void Main(string[] args)
             {
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);            
+            Application.SetCompatibleTextRenderingDefault(false);
+            MainFunctions.CheckOs();
             MainFunctions.CheckArgs(args);
             MainFunctions.CheckData();
         }        

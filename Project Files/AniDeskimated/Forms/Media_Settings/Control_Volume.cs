@@ -13,57 +13,61 @@ namespace AniDeskimated.Forms.Media_Settings
     {
         public Control_Volume()=>InitializeComponent();
         #region Events
-        private void Button_Exit_Click(object sender, EventArgs e) { this.Parent.Controls.Remove(this); }
-        private void Volume_Tracker_Scroll(object sender, EventArgs e)
-        {
-            Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
-            Vol_icon();
-        }
-        private void Vol_icon()
-        {
-            if (Volume_Tracker.Value == 0)
+            private void Button_Exit_Click(object sender, EventArgs e) { this.Parent.Controls.Remove(this); }
+            private void Volume_Tracker_Scroll(object sender, EventArgs e)
             {
-                Vol_Icon.Text = "\uE74F";
+                Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%';
+                Vol_icon();
             }
-            else if (Volume_Tracker.Value <= 25)
+            private void Vol_icon()
             {
-                Vol_Icon.Text = "\uE992";
+                if (Volume_Tracker.Value == 0)
+                {
+                    Vol_Icon.Text = "\uE74F";
+                }
+                else if (Volume_Tracker.Value <= 25)
+                {
+                    Vol_Icon.Text = "\uE992";
+                }
+                else if (Volume_Tracker.Value <= 50)
+                {
+                    Vol_Icon.Text = "\uE993";
+                }
+                else if (Volume_Tracker.Value <= 75)
+                {
+                    Vol_Icon.Text = "\uE994";
+                }
+                else if (Volume_Tracker.Value <= 100)
+                {
+                    Vol_Icon.Text = "\uE995";
+                }
             }
-            else if (Volume_Tracker.Value <= 50)
-            {
-                Vol_Icon.Text = "\uE993";
-            }
-            else if (Volume_Tracker.Value <= 75)
-            {
-                Vol_Icon.Text = "\uE994";
-            }
-            else if (Volume_Tracker.Value <= 100)
-            {
-                Vol_Icon.Text = "\uE995";
-            }
-        }
-        private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.SetKey(MainFunctions.rgk.Volume,Volume_Tracker.Value.ToString()); this.Visible = false; }
-        private void Volume_Tracker_KeyDown(object sender, KeyEventArgs e)
+            private void Button_Done_Click(object sender, EventArgs e) { MainFunctions.SetKey(MainFunctions.Rgk.Volume,Volume_Tracker.Value.ToString()); this.Visible = false; }
+            private void Volume_Tracker_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Shift)
                 Volume_Tracker.SmallChange = 5;
         }
-        private void Volume_Tracker_KeyUp(object sender, KeyEventArgs e) => Volume_Tracker.SmallChange = 1;
-        #region Form
-        private void Control_Volume_Load(object sender, EventArgs e){
+            private void Volume_Tracker_KeyUp(object sender, KeyEventArgs e) => Volume_Tracker.SmallChange = 1;
+            private void Control_Volume_Load(object sender, EventArgs e){
             Vol_icon();
-        #region Button Properties
-        Button_Done.Button_Part.Text = "";
-        Button_Done.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
-        #endregion
-        Volume_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey(MainFunctions.rgk.Volume));
-        Label_StatusPercentage.Text = MainFunctions.ReadKey(MainFunctions.rgk.Volume) + '%';
+            #region Button Properties
+            Button_Done.Button_Part.Text = "";
+            Button_Done.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
+            Button_Done.ButtonColor = Color.Green;
+            Button_Undo.Button_Part.Text = "";
+            Button_Undo.Button_Part.Font = new Font("Segoe MDL2 Assets", Button_Done.Button_Part.Font.Size, FontStyle.Bold);
+            Button_Undo.ButtonColor = Color.Red;
+            #endregion
+            Volume_Tracker.Value = Convert.ToInt32(MainFunctions.ReadKey(MainFunctions.Rgk.Volume));
+            Label_StatusPercentage.Text = MainFunctions.ReadKey(MainFunctions.Rgk.Volume) + '%';
         }
         #endregion
-
-        #endregion
-
         private void Control_Volume_VisibleChanged(object sender, EventArgs e)
         { Vol_icon(); Label_StatusPercentage.Text = Volume_Tracker.Value.ToString() + '%'; }
+        private void Button_Undo_Load(object sender, EventArgs e)
+        {
+            this.Parent.Controls.Remove(this);
+        }
     }
 }

@@ -9,8 +9,9 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Security.Cryptography;
 using AniDeskimated.Forms;
-using AniDeskimated.Forms.Interfaces;
+using System.Text;
 
 namespace AniDeskimated.Classes
 {
@@ -38,28 +39,33 @@ namespace AniDeskimated.Classes
         public static void CloseApp()
         {
             Log("User is closing the app.");
+            backform.Hide();
+            IntPtr progman = W32.FindWindow("Progman", null);
+            IntPtr ShellView = W32.FindWindowEx(progman, IntPtr.Zero, "SHELLDLL_DefView", IntPtr.Zero);
+            IntPtr wallhandle = W32.FindWindowEx(ShellView, IntPtr.Zero, "SysListView32", IntPtr.Zero);
+            W32.SendMessage(wallhandle, W32.WmPaint, IntPtr.Zero, IntPtr.Zero);
             Delete_Player_Files();
             Application.Exit();
         }
         #endregion
         #region Registry Management
-        public enum rgk
+        public enum Rgk
         { Adm, Path, Color, Scale, Volume, Effects }
-        public static string rname(rgk ktype)
+        public static string Rname(Rgk ktype)
         {
             switch(ktype)
             {
-                case rgk.Adm:
+                case Rgk.Adm:
                     return @"Software\ADM";
-                case rgk.Color:
+                case Rgk.Color:
                     return "colorFill";
-                case rgk.Path:
+                case Rgk.Path:
                     return "contentPath";
-                case rgk.Scale:
+                case Rgk.Scale:
                     return "viewScale";
-                case rgk.Volume:
+                case Rgk.Volume:
                     return "volumeValue";
-                case rgk.Effects:
+                case Rgk.Effects:
                     return "cssEffects";
                 default:
                     return null;
@@ -71,7 +77,7 @@ namespace AniDeskimated.Classes
             Log("Resetting Asset...");
             Directory.CreateDirectory(Properties.Settings.Default.AppletPath + @"\ADM");
             try { File.WriteAllBytes(Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif", Properties.Resources.NoMedia);
-                SetKey(rgk.Path,Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
+                SetKey(Rgk.Path,Properties.Settings.Default.AppletPath + @"\ADM\NoMedia.gif"); } catch (Exception ex)
             { Log("Cannot restore Placeholder Image. Closing. - " + ex.Message); Application.Exit(); }
         }
         public static Color Color_Check()
@@ -79,21 +85,21 @@ namespace AniDeskimated.Classes
             Color Color_Test = Color.Black;
             try
             {
-                string[] Reg_Value = MainFunctions.ReadKey(rgk.Color).Split('-');
+                string[] Reg_Value = MainFunctions.ReadKey(Rgk.Color).Split('-');
                 Color_Test = Color.FromArgb(255, Convert.ToInt32(Reg_Value[0]), Convert.ToInt32(Reg_Value[1]), Convert.ToInt32(Reg_Value[2]));
                 return Color_Test;
             }
-            catch (Exception Ex) { Console.WriteLine(Ex.Message); MainFunctions.Log(Ex.Message); MainFunctions.SetKey(rgk.Color, "000-000-000"); return Color_Check(); }
+            catch (Exception Ex) { Console.WriteLine(Ex.Message); MainFunctions.Log(Ex.Message); MainFunctions.SetKey(Rgk.Color, "000-000-000"); return Color_Check(); }
         }
         public static void CSubKey(string Keypath)
         {
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
                 hkcu.CreateSubKey(Keypath, true);
         }
-        public static void SetKey(rgk ktype, string Value)
+        public static void SetKey(Rgk ktype, string Value)
         {
             using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                hkcu.OpenSubKey(rname(rgk.Adm), true).SetValue(rname(ktype), Value);
+                hkcu.OpenSubKey(Rname(Rgk.Adm), true).SetValue(Rname(ktype), Value);
             Log("Set value '" + ktype.ToString() + "' to " + Value);
             Update_View();
         }
@@ -119,12 +125,12 @@ namespace AniDeskimated.Classes
             }
 
         }
-        public static string ReadKey(rgk KeyName)
+        public static string ReadKey(Rgk KeyName)
         {
             try
             {
                 using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                    return hkcu.OpenSubKey(rname(rgk.Adm), true).GetValue(rname(KeyName)).ToString();
+                    return hkcu.OpenSubKey(Rname(Rgk.Adm), true).GetValue(Rname(KeyName)).ToString();
             } catch (Exception Ex) { Log("Cannot read Registry Keys", Ex); SetKey(KeyName, "Ell"); return "0"; }
         }
         public static void DelVal(string ValueName)
@@ -132,7 +138,7 @@ namespace AniDeskimated.Classes
             try
             {
                 using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-                    hkcu.OpenSubKey(rname(rgk.Adm), true).DeleteValue(ValueName);
+                    hkcu.OpenSubKey(Rname(Rgk.Adm), true).DeleteValue(ValueName);
             } catch (Exception Ex)
             {
                 Console.WriteLine(Ex.Message);
@@ -154,9 +160,9 @@ namespace AniDeskimated.Classes
         }
         public static Color VariableColor(Color bc, int e) {
             int rr, rg, rb;
-            rr = Math.Abs(bc.R + e) % 255;
-            rg = Math.Abs(bc.G + e) % 255;
-            rb = Math.Abs(bc.B + e) % 255;
+            rr = Math.Abs(bc.R + e);
+            rg = Math.Abs(bc.G + e);
+            rb = Math.Abs(bc.B + e);
             return Color.FromArgb(255, LNum(rr), LNum(rg), LNum(rb));
         }
         public static int LNum(int VAL)
@@ -184,6 +190,19 @@ namespace AniDeskimated.Classes
             Terminator.CloseFigure();
             e.DrawPath(new Pen(Line_Color), Terminator);
         }
+        public static void Draw_Terminator(Graphics e, Color Line_Color, Rectangle C)
+        {
+            e.SmoothingMode = SmoothingMode.HighQuality;
+            GraphicsPath Terminator = new GraphicsPath();
+            Terminator.AddArc(new Rectangle(C.Location, new Size(C.Height, C.Height - 1)), 270, -90);
+            Terminator.AddArc(new Rectangle(C.Location, new Size(C.Height, C.Height - 1)), 180, -90);
+            Terminator.AddArc(new Rectangle(new Point(C.Width - C.Height - 1, C.Top),
+                new Size(C.Height, C.Height - 1)), 90, -90);
+            Terminator.AddArc(new Rectangle(new Point(C.Width - C.Height - 1, C.Top),
+                new Size(C.Height, C.Height - 1)), 0, -90);
+            Terminator.CloseFigure();
+            e.DrawPath(new Pen(Line_Color), Terminator);
+        }
         #endregion
         #region Logging
         public static void Log(string add_msg, Exception ex) { Write_Log(add_msg + ": " + ex.Message); }
@@ -204,7 +223,7 @@ namespace AniDeskimated.Classes
             }
         }
         #endregion
-        #region Startup Data Check
+        #region Startup
         public static void CheckArgs(string[] Args)
         {
             foreach (var arg in Args)
@@ -228,8 +247,19 @@ namespace AniDeskimated.Classes
                    Log("No app settings found in the system. App will act as if it was First-Run.");
                    CSubKey(@"Software\ADM");
                    ResetAsset();
-                   SetKey(rgk.Volume, "0");
-                   SetKey(rgk.Scale, "100");
+                   SetKey(Rgk.Volume, "0");
+                   SetKey(Rgk.Scale, "100");
+                   var x = new NotifyIcon
+                   {
+                       Icon = Properties.Resources.AppIcon,
+                       Visible = true,
+                       BalloonTipTitle = "Hi there!",
+                       BalloonTipText = "If you want to customize your desktop\nclick on the icon in the notification bar!"
+                   };
+                   x.BalloonTipClicked += new EventHandler(FirstStart);
+                   x.BalloonTipClosed += new EventHandler(FirstStart);
+                   x.ShowBalloonTip(1500);
+                   x.Visible = false;
                    CheckData();
                }
                if (CheckResult() == 6582)// A.R. All Right
@@ -238,35 +268,50 @@ namespace AniDeskimated.Classes
                    StartShow();
                    Application.Run(new DeskSettings());
                }
-               if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey(rgk.Color, "0-0-0"); CheckData(); }//R. M. Registry Missing
-               if (CheckResult() == 678277) { SetKey(rgk.Color, "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
-               if (CheckResult() == 8677) { SetKey(rgk.Volume, "0"); CheckData(); }//V. M. Volume Missing
+               if (CheckResult() == 8277) { CSubKey(@"Software\ADM"); ResetAsset(); SetKey(Rgk.Color, "0-0-0"); CheckData(); }//R. M. Registry Missing
+               if (CheckResult() == 678277) { SetKey(Rgk.Color, "0-0-0"); CheckData(); }//C. R. M. Color Registry Missing
+               if (CheckResult() == 8677) { SetKey(Rgk.Volume, "0"); CheckData(); }//V. M. Volume Missing
                if (CheckResult() == 7777) { Log("Media file missing, setting default media file..."); ResetAsset(); CheckData(); }// M.M. Media Missing
-               if (CheckResult() == 8377) { SetKey(rgk.Scale, "100"); CheckData(); }//Scale Missing
+               if (CheckResult() == 8377) { SetKey(Rgk.Scale, "100"); CheckData(); }//Scale Missing
            }
         public static int CheckResult()
            {
                using (var hkcu = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
-               { if (hkcu.OpenSubKey(rname(rgk.Adm)) == null) { return 7873; } //Not Initialized
-                   else if ((Uri.TryCreate(ReadKey(rgk.Path), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(rname(rgk.Adm)).GetValue(rname(rgk.Path)).ToString()) == false || ReadKey(rgk.Path) == null) { return 7777; } 
-                   else if (ReadKey(rgk.Color) == null) { return 678277; }
-                   else if (ReadKey(rgk.Volume) == null) { return 8677; }
-                   else if (ReadKey(rgk.Scale) == null || ReadKey(rgk.Scale) == "0") { return 8377; }
+               { if (hkcu.OpenSubKey(Rname(Rgk.Adm)) == null) { return 7873; } //Not Initialized
+                   else if ((Uri.TryCreate(ReadKey(Rgk.Path), UriKind.RelativeOrAbsolute, out var nothing))==false && File.Exists(hkcu.OpenSubKey(Rname(Rgk.Adm)).GetValue(Rname(Rgk.Path)).ToString()) == false || ReadKey(Rgk.Path) == null) { return 7777; } 
+                   else if (ReadKey(Rgk.Color) == null) { return 678277; }
+                   else if (ReadKey(Rgk.Volume) == null) { return 8677; }
+                   else if (ReadKey(Rgk.Scale) == null || ReadKey(Rgk.Scale) == "0") { return 8377; }
                    else { return 6582; }
                }
            }
+        private static void FirstStart(object sender, EventArgs e)
+        {
+            foreach(Form Frm in Application.OpenForms)
+            {
+                if (Frm is DeskSettings)
+                    Frm.Show();
+            }
+        }
+        public static void CheckOs()
+        {
+            if (float.Parse(System.Environment.OSVersion.Version.Major.ToString() + "." +
+                System.Environment.OSVersion.Version.Minor.ToString()) <= 6.1)
+                MessageBox.Show("Please update your Operative System to use this app");
+            Application.Exit();
+        }
         #endregion
         #region Online Data Processing
         public static int ParseLink(string input_link)
         {
             if (input_link.Contains("youtu.be") || input_link.Contains("youtube.com"))
             {
-                SetKey(rgk.Path, input_link);
+                SetKey(Rgk.Path, input_link);
                 return 2;
             }
             if (Uri.TryCreate(input_link, UriKind.RelativeOrAbsolute, out Uri X))
             {
-                SetKey(rgk.Path, X.ToString());
+                SetKey(Rgk.Path, X.ToString());
                 return 1;
             }
             else return 0;
@@ -306,7 +351,7 @@ namespace AniDeskimated.Classes
             {
                 Log("Updating media player.");
                 Delete_Player_Files();
-                Generate_Player_Files(File_Ext(ReadKey(rgk.Path)));
+                Generate_Player_Files(File_Ext(ReadKey(Rgk.Path)));
             }
             public static void Generate_Player_Files(int filetype)
             {
@@ -338,9 +383,9 @@ namespace AniDeskimated.Classes
                 @"<!DOCTYPE html>
                   <html><style>
 		             *{margin:0;background-color:#" + Color_to_hex(Color_Check()) + @"; -ms-overflow-style: none;}
-		             .adm{position:absolute;width:" + ReadKey(rgk.Scale) + @"%;
+		             .adm{position:absolute;width:" + ReadKey(Rgk.Scale) + @"%;
                         bottom:50%;right:50%;transform: translate(50%,50%);"+
-                        ReadKey(rgk.Effects)+@"}
+                        ReadKey(Rgk.Effects)+@"}
 	              </style><body>";
                 string cend =@"</body></html>";
                 switch(filetype)
@@ -348,15 +393,15 @@ namespace AniDeskimated.Classes
                     case 0:
                         Log("User has selected an image.");
                         return ctop +
-                        @"<img class=""adm"" src=""" + new Uri(ReadKey(rgk.Path)).AbsoluteUri +@"""/>"
+                        @"<img class=""adm"" src=""" + new Uri(ReadKey(Rgk.Path)).AbsoluteUri +@"""/>"
                         + cend;
                     case 1:
                         Log("User has selected a video.");
                         return ctop +
                         @"<video loop preload autoplay Id=""adm"" Class=""adm""> 
-                        <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey(rgk.Path)).AbsoluteUri + @""" >
+                        <source id=""source_polar_mp4"" src=""" + new System.Uri(ReadKey(Rgk.Path)).AbsoluteUri + @""" >
                         <script>var vid = document.getElementById(""adm"");
-                        function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey(rgk.Volume)) / 100).ToString().Replace(',', '.')
+                        function setVolume(){vid.volume =" + (Convert.ToDouble(ReadKey(Rgk.Volume)) / 100).ToString().Replace(',', '.')
                         + ";}setVolume();</script>"
                         + cend;
                     case 2:
@@ -374,7 +419,7 @@ namespace AniDeskimated.Classes
                           player = new YT.Player('adm', {
                             height: '100%',
                             width: '100%',
-                        videoId: '" + YoutubeIdParse(ReadKey(rgk.Path)) + @"',
+                        videoId: '" + YoutubeIdParse(ReadKey(Rgk.Path)) + @"',
                         playerVars: {
                                     'autoplay': 1,
 					    			'mute': 1,
@@ -418,7 +463,7 @@ namespace AniDeskimated.Classes
             bool ContainsUC = false;
             try
             {
-                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey(rgk.Path));
+                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey(Rgk.Path));
                 foreach (Type ASSEMBLYTYPE in LOADEDFILE.GetTypes())
                 {
                     try
@@ -441,7 +486,7 @@ namespace AniDeskimated.Classes
             }
             catch
             {
-                Log($"Cannot parse {ReadKey(rgk.Path)} correctly.");
+                Log($"Cannot parse {ReadKey(Rgk.Path)} correctly.");
                 MessageBox.Show("This custom theme is not valid, re-download it try another file");
             }
         }
@@ -449,7 +494,7 @@ namespace AniDeskimated.Classes
         {
             try
             {
-                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey(rgk.Path));
+                Assembly LOADEDFILE = Assembly.LoadFile(ReadKey(Rgk.Path));
                 foreach (Type ASSEMBLYTYPE in LOADEDFILE.GetTypes())
                 {
                     try
@@ -496,7 +541,7 @@ namespace AniDeskimated.Classes
 
         public static string[] ParseEffects()
         {
-                return ReadKey(rgk.Effects).Split(';');
+                return ReadKey(Rgk.Effects).Split(';');
         }
 
         public static void Parse_Single(string EffName, out string ArgExt, out int MaxVal,
@@ -544,7 +589,15 @@ namespace AniDeskimated.Classes
             EffId = Eff_Type(EffName);
         }
         #endregion*/
-        #region Develop
+        #region Project
+            #region Installing
+            public string Check_Integrity(string file)
+            {
+                var Spr = SHA256.Create();
+                Stream fl_h = new FileStream(file, FileMode.Open);
+                return Encoding.UTF8.GetString(Spr.ComputeHash(fl_h));
+            }
+            #endregion
         #endregion
     }
 }

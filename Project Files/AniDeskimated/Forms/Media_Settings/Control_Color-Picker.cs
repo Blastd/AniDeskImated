@@ -24,16 +24,23 @@ namespace AniDeskimated.Forms.Interfaces
         #region FormEvents
         private void Color_Picker_Frame_MouseClick(object sender, MouseEventArgs e)
         {
-            this.Opacity = 0;
-            Graphics Image_graphics = Graphics.FromHdc(GetDC(IntPtr.Zero));
-            IntPtr Image_handle = Image_graphics.GetHdc();
-            int Sel_Px = (int)GetPixel(Image_handle, e.Location.X, e.Location.Y);
-            Color Pixel_color = Color.FromArgb((Sel_Px & 0x000000FF), (Sel_Px & 0x0000FF00) >> 8, (Sel_Px & 0x00FF0000) >> 16);
-            var Cl = Pixel_color;
-            MainFunctions.SetKey(MainFunctions.rgk.Color,
-                Cl.R.ToString() +
-                "-" + Cl.G.ToString() +
-                "-" + Cl.B.ToString());
+            try
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    this.Opacity -= 0.04;
+                    System.Threading.Thread.Sleep(16);
+                }
+                Graphics Image_graphics = Graphics.FromHdc(GetDC(IntPtr.Zero));
+                IntPtr Image_handle = Image_graphics.GetHdc();
+                int Sel_Px = (int)GetPixel(Image_handle, e.Location.X, e.Location.Y);
+                Color Cl = Color.FromArgb((Sel_Px & 0x000000FF), (Sel_Px & 0x0000FF00) >> 8, (Sel_Px & 0x00FF0000) >> 16);
+                MainFunctions.SetKey(MainFunctions.Rgk.Color,
+                    Cl.R.ToString() +
+                    "-" + Cl.G.ToString() +
+                    "-" + Cl.B.ToString());
+            }catch(Exception x) { MessageBox.Show(x.Message); }
+                this.Close();
         }
         #region Custom Cursor
         private void Color_Picker_Frame_Load(object sender, EventArgs e)

@@ -20,8 +20,8 @@ namespace AniDeskimated
             public static Point beforeMove;
         #endregion
         #region Form
-                private void DeskSettings_Load(object sender, EventArgs e) => Startup();
-                private void Startup()
+            private void DeskSettings_Load(object sender, EventArgs e) => Startup();
+            private void Startup()
                 {
                     this.Hide();
                     Ch_win();
@@ -57,17 +57,23 @@ namespace AniDeskimated
                 {
                     Button_Exit.BackColor = Color.FromArgb(150, 64, 64, 64);
                 }
-                private void SetStyle()
+                public void SetStyle()
                 {
                     Button_NewMedia.Button_Part.Text = "New background";
                     btt_mgn.Text = "\uE721";
                     btt_adt.Text = "\uE713";
                     btt_vol.Text = "\uE767";
+                    F_type.ForeColor = MainFunctions.Color_Check();
+                    btt_mgn.ForeColor = MainFunctions.Color_Check();
+                    btt_adt.ForeColor = MainFunctions.Color_Check();
+                    btt_vol.ForeColor = MainFunctions.Color_Check();
+                    Button_Color_Choose.ForeColor = MainFunctions.Color_Check();
+                    Button_NewMedia.ButtonColor = MainFunctions.Color_Check();
                     FsStyle();
                 }
                 private void FsStyle()
                 {
-                    switch (MainFunctions.File_Ext(MainFunctions.ReadKey(MainFunctions.rgk.Path)))
+                    switch (MainFunctions.File_Ext(MainFunctions.ReadKey(MainFunctions.Rgk.Path)))
                     {
                         case 0:
                             F_type.Text = "\uEB9F";
@@ -125,7 +131,7 @@ namespace AniDeskimated
                 private void Choose_Color_Paint(object sender, PaintEventArgs e)
                 {
                     Button_Color_Choose.Text = "\uE790";
-                    Button_Color_Choose.ForeColor = MainFunctions.Color_Check();
+                    //Button_Color_Choose.ForeColor = MainFunctions.Color_Check();
                 }
                 private void App_About_Paint(object sender, PaintEventArgs e)
                 {
@@ -151,20 +157,26 @@ namespace AniDeskimated
                     MainFunctions.WinStartup(Check_WindowsStartup.Checked);
                 }
         #endregion
-            #region Media Control
+        #region Media Control
                 private void Button_VideoVolume_Click(object sender, EventArgs e)
                 {
-                    var Ctrl_Vol = new Control_Volume();
-                    Ctrl_Vol.Dock = DockStyle.Fill;
-                    this.Controls.Add(Ctrl_Vol);
-                    Ctrl_Vol.BringToFront();
+                    var Ctrl = new Control_Volume
+                    {
+                        Size = new Size(this.Width, this.Height - Button_Exit.Height),
+                        Location = new Point(0, Button_Exit.Height)
+                    };
+                    this.Controls.Add(Ctrl);
+                    Ctrl.BringToFront();
                 }
                 private void Button_Magnifier_Click(object sender, EventArgs e)
                 {
-                    var Ctrl_Mgn = new Control_Scale();
-                    Ctrl_Mgn.Dock = DockStyle.Fill;
-                    this.Controls.Add(Ctrl_Mgn);
-                    Ctrl_Mgn.BringToFront();
+                    var Ctrl = new Control_Scale
+                    {
+                        Size = new Size(this.Width, this.Height - Button_Exit.Height),
+                        Location = new Point(0, Button_Exit.Height)
+                    };
+                    this.Controls.Add(Ctrl);
+                    Ctrl.BringToFront();
                 }
                 private void Button_ADT_Settings_Click(object sender, EventArgs e)
                 {
@@ -220,7 +232,7 @@ namespace AniDeskimated
             {
                 try
                 {
-                    MainFunctions.SetKey(MainFunctions.rgk.Path,GetMediaFile.FileName);
+                    MainFunctions.SetKey(MainFunctions.Rgk.Path,GetMediaFile.FileName);
                     FsStyle();
                 }catch(Exception Ex){
                     Console.Write(Ex.Message);
@@ -228,41 +240,44 @@ namespace AniDeskimated
                     F_type.Text = "Try another image";
                 }
             }
+        #endregion
         #region Changing Color
         private void Choose_Color_Click(object sender, EventArgs e)
         {
             ColorPickMenuChoose.Show(MousePosition.X - 50 % ColorPickMenuChoose.Width,
                 MousePosition.Y - 50 % ColorPickMenuChoose.Height);
         }
-        private void ColorPick_Screen_Click(object sender, EventArgs e)
+            private void ColorPick_Screen_Click(object sender, EventArgs e)
         {
                 Color_Picker_Frame X = new Color_Picker_Frame();
                 this.Hide();
-                X.Show();
-                X.FormClosed += new System.Windows.Forms.FormClosedEventHandler(ColorPicker_Closed);
+                X.FormClosing += new FormClosingEventHandler(ColorPick_closing);
+                X.ShowDialog();
         }
-        void ColorPicker_Closed(object sender, FormClosedEventArgs e)
+            private void ColorPick_closing(object sender, FormClosingEventArgs e)
         {
-            this.Show();
-            F_type.BackColor = MainFunctions.Color_Check();
+            try
+            {
+                this.Show();
+                SetStyle();
+            }
+            catch (Exception x)
+            {
+                MessageBox.Show(x.Message);
+            }
+            
         }
-        private void ColorPick_Menù_Click(object sender, EventArgs e)
+            private void ColorPick_Menù_Click(object sender, EventArgs e)
         {
             Menu_Color.Color = MainFunctions.Color_Check();
             Menu_Color.ShowDialog();
             var Cl = Menu_Color.Color;
-            MainFunctions.SetKey(MainFunctions.rgk.Color, Cl.R.ToString() + 
+            MainFunctions.SetKey(MainFunctions.Rgk.Color, Cl.R.ToString() + 
                 "-" + 
                 Cl.G.ToString() + 
                 "-" + 
                 Cl.B.ToString());
         }
         #endregion
-        #endregion
-        private void btt_FX_Click(object sender, EventArgs e)
-        {
-            Form Y = new Control_EffectsDesigner();
-            Y.ShowDialog();
-        }
     }
 }
