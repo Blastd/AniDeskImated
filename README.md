@@ -18,3 +18,6 @@ Compatibility issues:
 ------------------------------------------------------------------    
 The Application DOES NOT WORK on WINDOWS versions below Windows 8
 ------------------------------------------------------------------
+
+Recently there have been people who are trying to rebrand this application without giving any credit and packing it with malware.
+A new application is in development with better code optimization as well as a better Ui (Goodbye WinForms, welcome WPF) and new Components. Keep in touch for future updates
